@@ -1,8 +1,8 @@
 import React from "react";
-import assets from "../assets/assets.js";
+import { assets } from "../assets/assets";
 import { NavLink } from "react-router-dom";
 
-const Navbar = () => {
+export default function Navbar() {
   return (
     <div className="flex items-center justify-between py-5 font-medium">
       <img src={assets.logo} alt="navBar-logo" className="w-36" />
@@ -15,6 +15,6 @@ const Navbar = () => {
       </ul>
     </div>
   );
-};
+}
 
-export default Navbar;
+// export default Navbar;
