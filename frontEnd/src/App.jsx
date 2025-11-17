@@ -10,6 +10,7 @@ import Contact from "./pages/Contact.jsx";
 import Cart from "./pages/Cart.jsx";
 import About from "./pages/About.jsx";
 import Navbar from "./components/Navbar.jsx";
+import Footer from "./components/Footer.jsx";
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
         <Route path="/about" element={<About />} />
       </Routes>
+      <Footer />
     </div>
   );
 };
