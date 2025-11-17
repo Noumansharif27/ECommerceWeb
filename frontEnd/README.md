@@ -116,3 +116,58 @@ It is our closing button for small screen dropdown menu, whenever a user clicks 
 ```
 
 The above code is for our smallScreen navbar component. it the link of our other pages, whenever a user click on it the web will redirect them to the perticular page that we had defined. but there is an error in our UI, right now when a user click on any of the link our web redirects them to the desire page but they have to manually close the navbar to see the actual content, so to solve this we had also put there the `setVisiable` function/updater which will close the navbar as soon as someone clicks on this link, the iser will also be redirected to their page.
+
+## React Context (ShopContext)
+
+React Context helps us share data with any component in our app without passing props again and again.
+
+Think of it like a magic school bag that every child in the class can use without asking.
+
+## Creating the Magic Bag
+
+```js
+export const ShopContext = createContext();
+```
+
+We imported createContext and made a new magic bag called ShopContext.
+
+Filling the Bag With Goodies
+
+```js
+const currency = "$";
+const delivery_fee = 170;
+```
+
+Here we added a money sign and a delivery charge.
+
+Sharing the Bag With All Children
+
+```js
+<ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>
+```
+
+Everyone inside this provider can use anything from the magic bag.
+
+```js
+import { createContext } from "react";
+import { products } from "../assets/assets";
+
+export const ShopContext = createContext();
+
+const ShopContextProvider = (props) => {
+  const currency = "$";
+  const delivery_fee = 170;
+
+  const value = {
+    products,
+    currency,
+    delivery_fee,
+  };
+
+  return (
+    <ShopContext.Provider value={value}>{props.children}</ShopContext.Provider>
+  );
+};
+
+export default ShopContextProvider;
+```
