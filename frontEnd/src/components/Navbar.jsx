@@ -6,7 +6,9 @@ export default function Navbar() {
   const [visable, setVisable] = useState(false);
   return (
     <div className="flex items-center justify-between py-5 font-medium">
-      <img src={assets.logo} alt="navBar-logo" className="w-36" />
+      <Link to="/">
+        <img src={assets.logo} alt="navBar-logo" className="w-36" />
+      </Link>
 
       <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
         <NavLink to="/" className="flex flex-col items-center gap-1">
@@ -95,28 +97,28 @@ export default function Navbar() {
                 className="py-2 pl-6 border-b"
                 to="/"
               >
-                Home
+                HOME
               </NavLink>
               <NavLink
                 onClick={() => setVisable(false)}
                 className="py-2 pl-6 border-b"
                 to="/collection"
               >
-                Collection
+                COLLECTION
               </NavLink>
               <NavLink
                 onClick={() => setVisable(false)}
                 className="py-2 pl-6 border-b"
                 to="/about"
               >
-                About
+                ABOUT
               </NavLink>
               <NavLink
                 onClick={() => setVisable(false)}
                 className="py-2 pl-6 border-b"
                 to="/contact"
               >
-                Contac
+                CONTACT
               </NavLink>
             </div>
           </div>
