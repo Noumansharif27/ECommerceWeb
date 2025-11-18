@@ -62,6 +62,49 @@ const Collection = () => {
             </p>
           </div>
         </div>
+
+        {/* Typeategories */}
+        <div
+          className={`border border-gray-300 pl-5 py-3 my-5 sm:block ${
+            showFilter ? "" : "hidden"
+          }`}
+        >
+          <p className="mb-3 text-sm font-medium">TYPE</p>
+          <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
+            <p className="flex gap-2">
+              <input
+                type="checkbox"
+                name="type[Topware]"
+                id="men"
+                value={"Men"}
+                className="w-3"
+              />
+              Topware
+            </p>
+
+            <p className="flex gap-2">
+              <input
+                type="checkbox"
+                name="type[bottomware]"
+                id="men"
+                value={"Women"}
+                className="w-3"
+              />
+              Bottomware
+            </p>
+
+            <p className="flex gap-2">
+              <input
+                type="checkbox"
+                name="category[Winterware]"
+                id="men"
+                value={"Kid"}
+                className="w-3"
+              />
+              Winterware
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   );
