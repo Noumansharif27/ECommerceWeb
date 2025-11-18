@@ -1,6 +1,7 @@
 import React, { useContext, useState } from "react";
 import { assets } from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
+import Tittle from "../components/Tittle";
 
 const Collection = () => {
   const { products } = useContext(ShopContext);
@@ -104,6 +105,13 @@ const Collection = () => {
               Winterware
             </p>
           </div>
+        </div>
+      </div>
+      {/* RightSide */}
+      <div className="flex-1">
+        <div className="flex justify-between text-base sm:text-2xl mb-4">
+          <Tittle text1={"ALL"} text2={"COLLECTIONS"} />
+          {/* Product Sort */}
         </div>
       </div>
     </div>
