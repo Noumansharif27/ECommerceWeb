@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
 import Tittle from "../components/Tittle";
@@ -8,10 +8,38 @@ const Collection = () => {
   const { products } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
+  const [category, setCategory] = useState([]);
+  const [SubCategory, setSubCategory] = useState([]);
 
-  useState(() => {
+  let categoryToggle = (event) => {
+    if (category.includes(event.target.value)) {
+      setCategory((prev) => prev.filter((item) => item !== event.target.value));
+    } else {
+      setCategory((prev) => [...prev, event.target.value]);
+    }
+  };
+
+  let subCategoryToggle = (event) => {
+    if (SubCategory.includes(event.target.value)) {
+      setSubCategory((prev) =>
+        prev.filter((item) => item !== event.target.value)
+      );
+    } else {
+      setSubCategory((prev) => [...prev, event.target.value]);
+    }
+  };
+
+  useEffect(() => {
     setFilterProducts(products);
   }, []);
+
+  // useEffect(() => {
+  //   console.log(category);
+  // }, [category]);
+
+  useEffect(() => {
+    console.log(SubCategory);
+  }, [SubCategory]);
 
   return (
     <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
@@ -43,6 +71,7 @@ const Collection = () => {
                 id="men"
                 value={"Men"}
                 className="w-3"
+                onClick={categoryToggle}
               />
               Men
             </p>
@@ -54,6 +83,7 @@ const Collection = () => {
                 id="men"
                 value={"Women"}
                 className="w-3"
+                onClick={categoryToggle}
               />
               Women
             </p>
@@ -65,6 +95,7 @@ const Collection = () => {
                 id="men"
                 value={"Kid"}
                 className="w-3"
+                onClick={categoryToggle}
               />
               Kid
             </p>
@@ -86,6 +117,7 @@ const Collection = () => {
                 id="men"
                 value={"Men"}
                 className="w-3"
+                onClick={subCategoryToggle}
               />
               Topware
             </p>
@@ -97,6 +129,7 @@ const Collection = () => {
                 id="men"
                 value={"Women"}
                 className="w-3"
+                onClick={subCategoryToggle}
               />
               Bottomware
             </p>
@@ -108,6 +141,7 @@ const Collection = () => {
                 id="men"
                 value={"Kid"}
                 className="w-3"
+                onClick={subCategoryToggle}
               />
               Winterware
             </p>
