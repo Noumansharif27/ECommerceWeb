@@ -19,15 +19,17 @@ const Collection = () => {
     }
   };
 
-  let subCategoryToggle = (event) => {
-    if (SubCategory.includes(event.target.value)) {
-      setSubCategory((prev) =>
-        prev.filter((item) => item !== event.target.value)
-      );
+  let subCategoryToggle = (e) => {
+    if (SubCategory.includes(e.target.value)) {
+      setSubCategory((prev) => prev.filter((item) => item !== e.target.value));
     } else {
-      setSubCategory((prev) => [...prev, event.target.value]);
+      setSubCategory((prev) => [...prev, e.target.value]);
     }
   };
+
+  // let applyFilters = () => {
+  //   if()
+  // }
 
   useEffect(() => {
     setFilterProducts(products);
@@ -115,7 +117,7 @@ const Collection = () => {
                 type="checkbox"
                 name="type[Topware]"
                 id="men"
-                value={"Men"}
+                value={"Topware"}
                 className="w-3"
                 onClick={subCategoryToggle}
               />
@@ -125,9 +127,9 @@ const Collection = () => {
             <p className="flex gap-2">
               <input
                 type="checkbox"
-                name="type[bottomware]"
+                name="type[Bottomware]"
                 id="men"
-                value={"Women"}
+                value={"Bottomware"}
                 className="w-3"
                 onClick={subCategoryToggle}
               />
@@ -139,7 +141,7 @@ const Collection = () => {
                 type="checkbox"
                 name="category[Winterware]"
                 id="men"
-                value={"Kid"}
+                value={"Winterware"}
                 className="w-3"
                 onClick={subCategoryToggle}
               />
