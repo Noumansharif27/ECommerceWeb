@@ -171,3 +171,312 @@ const ShopContextProvider = (props) => {
 
 export default ShopContextProvider;
 ```
+
+## Filters:
+
+```js
+const [showFilter, setShowFilter] = useState(false);
+const [filterProducts, setFilterProducts] = useState([]);
+const [category, setCategory] = useState([]);
+const [subCategory, setSubCategory] = useState([]);
+const [sortType, setSortType] = useState("relevant");
+
+// Creating a toggle for category section to filterOut the requirement that user needs,
+let categoryToggle = (event) => {
+  if (category.includes(event.target.value)) {
+    // Searching wether the user selected option is avaliable in our category, if yes then we will be we will remove it from the array.
+    setCategory((prev) => prev.filter((item) => item !== event.target.value));
+  } else {
+    // if the option is not avaliable in our Category we will add it
+    setCategory((prev) => [...prev, event.target.value]);
+  }
+};
+
+let subCategoryToggle = (e) => {
+  if (subCategory.includes(e.target.value)) {
+    // Searching wether the user selected option is avaliable in our subCategory, if yes then we will be we will remove it from the array.
+    setSubCategory((prev) => prev.filter((item) => item !== e.target.value));
+  } else {
+    // if the option is not avaliable in our Category we will add it
+    setSubCategory((prev) => [...prev, e.target.value]);
+  }
+};
+
+// applying the filters
+const applyFilters = () => {
+  //making the copy of our entire products
+  let productsCopy = products.slice();
+
+  // check wether the user had selected something or not.
+  if (category.length > 0) {
+    // updating the products array with keeping only those who have the same category.
+    productsCopy = productsCopy.filter((item) =>
+      category.includes(item.category)
+    );
+  }
+
+  // check wether the user had selected something or not.
+  if (subCategory.length > 0) {
+    productsCopy = productsCopy.filter((item) =>
+      // updating the products array with keeping only those who have the same subCategory.
+      subCategory.includes(item.subCategory)
+    );
+  }
+
+  // passing the filtered products to setFilterProduct function because it is the one rendering our all products.
+  setFilterProducts(productsCopy);
+};
+
+<div
+  className={`border border-gray-300 pl-5 py-3 mt-6 sm:block ${
+    showFilter ? "" : "hidden"
+  }`}
+>
+  <p className="mb-3 text-sm font-medium">CATEGORIES</p>
+  <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
+    <p className="flex gap-2">
+      <input
+        type="checkbox"
+        name="category[men]"
+        id="men"
+        value={"Men"}
+        className="w-3"
+        onClick={categoryToggle}
+      />
+      Men
+    </p>
+
+    <p className="flex gap-2">
+      <input
+        type="checkbox"
+        name="category[women]"
+        id="men"
+        value={"Women"}
+        className="w-3"
+        onClick={categoryToggle}
+      />
+      Women
+    </p>
+
+    <p className="flex gap-2">
+      <input
+        type="checkbox"
+        name="category[kids]"
+        id="men"
+        value={"Kids"}
+        className="w-3"
+        onClick={categoryToggle}
+      />
+      Kids
+    </p>
+  </div>
+</div>;
+
+{
+  /* SubCategory Products */
+}
+<div
+  className={`border border-gray-300 pl-5 py-3 my-5 sm:block ${
+    showFilter ? "" : "hidden"
+  }`}
+>
+  <p className="mb-3 text-sm font-medium">TYPE</p>
+  <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
+    <p className="flex gap-2">
+      <input
+        type="checkbox"
+        name="type[Topwear]"
+        id="men"
+        value={"Topwear"}
+        className="w-3"
+        onClick={subCategoryToggle}
+      />
+      Topwear
+    </p>
+
+    <p className="flex gap-2">
+      <input
+        type="checkbox"
+        name="type[Bottomwear]"
+        id="men"
+        value={"Bottomwear"}
+        className="w-3"
+        onClick={subCategoryToggle}
+      />
+      Bottomwear
+    </p>
+
+    <p className="flex gap-2">
+      <input
+        type="checkbox"
+        name="category[Winterwear]"
+        id="men"
+        value={"Winterwear"}
+        className="w-3"
+        onClick={subCategoryToggle}
+      />
+      Winterwear
+    </p>
+  </div>
+</div>;
+```
+
+The **Personal Shopper** Analogy
+Think of your filtering logic like hiring a Personal Shopper to find clothes for you in a massive warehouse. You don't want to see everything; you give the shopper a specific "Shopping List" (your State).
+
+#### The Goal:
+
+Start with all products, apply your rules (categories), and show only what survives the cut.
+
+Step 1
+The **Shopping List** (State)
+
+```js
+const [category, setCategory] = useState([]);
+const [subCategory, setSubCategory] = useState([]);
+```
+
+These arrays are your Shopping Baskets. Initially, they are `empty []`, meaning **Show me everything** or **I haven't decided yet.**
+
+When you check `Men`, we throw the string **Me** into the category basket.
+
+Step 2
+The **Toggle** Switch
+
+```js
+if (category.includes(value)) {
+  removeIt(); // .filter()
+} else {
+  addIt(); // [...prev, value]
+}
+```
+
+This function is the Bouncer at the club entrance.
+
+If it's already in: The user is unchecking the box. We use `.filter()` to kick it out of the array.
+If it's NOT in: The user is checking the box. We use the spread operator `[...prev, value]` to add it to the list.
+Step 3
+The `Funnel` (applyFilters)
+
+```js
+let productsCopy = products.slice();
+if (category.length > 0) { ... }
+if (subCategory.length > 0) { ... }
+```
+
+This is the engine. Imagine a Funnel system:
+
+Copy First: We make a copy `slice()` so we don't accidentally destroy the original warehouse inventory.
+**Funnel 1 (Category):** We pour all products through. Only those matching your `Category` basket fall through.
+**Funnel 2 (SubCategory):** We take the survivors from Funnel 1 and pour them here. Only those matching `Type` survive.
+Result: Whatever is left is shown to the user.
+
+```js
+const sortProduct = () => {
+  let fpCopy = filterProducts.slice();
+  switch (sortType) {
+    case "low-high":
+      setFilterProducts(fpCopy.sort((a, b) => a.price - b.price));
+      break;
+
+    case "high-low":
+      setFilterProducts(fpCopy.sort((a, b) => b.price - a.price));
+      break;
+
+    default:
+      applyFilters();
+      break;
+  }
+};
+
+useEffect(() => {
+  sortProduct();
+}, [sortType]);
+
+<div className="flex-1">
+  <div className="flex justify-between text-base sm:text-2xl mb-4">
+    <Tittle text1={"ALL"} text2={"COLLECTIONS"} />
+    {/* Product Sort */}
+    <select
+      name="priceFilter"
+      id="priceFilter"
+      className="border-2 border-gray-300 text-sm px-2"
+      onChange={(e) => setSortType(e.target.value)}
+    >
+      <option value="relavent">Sert by: Relavent</option>
+      <option value="low-high">Sort by: Low to High</option>
+      <option value="high-low">Sort by: High to Low</option>
+    </select>
+  </div>
+
+  {/* Map Product */}
+  <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 gap-y-6">
+    {filterProducts.map((product, index) => (
+      <ProductItem
+        key={index}
+        name={product.name}
+        id={product._id}
+        price={product.price}
+        image={product.image}
+      />
+    ))}
+  </div>
+</div>;
+```
+
+**The Big Picture:** "The Instant Store Clerk"
+Imagine you own a physical store selling your hoodies and trousers. You have a rack of clothes. A customer walks in and says, "Show me the cheapest options first."
+
+In real life, you would have to physically unhook every hanger and rearrange the rack. In your code, the sortProduct function is a super-fast store clerk who rearranges the entire digital rack in milliseconds.
+
+1. The Logic: Rearranging the Rack (sortProduct)
+   JavaScript
+
+```js
+const sortProduct = () => {
+  let fpCopy = filterProducts.slice();
+  // ... switch statement ...
+};
+```
+
+The Safety Copy (slice()): Before rearranging the clothes, you take a snapshot of the current rack. In React, we never want to mess up the original "state" directly. We make a copy (fpCopy), mess around with that, and then show the result. It's like arranging a mannequin display without ruining the stock in the back room.
+
+The Decision Maker (switch): This checks what the customer asked for:
+
+**low-high:** Small price numbers go to the top. (Budget shoppers).
+
+**high-low:** Big price numbers go to the top. (Premium shoppers).
+
+**default:** If they want "Relevant," we just go back to the standard arrangement.
+
+2. The Watcher: The Automation (useEffect)
+   JavaScript
+
+```js
+useEffect(() => {
+  sortProduct();
+}, [sortType]);
+```
+
+Real-Life Analogy: This is your store manager watching the customers. The moment a customer touches the "Sort By" sign (changing the sortType), the manager instantly signals the clerk (sortProduct) to reshuffle the rack. You don't have to tell them to do it; they just react to the change automatically.
+
+3. The Storefront: The Display (JSX)
+   The Control Panel (<select>):
+
+This is the sign on the shelf that lets the user choose their preference. You've styled it cleanly with a gray border so it doesn't distract from the clothes.
+
+The Grid (map & classes):
+
+JavaScript
+
+```js
+<div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ...">
+```
+
+This is your actual floor plan.
+
+On Mobile (grid-cols-2): You show 2 items per row because phone screens are narrow.
+
+On Desktop (lg:grid-cols-4): You spread out to 4 items per row because you have the luxury of space.
+
+The Product (ProductItem): Instead of writing the code for every single hoodie or trouser repeatedly, you have a blueprint (ProductItem). You just hand the blueprint the specific details (Name, Price, Image) and it builds the card for you.
