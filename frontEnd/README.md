@@ -480,3 +480,64 @@ On Mobile (grid-cols-2): You show 2 items per row because phone screens are narr
 On Desktop (lg:grid-cols-4): You spread out to 4 items per row because you have the luxury of space.
 
 The Product (ProductItem): Instead of writing the code for every single hoodie or trouser repeatedly, you have a blueprint (ProductItem). You just hand the blueprint the specific details (Name, Price, Image) and it builds the card for you.
+
+## Individual Product:
+
+```js
+import React, { useContext, useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import { ShopContext } from "../context/ShopContext.jsx";
+
+const Product = () => {
+  const { productId } = useParams(); // getting the Id from user
+  const { products } = useContext(ShopContext); // geting all the products
+  const [productData, setProductData] = useState(false); // Initilizing a state for productData
+  const [image, setImage] = useState(""); // Initilizing state for the main Image
+
+  const fetchProductData = async () => {
+    products.map((item) => {
+      // going through all the product
+      if (item._id === productId) {
+        // finding the one that matches our ID
+        setProductData(item); // storing it into the productData;
+        setImage(item.image[0]); // Storing the main Image
+        return null;
+      }
+    });
+  };
+
+  // calling this function whenever something chnges in productId or in products.
+  useEffect(() => {
+    fetchProductData();
+  }, [productId, products]);
+
+  return productData ? (
+    <div className="border-t-2 pt-10 transition-opacity ease-in duration-500 opacity-100">
+      {/* Product Data */}
+      <div className="flex gap 12 sm:gap-12 flex-col sm:flex-row">
+        {/* Product Images */}
+        <div className="flex-1 flex flex-col-reverse gap-3 sm:flex-row">
+          <div className="flex sm:flex-col overflow-x-auto sm:overflow-y-scroll justify-between sm:justify-normal sm:w-[18.7%] w-full">
+            {productData.image.map((item, index) => (
+              <img
+                onClick={() => setImage(item)} // showing each image in the main frame, when user clicks on it.
+                src={item}
+                alt="productImages"
+                key={index}
+                className="w-[24%] sm:w-full sm:mb-3 flex-shrink-0 cursor-pointer"
+              />
+            ))}
+          </div>
+          <div className="w-full sm:s-[80%]">
+            <img src={image} alt="" className="w-full h-auto" />
+          </div>
+        </div>
+      </div>
+    </div>
+  ) : (
+    <div className="opacity-0"></div>
+  );
+};
+
+export default Product;
+```
