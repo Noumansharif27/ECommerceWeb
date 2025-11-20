@@ -43,6 +43,8 @@ const Product = () => {
             <img src={image} alt="" className="w-full h-auto" />
           </div>
         </div>
+
+        {/* Product-Info */}
       </div>
     </div>
   ) : (
