@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext.jsx";
+import { assets } from "../assets/assets.js";
 
 const Product = () => {
   const { productId } = useParams();
-  const { products } = useContext(ShopContext);
+  const { products, currency } = useContext(ShopContext);
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
 
@@ -45,6 +46,21 @@ const Product = () => {
         </div>
 
         {/* Product-Info */}
+        <div className="flex-1">
+          <h1 className="font-medium text-2xl mt-2">{productData.name}</h1>
+          <div className="flex items-ceter gap-1 mt-2">
+            <img src={assets.star_icon} alt="StarIcon" />
+            <img src={assets.star_icon} alt="StarIcon" />
+            <img src={assets.star_icon} alt="StarIcon" />
+            <img src={assets.star_icon} alt="StarIcon" />
+            <img src={assets.star_dull_icon} alt="StarIcon" />
+            <p className="pl-2">{122}</p>
+          </div>
+          <p className="mt-5 text-3xl font-medium">
+            {currency}
+            {productData.price}
+          </p>
+        </div>
       </div>
     </div>
   ) : (
