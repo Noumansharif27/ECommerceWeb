@@ -29,3 +29,7 @@ a.active hr {
     color: white;
   }
 }
+
+.product-images::-webkit-scrollbar {
+  display: none;
+}
