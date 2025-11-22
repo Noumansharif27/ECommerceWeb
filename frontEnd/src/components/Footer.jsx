@@ -16,10 +16,12 @@ const Footer = () => {
         <div>
           <p className="text-xl font-medium mb-5">COMPANY</p>
           <ul className="flex flex-col gap-1 text-gray-600">
-            <li>Home</li>
-            <li>About us</li>
-            <li>Delivery</li>
-            <li>Privacy policy</li>
+            <li className="hover:color-yellow-600 cursor-pointer">Home</li>
+            <li className="hover:color-yellow-600 cursor-pointer">About us</li>
+            <li className="hover:color-yellow-600 cursor-pointer">Delivery</li>
+            <li className="hover:color-yellow-600 cursor-pointer">
+              Privacy policy
+            </li>
           </ul>
         </div>
 
