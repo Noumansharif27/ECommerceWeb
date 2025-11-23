@@ -542,4 +542,5 @@ const Product = () => {
 export default Product;
 ```
 
-shuting the project for a while to create one on HTML and CSS instead of REACT
+shuting the project for a while to create one on HTML and CSS instead of REACT.
+It is taking too long to make, and I dont know even the REACT that much, so I need time for it to adapt.
