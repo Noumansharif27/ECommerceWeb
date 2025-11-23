@@ -541,3 +541,5 @@ const Product = () => {
 
 export default Product;
 ```
+
+shuting the project for a while to create one on HTML and CSS instead of REACT
