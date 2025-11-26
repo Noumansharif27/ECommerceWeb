@@ -4,7 +4,8 @@ import Tittle from "../components/Tittle";
 import { assets } from "../assets/assets";
 
 const Cart = () => {
-  const { products, currency, cartItems } = useContext(ShopContext);
+  const { products, currency, cartItems, updateQuantity } =
+    useContext(ShopContext);
   const [cartData, setCartData] = useState([]);
 
   useEffect(() => {
@@ -69,6 +70,7 @@ const Cart = () => {
                 className="border mx-w-10 sm:mx-w-20 px-1 sm:px-2 py-1"
               />
               <img
+                onClick={() => updateQuantity(item._id, item.size, 0)}
                 src={assets.bin_icon}
                 alt="Delete_Icon"
                 className="w-4 mr-4 sm:w-5 cursor-pointer"
