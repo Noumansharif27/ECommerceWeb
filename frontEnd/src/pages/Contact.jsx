@@ -1,6 +1,7 @@
 import React from "react";
 import Tittle from "../components/Tittle";
 import { assets } from "../assets/assets";
+import NewsLetterBox from "../components/NewsLetterBox";
 
 const Contact = () => {
   return (
@@ -34,6 +35,8 @@ const Contact = () => {
           </button>
         </div>
       </div>
+
+      <NewsLetterBox />
     </div>
   );
 };
