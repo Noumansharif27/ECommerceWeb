@@ -77,23 +77,28 @@ const PlaceOrder = () => {
         <div className="mt-10">
           <Tittle text1={"PAYMENT"} text2={"METHOD"} />
           {/* -------------------Payment Method------------------- */}
-          <div className="flex ap-3 flex-col lg:flex-row">
-            <div className="flex items-center gap-3 border p-2 px-3 cursor-pointer">
+          <div className="flex gap-2 flex-col lg:flex-row">
+            <div className="flex items-center gap-2 border-2 border-gray-500 rounded p-1 px-2 cursor-pointer">
               <p className={`min-w-3.5 h-3.5 border rounded-full`}></p>
-              <img src={assets.stripe_logo} alt="StripLogo_forPaymentMethod" />
+              <img
+                src={assets.stripe_logo}
+                alt="StripLogo_forPaymentMethod"
+                className="w-12 h-auto"
+              />
             </div>
 
-            <div className="flex items-center gap-3 border p-2 px-3 cursor-pointer">
+            <div className="flex items-center gap-2 border-2 border-gray-500 rounded p-1 px-2 cursor-pointer">
               <p className={`min-w-3.5 h-3.5 border rounded-full`}></p>
               <img
                 src={assets.razorpay_logo}
                 alt="RayzerPayLogo_forPaymentMethod"
+                className="w-12 h-auto"
               />
             </div>
 
-            <div className="flex items-center gap-3 border p-2 px-3 cursor-pointer">
+            <div className="flex items-center gap-2 border-2 border-gray-500 rounded p-1 px-2 cursor-pointer">
               <p className={`min-w-3.5 h-3.5 border rounded-full`}></p>
-              <p className="text-gray-500 text-sm font-medium mx-4">
+              <p className="text-gray-500 text-xs font-medium">
                 Cashon Delivery
               </p>
             </div>
