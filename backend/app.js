@@ -33,7 +33,7 @@ app.use(express.json()); // it will parse data into json
 app.use(cors()); // it will help to access backend from any ID
 
 // API endPoints
-app.use("/user", userRouter);
+app.use("/users", userRouter);
 
 app.get("/", (req, res) => {
   res.send("Server is Started");

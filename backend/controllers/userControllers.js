@@ -16,13 +16,13 @@ module.exports.registerUser = async (req, res) => {
     const { name, email, password } = req.body;
 
     //   check user already exists or not
-    const exists = await User.find({ email });
+    const exists = await User.findOne({ email });
     if (exists) {
-      return res, json({ succes: false, message: "User already exists!" });
+      return res.json({ succes: false, message: "User already exists!" });
     }
 
     //   Validate email format and strong password
-    if (!validate.isEmail(email)) {
+    if (!validator.isEmail(email)) {
       return res.json({
         success: false,
         message: "Please enter a valid email!",
@@ -42,13 +42,13 @@ module.exports.registerUser = async (req, res) => {
       password: hashedPassword,
     });
 
-    const user = newUser.save();
+    const user = await newUser.save();
     const token = createToken(user._id);
 
-    res, json({ success: true, token });
+    res.json({ success: true, token });
   } catch (error) {
     console.log(error);
-    res.json({ succes: false, message: error });
+    res.json({ success: false, message: error });
   }
 };
 
