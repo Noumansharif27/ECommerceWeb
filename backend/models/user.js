@@ -1,4 +1,7 @@
 const mongoose = require("mongoose");
+const passportLocalMongoose =
+  require("passport-local-mongoose").default ||
+  require("passport-local-mongoose");
 
 const userSchema = new mongoose.Schema(
   {
@@ -23,4 +26,7 @@ const userSchema = new mongoose.Schema(
   { minimize: false }
 );
 
-module.exports.User = mongoose.model.User || mongoose.model("user", userSchema);
+// Use email as the username field for passport-local-mongoose
+userSchema.plugin(passportLocalMongoose, { usernameField: "email" });
+
+module.exports = mongoose.model("User", userSchema);
