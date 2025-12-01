@@ -8,9 +8,9 @@ module.exports.loginUser = async (req, res) => {};
 // Register User
 module.exports.registerUser = async (req, res) => {
   try {
-    const { name, email, password } = req.body;
+    const { username, email, password } = req.body;
 
-    const newUser = new User({ username: name, email });
+    const newUser = new User({ username, email });
     const registerUser = await User.register(newUser, password);
     console.log(registerUser);
 
@@ -25,6 +25,11 @@ module.exports.registerUser = async (req, res) => {
     console.log(`Error while registering User: ${err}`);
     res.redirect("/register");
   }
+};
+
+// getSignUp
+module.exports.getsignUp = async (req, res) => {
+  res.render("signup.ejs");
 };
 
 // Admin Login

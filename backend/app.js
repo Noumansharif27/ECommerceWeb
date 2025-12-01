@@ -11,6 +11,7 @@ const session = require("express-session");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
+const path = require("path");
 
 const { ConnectDB } = require("./config/cloudinary.js");
 const userRouter = require("./routes/userRoute.js");
@@ -30,6 +31,10 @@ const sessionOptions = {
   },
 };
 
+// temp
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
+
 main()
   .then(() => {
     console.log("connected to DB");
@@ -46,6 +51,7 @@ ConnectCloudinary();
 // middleware
 app.use(express.json()); // it will parse data into json
 app.use(cors()); // it will help to access backend from any ID
+app.use(express.urlencoded({ extended: true }));
 
 app.use(session(sessionOptions));
 
