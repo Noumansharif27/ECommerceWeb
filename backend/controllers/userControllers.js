@@ -3,7 +3,10 @@ const validator = require("validator");
 const asyncWrap = require("../asyncWrap.js");
 
 // Login User
-module.exports.loginUser = async (req, res) => {};
+module.exports.loginUser = async (req, res) => {
+  const { username, password } = req.body;
+  res.redirect("/");
+};
 
 // Register User
 module.exports.registerUser = async (req, res) => {
