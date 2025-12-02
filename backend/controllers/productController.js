@@ -4,4 +4,10 @@ const asyncWrap = require("../asyncWrap");
 module.exports.addProduct = asyncWrap((req, res) => {});
 
 // List product
-module.exports;
+module.exports.listProduct = asyncWrap((req, res) => {});
+
+// removing product
+module.exports.removeProduct = asyncWrap((req, res) => {});
+
+// Add Product
+module.exports.singleProductInfo = asyncWrap((req, res) => {});

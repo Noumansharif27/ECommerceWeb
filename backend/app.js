@@ -14,7 +14,8 @@ const User = require("./models/user.js");
 const path = require("path");
 
 const { ConnectDB } = require("./config/cloudinary.js");
-const userRouter = require("./routes/userRoute.js");
+const userRoute = require("./routes/userRoute.js");
+const productRoute = require("./routes/productRoute.js");
 
 const app = express();
 const PORT = process.env.SERVER_PORT || 4000;
@@ -63,7 +64,8 @@ passport.serializeUser(User.serializeUser()); // storing user information or mov
 passport.deserializeUser(User.deserializeUser());
 
 // API endPoints
-app.use("/users", userRouter);
+app.use("/users", userRoute);
+app.use("/products", productRoute);
 
 app.get("/", (req, res) => {
   res.send("Server is Started");
