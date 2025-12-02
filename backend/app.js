@@ -12,6 +12,7 @@ const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const path = require("path");
+const upload = require("./middleware/multer.js");
 
 const { ConnectDB } = require("./config/cloudinary.js");
 const userRoute = require("./routes/userRoute.js");
@@ -64,7 +65,16 @@ passport.serializeUser(User.serializeUser()); // storing user information or mov
 passport.deserializeUser(User.deserializeUser());
 
 // API endPoints
-app.use("/users", userRoute);
+app.use(
+  "/users",
+  upload.fields([
+    { name: "image1", maxCount: 1 },
+    { name: "image2", maxCount: 1 },
+    { name: "image3", maxCount: 1 },
+    { name: "image4", maxCount: 1 },
+  ]),
+  userRoute
+);
 app.use("/products", productRoute);
 
 app.get("/", (req, res) => {
