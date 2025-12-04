@@ -1,18 +1,14 @@
-const express = require("express");
-const router = express.Router();
-const userControllers = require("../controllers/userControllers.js");
-const passport = require("passport");
+import express from "express";
+import {
+  loginUser,
+  registerUser,
+  adminLogin,
+} from "../controllers/userControllers.js";
 
-router.post("/register", userControllers.registerUser);
-router.get("/register", userControllers.getsignUp);
+const userRouter = express.Router();
 
-router.post(
-  "/login",
-  passport.authenticate("local", {
-    failureRedirect: "/users/login",
-  }),
-  userControllers.loginUser
-);
-router.post("/admin", userControllers.adminLogin);
+userRouter.post("/register", registerUser);
+userRouter.post("/login", loginUser);
+userRouter.post("/admin", adminLogin);
 
-module.exports = router;
+export default userRouter;
