@@ -15,6 +15,7 @@ app.use(express.json({}));
 app.use(cors());
 connectDB();
 connectCloudinary();
+app.use("/uploads", express.static("backend/uploads"));
 
 app.use("/api/user", userRouter);
 app.use("/api/product", productRouter);
