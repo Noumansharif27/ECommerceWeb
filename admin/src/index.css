@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Prata&display=swap");
+@import "tailwindcss";
+
+/* Ensure images scale inside their containers when width/max-width are set
+.logo img {
+  max-width: 10% !important;
+  height: auto;
+} */
+
+* {
+  font-family: outfit;
+}
+
+.active {
+  background-color: #ffebf5;
+  color: #c586a5;
+}
