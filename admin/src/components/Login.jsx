@@ -1,5 +1,7 @@
+import axios from "axios";
 import React from "react";
 import { useState } from "react";
+import { backendUrl } from "../App";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -8,6 +10,10 @@ const Login = () => {
   const onSubmitHandler = async (e) => {
     try {
       e.preventDefault();
+      const response = await axios.post(backendUrl + "/api/user/admin", {
+        email,
+        password,
+      });
     } catch (error) {}
   };
   return (
@@ -41,7 +47,7 @@ const Login = () => {
           </div>
 
           <button
-            className="mt-2 w-full py-2 px-4 rounded-md text-white bg-black"
+            className="mt-2 w-full py-2 px-4 rounded-md text-white bg-black cursor-pointer"
             type="submit"
           >
             login
