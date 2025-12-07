@@ -24,11 +24,11 @@ const Add = () => {
           <label htmlFor="image1">
             <img
               className="w-20 cursor-pointer"
-              src={assets.upload_area}
+              src={!image1 ? assets.upload_area : URL.createObjectURL(image1)}
               alt="UploadAreaIcon"
             />
             <input
-              onClick={(e) => setImage1(e.target.files[0])}
+              onChange={(e) => setImage1(e.target.files[0])}
               type="file"
               id="image1"
               hidden
@@ -38,11 +38,11 @@ const Add = () => {
           <label htmlFor="image2">
             <img
               className="w-20 cursor-pointer"
-              src={assets.upload_area}
+              src={!image2 ? assets.upload_area : URL.createObjectURL(image2)}
               alt="UploadAreaIcon"
             />
             <input
-              onClick={(e) => setImage2(e.target.files[0])}
+              onChange={(e) => setImage2(e.target.files[0])}
               type="file"
               id="image2"
               hidden
@@ -52,11 +52,11 @@ const Add = () => {
           <label htmlFor="image3">
             <img
               className="w-20 cursor-pointer"
-              src={assets.upload_area}
+              src={!image3 ? assets.upload_area : URL.createObjectURL(image3)}
               alt="UploadAreaIcon"
             />
             <input
-              onClick={(e) => setImage3(e.target.files[0])}
+              onChange={(e) => setImage3(e.target.files[0])}
               type="file"
               id="image3"
               hidden
@@ -66,11 +66,11 @@ const Add = () => {
           <label htmlFor="image4">
             <img
               className="w-20 cursor-pointer"
-              src={assets.upload_area}
+              src={!image4 ? assets.upload_area : URL.createObjectURL(image4)}
               alt="UploadAreaIcon"
             />
             <input
-              onClick={(e) => setImage4(e.target.files[0])}
+              onChange={(e) => setImage4(e.target.files[0])}
               type="file"
               id="image4"
               hidden
