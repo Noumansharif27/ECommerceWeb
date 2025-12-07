@@ -11,6 +11,14 @@
   font-family: outfit;
 }
 
+select,
+input,
+textarea {
+  border: 1px solid #c2c2c2;
+  outline-color: #c586a5;
+  border-radius: 4px;
+}
+
 .active {
   background-color: #ffebf5;
   color: #c586a5;
