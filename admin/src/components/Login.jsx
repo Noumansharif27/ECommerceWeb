@@ -14,6 +14,7 @@ const Login = () => {
         email,
         password,
       });
+      console.log(response);
     } catch (error) {}
   };
   return (
@@ -40,7 +41,7 @@ const Login = () => {
               onChange={(e) => setPassword(e.target.value)}
               value={password}
               className="rounded-md w-full px-3 py-2 border border-gray-300 outline-none"
-              type="text"
+              type="password"
               placeholder="******"
               id=""
             />
