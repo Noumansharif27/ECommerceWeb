@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import { assets } from "../assets/assets.js";
+import axios from "axios";
+import { backendUrl } from "../App.jsx";
 
 const Add = () => {
   const [image1, setImage1] = useState(false);
@@ -15,8 +17,35 @@ const Add = () => {
   const [bestseller, setBestseller] = useState(false);
   const [sizes, setSizes] = useState([]);
 
+  const onSubmitForm = async (e) => {
+    e.preventDefault();
+    try {
+      const formData = new formData();
+
+      formData.append("name", name);
+      formData.append("description", description);
+      formData.append("price", price);
+      formData.append("category", category);
+      formData.append("subCategory", subCategory);
+      formData.append("bestseller", bestseller);
+      formData.append("sizes", JSON.stringify(sizes));
+
+      image1 & formData.append("image1", image1);
+      image2 & formData.append("image2", image2);
+      image3 & formData.append("image3", image3);
+      image4 & formData.append("image4", image4);
+
+      const response = await axios.post(
+        backendUrl + "/api/product/add",
+        formData
+      );
+
+      console.log(response);
+    } catch (error) {}
+  };
+
   return (
-    <form>
+    <form onSubmit={onSubmitForm}>
       <div className="flex flex-col w-full items-start gap-3">
         <p className="mb-2">Upload Image</p>
 
@@ -236,13 +265,20 @@ const Add = () => {
       </div>
 
       <div className="mt-2 mb-2 flex gap-2">
-        <input type="checkbox" id="bestseller" />
+        <input
+          onChange={() => setBestseller((prev) => !prev)}
+          checked={bestseller}
+          type="checkbox"
+          id="bestseller"
+        />
         <label htmlFor="bestseller" className="cursor-pointer">
           Add to bestseller
         </label>
       </div>
 
-      <button className="bg-black text-white w-28 py-3 mt4">Add</button>
+      <button className="bg-black text-white w-28 py-3 mt4" type="submit">
+        Add
+      </button>
     </form>
   );
 };
