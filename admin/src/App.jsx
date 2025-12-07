@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
@@ -11,7 +11,15 @@ import { ToastContainer } from "react-toastify";
 export const backendUrl = import.meta.env.VITE_BACKEND_URL;
 
 const App = () => {
-  const [token, setToken] = useState("");
+  const [token, setToken] = useState(
+    localStorage.getItem("token") ? localStorage.getItem("token") : "" // setting the token from ocalstorage so when we refresh the page we will be still login
+  );
+
+  useEffect(() => {
+    // storing the token into local storage so that we dont loose it after loading the page.
+    localStorage.setItem("token", token);
+  }, [token]);
+
   return (
     <div className="bg-gray50 min-h-scree">
       <ToastContainer />
