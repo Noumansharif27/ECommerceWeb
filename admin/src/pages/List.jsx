@@ -24,7 +24,7 @@ const List = ({ token }) => {
     try {
       const response = await axios.post(
         backendUrl + "/api/product/remove",
-        { id },
+        { _id: id },
         { headers: { token } }
       );
       if (response.data.success) {
@@ -64,7 +64,7 @@ const List = ({ token }) => {
             <img
               src={item.image[0]}
               alt="productImage"
-              className="h-20 w-12 object-cover"
+              className="h-20 w-20 object-cover"
             />
             <p>{item.name}</p>
             <p>{item.category}</p>
