@@ -13,7 +13,7 @@ const LatestCollections = () => {
     console.log(products.length);
     setLatestProducts(products.slice(0, 5));
     // console.log(products);
-  }, []);
+  }, [products]);
 
   return (
     <div className="my-10">
