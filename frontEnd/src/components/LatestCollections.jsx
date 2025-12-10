@@ -9,8 +9,11 @@ const LatestCollections = () => {
   let [latestProducts, setLatestProducts] = useState([]);
 
   useEffect(() => {
-    setLatestProducts(products.slice(0, 10));
-  }, [""]);
+    console.log(products);
+    console.log(products.length);
+    setLatestProducts(products.slice(0, 5));
+    // console.log(products);
+  }, []);
 
   return (
     <div className="my-10">
