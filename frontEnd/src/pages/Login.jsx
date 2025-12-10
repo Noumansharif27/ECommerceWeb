@@ -1,10 +1,31 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
+import { ShopContext } from "../context/ShopContext";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Login = () => {
   const [currentState, setCurrentState] = useState("Sign Up");
+  const [token, setToken, navigate, backendUrl] = useContext(ShopContext);
 
-  const onFormSubmit = (e) => {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const onFormSubmit = async (e) => {
     e.preventDefault();
+    try {
+      if (currentState == "Sign Up") {
+        const response = await axios.post(backendUrl + "/api/user/register", {
+          name,
+          email,
+          password,
+        });
+        console.log(response);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
   };
 
   return (
@@ -21,6 +42,8 @@ const Login = () => {
         " "
       ) : (
         <input
+          onChange={(e) => setName(e.target.value)}
+          value={name}
           type="text"
           placeholder="Name"
           className="w-full px-3 py-2 border border-gray-800"
@@ -28,12 +51,16 @@ const Login = () => {
         />
       )}
       <input
+        onChange={(e) => setEmail(e.target.value)}
+        value={email}
         type="email"
         placeholder="Email"
         className="w-full px-3 py-2 border border-gray-800"
         required
       />
       <input
+        onChange={(e) => setPassword(e.target.value)}
+        value={password}
         type="password"
         placeholder="Password"
         className="w-full px-3 py-2 border border-gray-800"
