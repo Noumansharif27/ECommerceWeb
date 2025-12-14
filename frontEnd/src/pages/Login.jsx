@@ -14,13 +14,32 @@ const Login = () => {
   const onFormSubmit = async (e) => {
     e.preventDefault();
     try {
-      if (currentState == "Sign Up") {
+      if (currentState === "Sign Up") {
         const response = await axios.post(backendUrl + "/api/user/register", {
           name,
           email,
           password,
         });
-        console.log(response);
+        if (response.data.success) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+          toast.success(response.data.message);
+        } else {
+          toast.error(response.data.message);
+        }
+      } else {
+        const response = await axios.post(backendUrl + "/api/user/login", {
+          email,
+          password,
+        });
+
+        if (response.data.success) {
+          setToken(response.data.token);
+          localStorage.setItem("token", response.data.token);
+          toast.success(response.data.message);
+        } else {
+          toast.error(response.data.message);
+        }
       }
     } catch (error) {
       console.log(error);
@@ -38,9 +57,7 @@ const Login = () => {
         <hr className="border-none h-[1.5px] w-8 bg-gray-800" />
       </div>
 
-      {currentState == "login" ? (
-        " "
-      ) : (
+      {currentState === "Sign Up" && (
         <input
           onChange={(e) => setName(e.target.value)}
           value={name}
@@ -85,7 +102,7 @@ const Login = () => {
           </p>
         )}
       </div>
-      <button className="bg-black text-white font-light px-8 py-2 mt-4">
+      <button className="bg-black text-white font-light px-8 py-2 mt-4 active:bg-gray-800 active:scale-95 transition-all duration-150">
         {currentState === "Login" ? "Sign In" : "Sign Up"}
       </button>
     </form>
