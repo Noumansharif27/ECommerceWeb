@@ -27,6 +27,9 @@ const addProduct = async (req, res) => {
       images.map(async (item) => {
         let result = await cloudinary.uploader.upload(item.path, {
           resource_type: "image",
+          quality: "auto",
+          fetch_format: "auto",
+          timeout: 60000,
         });
         return result.secure_url;
       })
@@ -43,6 +46,11 @@ const addProduct = async (req, res) => {
       image: imageUrl,
       date: Date.now(),
     };
+
+    const isExist = await productModel.findOne({ name });
+    if (isExist) {
+      return res.json({ success: false, message: "Product already exists" });
+    }
 
     const product = new productModel({ ...productData });
     const savedProduct = await product.save();
