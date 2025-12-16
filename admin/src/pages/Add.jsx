@@ -18,9 +18,14 @@ const Add = ({ token }) => {
   const [subCategory, setSubCategory] = useState("Topwear");
   const [bestSeller, setBestSeller] = useState(false);
   const [sizes, setSizes] = useState([]);
+  const [isUploading, setIsUploading] = useState(false);
 
   const onSubmitForm = async (e) => {
     e.preventDefault();
+    if (isUploading) {
+      return;
+    }
+    setIsUploading(true);
     try {
       const formData = new FormData();
 
@@ -64,6 +69,8 @@ const Add = ({ token }) => {
     } catch (error) {
       console.log(error);
       toast.error(error.message);
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -300,10 +307,13 @@ const Add = ({ token }) => {
       </div>
 
       <button
-        className="bg-black text-white w-28 py-3 mt4 cursor-pointer active:bg-gray-800 active:scale-95 transition-all"
+        disabled={isUploading}
+        className={`bg-black text-white w-28 py-3 mt4 cursor-pointer active:bg-gray-800 active:scale-95 transition-all ${
+          isUploading ? "opacity-50 cursor-not-allowed" : ""
+        }`}
         type="submit"
       >
-        Add
+        {isUploading ? "Uploading..." : "Add"}
       </button>
     </form>
   );
