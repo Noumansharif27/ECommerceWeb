@@ -15,10 +15,10 @@ export default function Navbar() {
   } = useContext(ShopContext);
 
   const logout = () => {
-    localStorage.removeItem("token");
     setToken("");
     setCartItems({});
     navigate("/login");
+    localStorage.removeItem("token");
   };
 
   return (
