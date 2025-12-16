@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { toast } from "react-toastify";
 import axios from "axios";
@@ -13,6 +13,7 @@ const Login = () => {
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
+    console.log("login is in process.");
     try {
       if (currentState === "Sign Up") {
         const response = await axios.post(backendUrl + "/api/user/register", {
@@ -23,7 +24,6 @@ const Login = () => {
         if (response.data.success) {
           setToken(response.data.token);
           localStorage.setItem("token", response.data.token);
-          toast.success(response.data.message);
         } else {
           toast.error(response.data.message);
         }
@@ -46,6 +46,12 @@ const Login = () => {
       toast.error(error.message);
     }
   };
+
+  useEffect(() => {
+    if (token) {
+      navigate("/");
+    }
+  }, [token]);
 
   return (
     <form
