@@ -16,6 +16,9 @@ const addCart = async () => {
       cartData[itemId] = {};
       cartData[itemId][size] = 1;
     }
+
+    await userModel.findOneByIdAndupdate(userId, { cartData });
+    res.json({ success: true, message: "Added to cart!" });
   } catch (error) {
     console.log(error);
     res.json({ success: false, message: error.message });

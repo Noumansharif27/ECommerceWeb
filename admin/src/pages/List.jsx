@@ -5,6 +5,7 @@ import { backendUrl, currency } from "../App";
 
 const List = ({ token }) => {
   const [list, setList] = useState([]);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   const fetchList = async () => {
     try {
@@ -22,6 +23,10 @@ const List = ({ token }) => {
 
   const removeProduct = async (id) => {
     try {
+      if (isDeleting) {
+        return;
+      }
+      setIsDeleting(true);
       const response = await axios.post(
         backendUrl + "/api/product/remove",
         { _id: id },
@@ -36,6 +41,8 @@ const List = ({ token }) => {
     } catch (error) {
       console.log(error);
       toast.error(error.message);
+    } finally {
+      setIsDeleting(false);
     }
   };
 
