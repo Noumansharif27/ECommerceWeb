@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const ProductItem = ({ id, image, name, price, discountPercentage }) => {
   const [isHovered, setIsHovered] = useState(false);
@@ -14,10 +15,10 @@ const ProductItem = ({ id, image, name, price, discountPercentage }) => {
             </span>
           )}
           <img
-            onMouseEnter={() => setIsHoveredsHovered(true)}
+            onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className="hover:scale-110 transition ease-in-out"
-            src={isHovered ? image[0] : image[2]}
+            src={isHovered ? image[1] : image[0]}
             alt="ProductImage"
           />
         </div>
