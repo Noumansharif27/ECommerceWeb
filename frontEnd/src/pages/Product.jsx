@@ -60,22 +60,22 @@ const Product = () => {
           </div>
           {/* Price Section */}
           <div className="mt-5 flex items-center gap-3">
-            {productData.discountPercentage > 0 && (
-              <span className="bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
-                -{productData.discountPercentage}%
-              </span>
-            )}
+            <p className="text-green-600 font-bold text-2xl">
+              {currency}
+              {productData.salesPrice.toFixed(2)}
+            </p>
 
             <p className="text-gray-400 line-through text-lg">
               {currency}
               {productData.originalPrice}
             </p>
-
-            <p className="text-green-600 font-bold text-2xl">
-              {currency}
-              {productData.salesPrice.toFixed(2)}
-            </p>
           </div>
+
+          {productData.discountPercentage > 0 && (
+            <span className="bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
+              -{productData.discountPercentage}%
+            </span>
+          )}
 
           <p className="mt-5 text-gray-500 md:w-4/5">
             {productData.description}
