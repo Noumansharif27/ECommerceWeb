@@ -209,7 +209,7 @@ const Collection = () => {
               id={product._id}
               discountPercentage={product.discountPercentage}
               price={
-                <div className="">
+                <div className="flex gap-1 items-senter justify-start">
                   {/* Original Price */}
 
                   {product.discountPercentage > 0 && product.originalPrice && (

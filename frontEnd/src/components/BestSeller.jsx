@@ -5,7 +5,7 @@ import OurPolicies from "./OurPolicies";
 import ProductItem from "./ProductItem";
 
 const BestSeller = () => {
-  const { products } = useContext(ShopContext);
+  const { products, currency } = useContext(ShopContext);
   const [bestSeller, setBestSeller] = useState([]);
 
   useEffect(() => {
@@ -31,7 +31,31 @@ const BestSeller = () => {
             id={product._id}
             image={product.image}
             name={product.name}
-            price={product.price}
+            discountPercentage={product.discountPercentage}
+            price={
+              <div className="flex gap-1 items-senter justify-start">
+                {/* Original Price */}
+
+                {product.discountPercentage > 0 && product.originalPrice && (
+                  <p className="text-gray-400 line-through text-sm">
+                    {currency}
+                    {product.originalPrice.toFixed(2)}
+                  </p>
+                )}
+
+                {/* Sales Price */}
+                <p
+                  className={`font-bold text-md ${
+                    product.discountPercentage > 0
+                      ? "text-green-600"
+                      : "text-black"
+                  }`}
+                >
+                  {currency}
+                  {product.salesPrice ? product.salesPrice.toFixed(2) : "0.00"}
+                </p>
+              </div>
+            }
           />
         ))}
       </div>
