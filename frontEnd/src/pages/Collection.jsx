@@ -207,8 +207,9 @@ const Collection = () => {
               key={index}
               name={product.name}
               id={product._id}
+              discountPercentage={product.discountPercentage}
               price={
-                <div className="flex items-center gap-2 relative">
+                <div>
                   {/* Discount Badge */}
                   {product.discountPercentage > 0 && (
                     <span className="absolute -top-3 -left-3 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">

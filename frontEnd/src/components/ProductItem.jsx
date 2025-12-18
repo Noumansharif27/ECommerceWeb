@@ -2,12 +2,24 @@ import React, { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 
-const ProductItem = ({ id, image, name, price }) => {
+const ProductItem = ({
+  id,
+  image,
+  name,
+  price,
+  discountPercentage,
+  salesPrice,
+}) => {
   const { currency } = useContext(ShopContext);
   return (
     <div>
       <Link className="text-gray-700 cursor-pointer" to={`/product/${id}`}>
-        <div className="overflow-hidden">
+        <div className="overflow-hidden relative">
+          {discountPercentage > 0 && (
+            <span className="bg-red-500 text-white text-xs font-semibold px-2 py-2 rounded">
+              -{discountPercentage}%
+            </span>
+          )}
           <img
             className="hover:scale-110 transition ease-in-out"
             src={image[0]}
