@@ -6,7 +6,9 @@ const addProduct = async (req, res) => {
     const {
       name,
       description,
-      price,
+      originalPrice,
+      discountPercentage,
+      salesPrice,
       category,
       subCategory,
       sizes,
@@ -40,7 +42,9 @@ const addProduct = async (req, res) => {
       description,
       category,
       subCategory,
-      price: Number(price),
+      originalPrice: Number(originalPrice),
+      discountPercentage: Number(discountPercentage || 0),
+      salesPrice: Number(originalPrice), // auto-corrected by pre-save hook
       bestSeller: bestSeller == "true" ? true : false, // converting string into boolean
       sizes: JSON.parse(sizes), // converting the sizes from string into array
       image: imageUrl,
@@ -49,7 +53,10 @@ const addProduct = async (req, res) => {
 
     const isExist = await productModel.findOne({ name });
     if (isExist) {
-      return res.json({ success: false, message: "Product already exists" });
+      return res.json({
+        success: false,
+        message: "Product with same name already exists!",
+      });
     }
 
     const product = new productModel({ ...productData });

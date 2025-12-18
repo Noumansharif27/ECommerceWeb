@@ -11,10 +11,9 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  price: {
-    type: Number,
-    required: true,
-  },
+  originalPrice: { type: Number, required: true },
+  discountPercentage: { type: Number, default: 0 },
+  salesPrice: { type: Number, required: true },
   image: {
     type: Array,
     required: true,
@@ -40,7 +39,16 @@ const productSchema = new mongoose.Schema({
   },
 });
 
+productSchema.pre("save", async function () {
+  if (this.originalPrice && this.discountPercentage) {
+    this.salesPrice =
+      this.originalPrice - this.originalPrice * (this.discountPercentage / 100);
+  } else {
+    this.salesPrice = this.originalPrice;
+  }
+});
+
 const productModel =
-  mongoose.model.Product || mongoose.model("product", productSchema);
+  mongoose.models.product || mongoose.model("product", productSchema);
 
 export default productModel;
