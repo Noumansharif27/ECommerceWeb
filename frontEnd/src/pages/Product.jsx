@@ -58,10 +58,25 @@ const Product = () => {
             <img src={assets.star_dull_icon} alt="StarIcon" />
             <p className="pl-2">{122}</p>
           </div>
-          <p className="mt-5 text-3xl font-medium">
-            {currency}
-            {productData.price}
-          </p>
+          {/* Price Section */}
+          <div className="mt-5 flex items-center gap-3">
+            {productData.discountPercentage > 0 && (
+              <span className="bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                -{productData.discountPercentage}%
+              </span>
+            )}
+
+            <p className="text-gray-400 line-through text-lg">
+              {currency}
+              {productData.originalPrice}
+            </p>
+
+            <p className="text-green-600 font-bold text-2xl">
+              {currency}
+              {productData.salesPrice.toFixed(2)}
+            </p>
+          </div>
+
           <p className="mt-5 text-gray-500 md:w-4/5">
             {productData.description}
           </p>

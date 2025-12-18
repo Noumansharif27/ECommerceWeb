@@ -207,7 +207,36 @@ const Collection = () => {
               key={index}
               name={product.name}
               id={product._id}
-              price={product.price}
+              price={
+                <div className="flex items-center gap-2 relative">
+                  {/* Discount Badge */}
+                  {product.discountPercentage > 0 && (
+                    <span className="absolute -top-3 -left-3 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
+                      -{product.discountPercentage}%
+                    </span>
+                  )}
+
+                  {/* Original Price */}
+                  {product.discountPercentage > 0 && product.originalPrice && (
+                    <p className="text-gray-400 line-through text-sm">
+                      {product.originalPrice.toFixed(2)}
+                    </p>
+                  )}
+
+                  {/* Sales Price */}
+                  <p
+                    className={`font-bold text-lg ${
+                      product.discountPercentage > 0
+                        ? "text-green-600"
+                        : "text-black"
+                    }`}
+                  >
+                    {product.salesPrice
+                      ? product.salesPrice.toFixed(2)
+                      : "0.00"}
+                  </p>
+                </div>
+              }
               image={product.image}
             />
           ))}
