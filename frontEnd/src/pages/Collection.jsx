@@ -5,7 +5,7 @@ import Tittle from "../components/Tittle";
 import ProductItem from "../components/ProductItem";
 
 const Collection = () => {
-  const { products } = useContext(ShopContext);
+  const { products, currency } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
   const [category, setCategory] = useState([]);
@@ -209,29 +209,25 @@ const Collection = () => {
               id={product._id}
               discountPercentage={product.discountPercentage}
               price={
-                <div>
-                  {/* Discount Badge */}
-                  {product.discountPercentage > 0 && (
-                    <span className="absolute -top-3 -left-3 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
-                      -{product.discountPercentage}%
-                    </span>
-                  )}
-
+                <div className="">
                   {/* Original Price */}
+
                   {product.discountPercentage > 0 && product.originalPrice && (
                     <p className="text-gray-400 line-through text-sm">
+                      {currency}
                       {product.originalPrice.toFixed(2)}
                     </p>
                   )}
 
                   {/* Sales Price */}
                   <p
-                    className={`font-bold text-lg ${
+                    className={`font-bold text-md ${
                       product.discountPercentage > 0
                         ? "text-green-600"
                         : "text-black"
                     }`}
                   >
+                    {currency}
                     {product.salesPrice
                       ? product.salesPrice.toFixed(2)
                       : "0.00"}
