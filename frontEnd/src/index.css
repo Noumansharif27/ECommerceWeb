@@ -33,3 +33,12 @@ a.active hr {
 .product-images::-webkit-scrollbar {
   display: none;
 }
+
+.product-card {
+  background-color: #f9f9f9;
+}
+
+/* .product-card img {
+  width: 19.36rem !important;
+  height: 45rem !important;
+} */

@@ -8,7 +8,7 @@ const ProductItem = ({ id, image, name, price, discountPercentage }) => {
   return (
     <div>
       <Link className="text-gray-700 cursor-pointer" to={`/product/${id}`}>
-        <div className="overflow-hidden relative">
+        <div className="overflow-hidden relative mb-5 product-card">
           {discountPercentage > 0 && (
             <span className="absolute top-2 left-2 z-50 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
               -{discountPercentage}%
@@ -17,7 +17,7 @@ const ProductItem = ({ id, image, name, price, discountPercentage }) => {
           <img
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="hover:scale-110 transition ease-in-out"
+            className="object-cover hover:scale-110 transition ease-in-out"
             src={isHovered ? image[1] : image[0]}
             alt="ProductImage"
           />
