@@ -15,7 +15,7 @@ const LatestCollections = () => {
 
   return (
     <div className="my-10">
-      <div className="text-center py-8 text-3xl bg-blue-100">
+      <div className="text-center py-8 text-3xl bg-blue-100 no-scrollbar">
         <Tittle text1={"LATEST"} text2={"COLLECTIONS"} />
         <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600 mb-4">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
@@ -27,10 +27,43 @@ const LatestCollections = () => {
       </div>
 
       {/* Rendering Product */}
-      <div className="grid grid-cols-3 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 gap-0 gap-y-1 bg-pink-200 pl-2">
+      <div className="flex gap-[2px] flex-nowrap bg-pink-200 overflow-x-auto h-auto">
         {latestProducts.map((product, index) => (
           <ProductItem
-            className="bg-green-100"
+            key={index}
+            id={product._id}
+            image={product.image}
+            name={product.name}
+            discountPercentage={product.discountPercentage}
+            price={
+              <div className="flex gap-1 items-senter justify-start mb-3">
+                {/* Original Price */}
+
+                {product.discountPercentage > 0 && product.originalPrice && (
+                  <p className="text-gray-400 line-through text-sm">
+                    {currency}
+                    {product.originalPrice.toFixed(2)}
+                  </p>
+                )}
+
+                {/* Sales Price */}
+                <p
+                  className={`font-bold text-md ${
+                    product.discountPercentage > 0
+                      ? "text-green-600"
+                      : "text-black"
+                  }`}
+                >
+                  {currency}
+                  {product.salesPrice ? product.salesPrice.toFixed(2) : "0.00"}
+                </p>
+              </div>
+            }
+          />
+        ))}
+
+        {latestProducts.map((product, index) => (
+          <ProductItem
             key={index}
             id={product._id}
             image={product.image}

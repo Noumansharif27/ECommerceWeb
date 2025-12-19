@@ -6,9 +6,9 @@ import { useState } from "react";
 const ProductItem = ({ id, image, name, price, discountPercentage }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <div className="w-[19.36rem]">
+    <div className="w-[19.875rem] h-auto product-card mb-1 flex-shrink-0">
       <Link className="text-gray-700 cursor-pointer" to={`/product/${id}`}>
-        <div className="overflow-hidden relative mb-5 product-card">
+        <div className="overflow-hidden relative mb-5">
           {discountPercentage > 0 && (
             <span className="absolute top-2 left-2 z-50 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
               -{discountPercentage}%
