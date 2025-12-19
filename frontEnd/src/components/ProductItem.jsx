@@ -17,7 +17,7 @@ const ProductItem = ({ id, image, name, price, discountPercentage }) => {
           <img
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="w-full h-[28.263rem] object-cover hover:scale-110 transition ease-in-out"
+            className="w-full h-[31.263rem] object-cover hover:scale-110 transition ease-in-out"
             src={isHovered ? image[1] : image[0]}
             alt="ProductImage"
           />

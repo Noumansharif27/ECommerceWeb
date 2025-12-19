@@ -16,7 +16,7 @@ const LatestCollections = () => {
 
   return (
     <div className="my-10">
-      <div className="text-center py-8 text-3xl bg-blue-100">
+      <div className="text-center py-8 text-3xl">
         <Tittle text1={"LATEST"} text2={"COLLECTIONS"} />
         <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600 mb-4">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
@@ -107,6 +107,13 @@ const LatestCollections = () => {
             }
           />
         ))}
+
+        <div className="flex flex-col items-start justify-center w-[19.875rem] h-[34.263rem] bg-red-100 flex-shrink-0 pl-4 gap-1">
+          <p className="text-2xl">Collection Name</p>
+          <a href="/" className="underline">
+            View All
+          </a>
+        </div>
       </div>
     </div>
   );
