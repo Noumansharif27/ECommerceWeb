@@ -26,12 +26,25 @@ const productSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
+  gender: {
+    type: String,
+    required: true,
+  },
   sizes: {
     type: Array,
     required: true,
   },
   bestSeller: {
     type: Boolean,
+  },
+  quantity: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
+  inStock: {
+    type: Boolean,
+    default: false,
   },
   date: {
     type: Array,
@@ -46,6 +59,7 @@ productSchema.pre("save", async function () {
   } else {
     this.salesPrice = this.originalPrice;
   }
+  this.inStock = this.quantity > 0;
 });
 
 const productModel =

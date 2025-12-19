@@ -78,40 +78,6 @@ const LatestCollections = () => {
           />
         ))}
 
-        {latestProducts.map((product, index) => (
-          <ProductItem
-            key={index}
-            id={product._id}
-            image={product.image}
-            name={product.name}
-            discountPercentage={product.discountPercentage}
-            price={
-              <div className="flex gap-1 items-senter justify-start">
-                {/* Original Price */}
-
-                {product.discountPercentage > 0 && product.originalPrice && (
-                  <p className="text-gray-400 line-through text-sm">
-                    {currency}
-                    {product.originalPrice.toFixed(2)}
-                  </p>
-                )}
-
-                {/* Sales Price */}
-                <p
-                  className={`font-bold text-md ${
-                    product.discountPercentage > 0
-                      ? "text-green-600"
-                      : "text-black"
-                  }`}
-                >
-                  {currency}
-                  {product.salesPrice ? product.salesPrice.toFixed(2) : "0.00"}
-                </p>
-              </div>
-            }
-          />
-        ))}
-
         <div className="flex flex-col items-start justify-center w-[19.875rem] h-[34.263rem] flex-shrink-0 pl-4 gap-1">
           <p className="text-2xl">Collection Name</p>
           <a href="/" className="underline">

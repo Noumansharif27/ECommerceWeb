@@ -74,11 +74,21 @@ const Product = () => {
               )}
           </div>
 
+          {/* Discount tag */}
           {productData.discountPercentage > 0 && (
             <span className="bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded my-1">
               -{productData.discountPercentage}%
             </span>
           )}
+
+          {/* Stock Status */}
+          <p
+            className={`text-sm font-semibold mt-2 ${
+              productData.inStock ? "text-green-600" : "text-red-600"
+            }`}
+          >
+            {productData.inStock ? "In Stock" : "Out of Stock"}
+          </p>
 
           <p className="mt-5 text-gray-500 md:w-4/5">
             {productData.description}
