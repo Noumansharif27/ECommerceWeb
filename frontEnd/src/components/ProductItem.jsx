@@ -6,7 +6,7 @@ import { useState } from "react";
 const ProductItem = ({ id, image, name, price, discountPercentage }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <div>
+    <div className="w-[19.36rem]">
       <Link className="text-gray-700 cursor-pointer" to={`/product/${id}`}>
         <div className="overflow-hidden relative mb-5 product-card">
           {discountPercentage > 0 && (
@@ -17,7 +17,7 @@ const ProductItem = ({ id, image, name, price, discountPercentage }) => {
           <img
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="object-cover hover:scale-110 transition ease-in-out"
+            className="w-full object-cover hover:scale-110 transition ease-in-out"
             src={isHovered ? image[1] : image[0]}
             alt="ProductImage"
           />
