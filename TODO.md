@@ -1,4 +1,0 @@
-- [x] Fix index.html to remove invalid CSS script tag and ensure proper CSS loading
-- [x] Expand Navbar component to include all navigation links (HOME, COLLECTION, ABOUT, CONTACT, CART, LOGIN)
-- [x] Add responsive menu toggle for mobile devices
-- [x] Test the navbar visibility after fixes
