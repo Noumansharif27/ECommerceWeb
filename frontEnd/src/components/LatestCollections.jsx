@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { ShopContext } from "../context/ShopContext";
 import Tittle from "./Tittle";
 import ProductItem from "./ProductItem";
+import { Link } from "react-router-dom";
 
 const LatestCollections = () => {
   const { products, currency } = useContext(ShopContext);
@@ -15,7 +16,7 @@ const LatestCollections = () => {
 
   return (
     <div className="my-10">
-      <div className="text-center py-8 text-3xl bg-blue-100 no-scrollbar">
+      <div className="text-center py-8 text-3xl bg-blue-100">
         <Tittle text1={"LATEST"} text2={"COLLECTIONS"} />
         <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600 mb-4">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Quas
@@ -26,8 +27,19 @@ const LatestCollections = () => {
         </p>
       </div>
 
+      <div className="w-full">
+        <Link className="w-full flex items-center justify-between my-5">
+          <a href="/" className="text-xl">
+            <strong>Winter Collection</strong>
+          </a>
+          <a href="/" className="underline">
+            Shop now
+          </a>
+        </Link>
+      </div>
+
       {/* Rendering Product */}
-      <div className="flex gap-[2px] flex-nowrap bg-pink-200 overflow-x-auto h-auto">
+      <div className="flex gap-[2px] flex-nowrap overflow-x-auto hide-vertical-scroll h-auto">
         {latestProducts.map((product, index) => (
           <ProductItem
             key={index}
