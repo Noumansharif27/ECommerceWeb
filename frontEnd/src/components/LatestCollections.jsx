@@ -3,6 +3,7 @@ import { ShopContext } from "../context/ShopContext";
 import Tittle from "./Tittle";
 import ProductItem from "./ProductItem";
 import { Link } from "react-router-dom";
+import { assets } from "../assets/assets.js";
 
 const LatestCollections = () => {
   const { products, currency } = useContext(ShopContext);
@@ -28,6 +29,9 @@ const LatestCollections = () => {
       </div>
 
       <div className="w-full">
+        <div className="collection_icon">
+          <img src={assets.right_arrow} alt="next" />
+        </div>
         <Link className="w-full flex items-center justify-between my-5">
           <a href="/" className="text-xl">
             <strong>Winter Collection</strong>
@@ -108,7 +112,7 @@ const LatestCollections = () => {
           />
         ))}
 
-        <div className="flex flex-col items-start justify-center w-[19.875rem] h-[34.263rem] bg-red-100 flex-shrink-0 pl-4 gap-1">
+        <div className="flex flex-col items-start justify-center w-[19.875rem] h-[34.263rem] flex-shrink-0 pl-4 gap-1">
           <p className="text-2xl">Collection Name</p>
           <a href="/" className="underline">
             View All
