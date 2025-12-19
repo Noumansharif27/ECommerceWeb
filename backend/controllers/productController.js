@@ -8,7 +8,7 @@ const addProduct = async (req, res) => {
       description,
       originalPrice,
       discountPercentage,
-      salesPrice,
+      gender,
       category,
       subCategory,
       sizes,
@@ -43,6 +43,7 @@ const addProduct = async (req, res) => {
       description,
       category,
       subCategory,
+      gender,
       originalPrice: Number(originalPrice),
       discountPercentage: Number(discountPercentage || 0),
       salesPrice: Number(originalPrice), // auto-corrected by pre-save hook
