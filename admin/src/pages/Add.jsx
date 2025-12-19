@@ -17,6 +17,7 @@ const Add = ({ token }) => {
   const [bestSeller, setBestSeller] = useState(false);
   const [sizes, setSizes] = useState([]);
   const [quantity, setQuantity] = useState("");
+  const [gender, setGender] = useState("Men");
 
   const [originalPrice, setOriginalPrice] = useState("");
   const [discountPercentage, setDiscountPercentage] = useState(0);
@@ -53,6 +54,7 @@ const Add = ({ token }) => {
       formData.append("discountPercentage", Number(discountPercentage));
       formData.append("salesPrice", Number(salePrice));
       formData.append("quantity", Number(quantity));
+      formData.append("gender", gender);
 
       image1 && formData.append("image1", image1);
       image2 && formData.append("image2", image2);
@@ -81,7 +83,8 @@ const Add = ({ token }) => {
         setImage3(false);
         setImage4(false);
         setBestSeller(false);
-        setCategory("Men");
+        setGender("Men");
+        setCategory("Clothes");
         setSubCategory("Topwear");
         setQuantity("");
       } else {
@@ -149,21 +152,37 @@ const Add = ({ token }) => {
       </div>
 
       {/* Category, Subcategory, Prices */}
-      <div className="flex flex-col sm:flex-row gap-2 w-full sm:gap-8 mt-2">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
         <div>
-          <p className="mb-2">Category</p>
+          <label className="block text-sm font-medium mb-1">Gender</label>
           <select
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full px-3 py-2"
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
+            required
           >
             <option value="Men">Men</option>
             <option value="Women">Women</option>
             <option value="Kids">Kids</option>
+            <option value="Unisex">Unisex</option>
           </select>
         </div>
 
         <div>
-          <p className="mb-2">Sub category</p>
+          <label className="block text-sm font-medium mb-1">Category</label>
+          <select
+            onChange={(e) => setCategory(e.target.value)}
+            className="w-full px-3 py-2"
+          >
+            <option value="Clothes">Clothes</option>
+            <option value="Shoes">Shoes</option>
+            <option value="Accessories">Accessories</option>
+            <option value="Perfum">Perfum</option>
+          </select>
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium mb-1">Sub Category</label>
           <select
             onChange={(e) => setSubCategory(e.target.value)}
             className="w-full px-3 py-2"
@@ -174,18 +193,24 @@ const Add = ({ token }) => {
           </select>
         </div>
 
-        <div className="flex flex-col gap-2">
-          <p className="mb-1">Original Price</p>
+        <div className="flex flex-col">
+          <label className="block text-sm font-medium mb-1">
+            Original Price
+          </label>
           <input
             type="number"
             value={originalPrice}
             onChange={(e) => setOriginalPrice(e.target.value)}
             placeholder="Rs 5000"
-            className="px-3 py-1.5 w-full sm:w-[140px]"
+            className="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-black"
             required
           />
+        </div>
+      </div>
 
-          <p className="mb-1">Discount %</p>
+      <div className="mt-6 bg-gray-50 p-4 rounded-lg grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <div>
+          <label className="block text-sm font-medium mb-1">Discount %</label>
           <input
             type="number"
             value={discountPercentage}
@@ -195,12 +220,16 @@ const Add = ({ token }) => {
             placeholder="0"
             className="px-3 py-1.5 w-full sm:w-[140px]"
           />
+        </div>
 
-          <p className="text-green-600 text-sm font-semibold">
-            Sale Price: Rs {salePrice || 0}
-          </p>
+        <p className="text-green-600 text-medium font-semibold mt-7">
+          Sale Price: Rs {salePrice || 0}
+        </p>
 
-          <p className="mb-1 mt-2">Total Quantity</p>
+        <div>
+          <label className="block text-sm font-medium mb-1">
+            Total Quantity
+          </label>
           <input
             type="number"
             value={quantity}
@@ -214,11 +243,12 @@ const Add = ({ token }) => {
       </div>
 
       {/* Sizes */}
-      <div className="mt-2">
-        <p>Product Sizes</p>
-        <div className="flex gap-3">
+      <div className="mt-6">
+        <p className="text-sm font-medium mb-2">Available Sizes</p>
+        <div className="flex flex-wrap gap-2">
           {["S", "M", "L", "XL", "XXL"].map((size) => (
-            <div
+            <button
+              type="button"
               key={size}
               onClick={() =>
                 setSizes((prev) =>
@@ -227,15 +257,15 @@ const Add = ({ token }) => {
                     : [...prev, size]
                 )
               }
+              className={`px-4 py-1.5 rounded-md border text-sm font-medium
+          ${
+            sizes.includes(size)
+              ? "bg-black text-white"
+              : "bg-white hover:bg-gray-100"
+          }`}
             >
-              <p
-                className={`${
-                  sizes.includes(size) ? "bg-black text-white" : "bg-slate-200"
-                } px-3 py-1 cursor-pointer`}
-              >
-                {size}
-              </p>
-            </div>
+              {size}
+            </button>
           ))}
         </div>
       </div>
@@ -255,12 +285,10 @@ const Add = ({ token }) => {
 
       <button
         disabled={isUploading}
-        className={`bg-black text-white w-28 py-3 mt-4 cursor-pointer active:bg-gray-800 active:scale-95 transition-all ${
-          isUploading ? "opacity-50 cursor-not-allowed" : ""
-        }`}
+        className="mt-8 bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-900 active:scale-95 transition disabled:opacity-50"
         type="submit"
       >
-        {isUploading ? "Uploading..." : "Add"}
+        {isUploading ? "Uploading..." : "Add Product"}
       </button>
     </form>
   );
