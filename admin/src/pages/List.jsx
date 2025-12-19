@@ -68,7 +68,7 @@ const List = ({ token }) => {
         {list.map((item, index) => (
           <div
             key={index}
-            className="grid grid-cols-[1fr_3fr_1fr] md:grid-cols-[1fr_3fr_1fr_1fr_1fr] items-center gap-2 px-2 py-1 bg-gray-100 text-sm"
+            className="grid grid-cols-[1fr_3fr_1fr] md:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr_1fr] items-center gap-2 px-2 py-1 bg-gray-100 text-sm"
           >
             <img
               src={item.image[0]}
@@ -78,11 +78,17 @@ const List = ({ token }) => {
             <p>{item.name}</p>
             <p>{item.category}</p>
             <p>
-              {currency} {item.price}
+              {currency} {item.originalPrice.toFixed(2)}
+            </p>
+            <p>
+              {currency} {item.salesPrice.toFixed(2)}
+            </p>
+            <p className="bg-red-500 w-[3rem] rounded text-center text-white">
+              {item.discountPercentage}%
             </p>
             <p
               onClick={() => removeProduct(item._id)}
-              className="text-right md:text-center cursor-pointer text-lg"
+              className="text-right md:text-center cursor-pointer text-lg text-white bg-black w-[2rem] ml-12 rounded"
             >
               X
             </p>
