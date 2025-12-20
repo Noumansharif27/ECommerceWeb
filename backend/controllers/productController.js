@@ -238,23 +238,38 @@ const updateProduct = async (req, res) => {
       }
     }
 
+    // Add this logic before saving to the database
+    const sanitizedOriginalPrice = Math.max(0, Number(originalPrice)); // Prevents negative price
+    const sanitizedDiscount = Math.min(
+      100,
+      Math.max(0, Number(discountPercentage))
+    ); // Force 0-100 range
+    const sanitizedQuantity = Math.max(0, Number(quantity)); // Prevents negative stock
+
+    // Calculate the final sale price safely
+    const sanitizedSalesPrice = Math.round(
+      sanitizedOriginalPrice -
+        (sanitizedOriginalPrice * sanitizedDiscount) / 100
+    );
+
+    // Basic cleanup of strings to remove potential script tags
+    const sanitizedName = name.replace(/<[^>]*>?/gm, "").trim();
+    const sanitizedDescription = description.replace(/<[^>]*>?/gm, "").trim();
+
     // 4. Construct updated data object
     const updatedData = {
-      name,
-      description,
+      name: sanitizedName,
+      description: sanitizedDescription,
       category,
       subCategory,
       gender,
-      originalPrice: Number(originalPrice),
-      discountPercentage: Number(discountPercentage || 0),
-      salesPrice: Math.round(
-        Number(originalPrice) -
-          (Number(originalPrice) * Number(discountPercentage || 0)) / 100
-      ),
+      originalPrice: sanitizedOriginalPrice,
+      discountPercentage: sanitizedDiscount,
+      salesPrice: sanitizedSalesPrice,
       bestSeller: bestSeller === "true",
       sizes: JSON.parse(sizes),
       image: updatedImageUrls,
-      quantity: Number(quantity),
+      quantity: sanitizedQuantity,
     };
 
     await productModel.findByIdAndUpdate(productId, updatedData);
