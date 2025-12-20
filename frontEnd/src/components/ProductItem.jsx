@@ -11,6 +11,7 @@ const ProductItem = ({
   price,
   discountPercentage,
   setPreviewProduct,
+  setShowPreviewProduct,
 }) => {
   const { products } = useContext(ShopContext);
 
@@ -23,6 +24,7 @@ const ProductItem = ({
       const product = products.find((item) => id === item._id);
       if (product) {
         setPreviewProduct(product);
+        setShowPreviewProduct(true);
       }
     } catch (error) {
       console.log(error);

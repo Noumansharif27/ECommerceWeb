@@ -15,6 +15,7 @@ const Collection = () => {
   const { search, showSearch } = useContext(ShopContext);
 
   const [previewProduct, setPreviewProduct] = useState(null);
+  const [showPreviewProduct, setShowPreviewProduct] = useState(false);
   const [size, setSize] = useState("");
 
   console.log(previewProduct);
@@ -83,135 +84,23 @@ const Collection = () => {
 
   return (
     <>
-      {/* FilterOptions */}
-      <div className="min-w-60 hidden">
+      {/* ----- Dark Overlay----- */}
+      {showPreviewProduct && (
         <div
-          onClick={() => setShowFilter(!showFilter)}
-          className="my-2 text-xl flex items-center cursor-pointer gap-2"
-        >
-          FILTERS
-          <img
-            src={assets.dropdown_icon}
-            className={`h-3 sm:hidden ${showFilter ? "rotate-90" : ""}`}
-            alt=""
-          />
-        </div>
+          className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-60 transition-opacity duration-300"
+          onClick={() => setShowPreviewProduct(false)}
+        ></div>
+      )}
 
-        <div
-          className={`border border-gray-300 pl-5 py-3 mt-6 sm:block ${
-            showFilter ? "" : "hidden"
-          }`}
-        >
-          <p className="mb-3 text-sm font-medium">CATEGORIES</p>
-          <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
-            <p className="flex gap-2">
-              <input
-                type="checkbox"
-                name="category[men]"
-                id="men"
-                value={"Men"}
-                className="w-3"
-                onClick={categoryToggle}
-              />
-              Men
-            </p>
-
-            <p className="flex gap-2">
-              <input
-                type="checkbox"
-                name="category[women]"
-                id="men"
-                value={"Women"}
-                className="w-3"
-                onClick={categoryToggle}
-              />
-              Women
-            </p>
-
-            <p className="flex gap-2">
-              <input
-                type="checkbox"
-                name="category[kids]"
-                id="men"
-                value={"Kids"}
-                className="w-3"
-                onClick={categoryToggle}
-              />
-              Kids
-            </p>
-          </div>
-        </div>
-
-        {/* SubCategory Products */}
-        <div
-          className={`border border-gray-300 pl-5 py-3 my-5 sm:block ${
-            showFilter ? "" : "hidden"
-          }`}
-        >
-          <p className="mb-3 text-sm font-medium">TYPE</p>
-          <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
-            <p className="flex gap-2">
-              <input
-                type="checkbox"
-                name="type[Topwear]"
-                id="men"
-                value={"Topwear"}
-                className="w-3"
-                onClick={subCategoryToggle}
-              />
-              Topwear
-            </p>
-
-            <p className="flex gap-2">
-              <input
-                type="checkbox"
-                name="type[Bottomwear]"
-                id="men"
-                value={"Bottomwear"}
-                className="w-3"
-                onClick={subCategoryToggle}
-              />
-              Bottomwear
-            </p>
-
-            <p className="flex gap-2">
-              <input
-                type="checkbox"
-                name="category[Winterwear]"
-                id="men"
-                value={"Winterwear"}
-                className="w-3"
-                onClick={subCategoryToggle}
-              />
-              Winterwear
-            </p>
-          </div>
-        </div>
-
-        <div className="flex justify-between text-base sm:text-2xl mb-4 hidden">
-          <Tittle text1={"ALL"} text2={"COLLECTIONS"} />
-          {/* Product Sort */}
-          <select
-            name="priceFilter"
-            id="priceFilter"
-            className="border-2 border-gray-300 text-sm px-2"
-            onChange={(e) => setSortType(e.target.value)}
-          >
-            <option value="relavent">Sert by: Relavent</option>
-            <option value="low-high">Sort by: Low to High</option>
-            <option value="high-low">Sort by: High to Low</option>
-          </select>
-        </div>
-      </div>
-
+      {/* product Preview Window */}
       <div>
-        {/* product Preview Window */}
-        {previewProduct && (
-          <div className="w-[401px] h-auto fixed top-0 right-0 z-60 pl-4 bg-red-100 pb-5">
+        {previewProduct && showPreviewProduct && (
+          <div className="w-[25.0625rem] h-auto fixed top-0 right-5 z-70 pl-4 bg-white pb-5">
             <img
+              onClick={() => setShowPreviewProduct(false)}
               src={assets.cross_icon}
               alt="cross_icon"
-              className="right-0 w-5 h-5 my-3 ml-80"
+              className="right-0 w-5 h-5 my-3 ml-80 cursor-pointer"
             />
             <div className="top flex justify-between">
               <div className="details w-60 flex flex-col mt-2 gap-2">
@@ -229,7 +118,12 @@ const Collection = () => {
             {/* images */}
             <div className="images my-4 w-[80] h-[60vh] bg-green-500 overflow-x-auto mr-3 flex gap-[1px]">
               {previewProduct.image.map((item, index) => (
-                <img src={item} alt="product_images" className="h-full" />
+                <img
+                  src={item}
+                  alt="product_images"
+                  key={index}
+                  className="h-full"
+                />
               ))}
             </div>
 
@@ -259,6 +153,127 @@ const Collection = () => {
           </div>
         )}
 
+        {/* FilterOptions */}
+        <div className="min-w-60 hidden">
+          <div
+            onClick={() => setShowFilter(!showFilter)}
+            className="my-2 text-xl flex items-center cursor-pointer gap-2"
+          >
+            FILTERS
+            <img
+              src={assets.dropdown_icon}
+              className={`h-3 sm:hidden ${showFilter ? "rotate-90" : ""}`}
+              alt=""
+            />
+          </div>
+
+          <div
+            className={`border border-gray-300 pl-5 py-3 mt-6 sm:block ${
+              showFilter ? "" : "hidden"
+            }`}
+          >
+            <p className="mb-3 text-sm font-medium">CATEGORIES</p>
+            <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
+              <p className="flex gap-2">
+                <input
+                  type="checkbox"
+                  name="category[men]"
+                  id="men"
+                  value={"Men"}
+                  className="w-3"
+                  onClick={categoryToggle}
+                />
+                Men
+              </p>
+
+              <p className="flex gap-2">
+                <input
+                  type="checkbox"
+                  name="category[women]"
+                  id="men"
+                  value={"Women"}
+                  className="w-3"
+                  onClick={categoryToggle}
+                />
+                Women
+              </p>
+
+              <p className="flex gap-2">
+                <input
+                  type="checkbox"
+                  name="category[kids]"
+                  id="men"
+                  value={"Kids"}
+                  className="w-3"
+                  onClick={categoryToggle}
+                />
+                Kids
+              </p>
+            </div>
+          </div>
+
+          {/* SubCategory Products */}
+          <div
+            className={`border border-gray-300 pl-5 py-3 my-5 sm:block ${
+              showFilter ? "" : "hidden"
+            }`}
+          >
+            <p className="mb-3 text-sm font-medium">TYPE</p>
+            <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
+              <p className="flex gap-2">
+                <input
+                  type="checkbox"
+                  name="type[Topwear]"
+                  id="men"
+                  value={"Topwear"}
+                  className="w-3"
+                  onClick={subCategoryToggle}
+                />
+                Topwear
+              </p>
+
+              <p className="flex gap-2">
+                <input
+                  type="checkbox"
+                  name="type[Bottomwear]"
+                  id="men"
+                  value={"Bottomwear"}
+                  className="w-3"
+                  onClick={subCategoryToggle}
+                />
+                Bottomwear
+              </p>
+
+              <p className="flex gap-2">
+                <input
+                  type="checkbox"
+                  name="category[Winterwear]"
+                  id="men"
+                  value={"Winterwear"}
+                  className="w-3"
+                  onClick={subCategoryToggle}
+                />
+                Winterwear
+              </p>
+            </div>
+          </div>
+
+          <div className="flex justify-between text-base sm:text-2xl mb-4 hidden">
+            <Tittle text1={"ALL"} text2={"COLLECTIONS"} />
+            {/* Product Sort */}
+            <select
+              name="priceFilter"
+              id="priceFilter"
+              className="border-2 border-gray-300 text-sm px-2"
+              onChange={(e) => setSortType(e.target.value)}
+            >
+              <option value="relavent">Sert by: Relavent</option>
+              <option value="low-high">Sort by: Low to High</option>
+              <option value="high-low">Sort by: High to Low</option>
+            </select>
+          </div>
+        </div>
+
         {/* RightSide */}
         <div className="flex-1">
           {/* Map Product */}
@@ -270,6 +285,7 @@ const Collection = () => {
                 id={product._id}
                 discountPercentage={product.discountPercentage}
                 setPreviewProduct={setPreviewProduct}
+                setShowPreviewProduct={setShowPreviewProduct}
                 price={
                   <div className="flex gap-1 items-senter justify-start">
                     {/* Original Price */}
