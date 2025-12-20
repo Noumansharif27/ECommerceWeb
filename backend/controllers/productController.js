@@ -177,6 +177,18 @@ const updateProduct = async (req, res) => {
       quantity,
     } = req.body;
 
+    // Cloudinary Image URL
+    const getPublicId = (url) => {
+      try {
+        // Example URL: https://res.cloudinary.com/.../v12345/sample_image.jpg
+        const parts = url.split("/");
+        const fileName = parts[parts.length - 1]; // "sample_image.jpg"
+        return fileName.split(".")[0]; // "sample_image"
+      } catch (error) {
+        return null;
+      }
+    };
+
     // Add this check inside addProduct AND updateProduct
     if (Number(originalPrice) <= 0) {
       return res.json({
@@ -206,13 +218,23 @@ const updateProduct = async (req, res) => {
     const newImages = [image1, image2, image3, image4];
     let updatedImageUrls = [...currentProduct.image]; // Start with existing images
 
-    // 3. Upload only NEW images to Cloudinary, else keep old ones
-    for (let i = 0; i < newImages.length; i++) {
-      if (newImages[i]) {
-        let result = await cloudinary.uploader.upload(newImages[i].path, {
+    // 3. Loop through slots; if a new file is uploaded, delete the old one first
+    for (let i = 0; i < imageFiles.length; i++) {
+      if (imageFiles[i]) {
+        const oldUrl = currentProduct.image[i];
+        if (oldUrl) {
+          const publicId = getPublicId(oldUrl);
+          if (publicId) {
+            // PERMANENTLY remove the old file from Cloudinary
+            await cloudinary.uploader.destroy(publicId);
+          }
+        }
+
+        // Upload the new file
+        const result = await cloudinary.uploader.upload(imageFiles[i].path, {
           resource_type: "image",
         });
-        updatedImageUrls[i] = result.secure_url; // Overwrite specific slot with new URL
+        updatedImageUrls[i] = result.secure_url;
       }
     }
 

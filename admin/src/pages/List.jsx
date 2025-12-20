@@ -24,6 +24,13 @@ const List = ({ token }) => {
   };
 
   const removeProduct = async (id, name) => {
+    if (!id) {
+      return toast.error({
+        success: false,
+        message: "Product Id is required!",
+      });
+    }
+
     // 1. Show the confirmation popup
     const isConfirmed = window.confirm(
       `Are you sure you want to delete "${name}"? This action cannot be undone.`
