@@ -3,9 +3,10 @@ import { assets } from "../assets/assets.js";
 import axios from "axios";
 import { backendUrl } from "../App.jsx";
 import { toast } from "react-toastify";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 const Edit = ({ token }) => {
+  const navigate = useNavigate();
   const [image1, setImage1] = useState(false);
   const [image2, setImage2] = useState(false);
   const [image3, setImage3] = useState(false);
@@ -119,6 +120,9 @@ const Edit = ({ token }) => {
 
       if (response.data.success) {
         toast.success("Product Updated Successfully");
+
+        // REDIRECT: Navigate to the list route after a short delay or immediately
+        navigate("/list");
       } else {
         toast.error(response.data.message);
       }
