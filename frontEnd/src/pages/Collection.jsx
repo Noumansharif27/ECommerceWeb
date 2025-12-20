@@ -205,7 +205,7 @@ const Collection = () => {
           <img
             src={assets.cross_icon}
             alt="cross_icon"
-            className="right-0 w-5 h-5"
+            className="right-0 w-5 h-5 my-3 ml-80"
           />
           <div className="top flex justify-between">
             <div className="details w-60 flex flex-col mt-3 gap-2">
@@ -217,6 +217,9 @@ const Collection = () => {
             <Link to="/collection" className="w-25 mt-4">
               <span className="underline text-[12px]">View Details</span>
             </Link>
+          </div>
+          <div className="images">
+            <img src={assets.logo} alt="product_images" className="h-full" />
           </div>
         </div>
 
