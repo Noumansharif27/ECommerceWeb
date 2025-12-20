@@ -111,7 +111,7 @@ const removeProduct = async (req, res) => {
   try {
     const product = await productModel.findByIdAndDelete(req.body._id);
     // Validate ID presence
-    if (!_id) {
+    if (!req.body._id) {
       return res.json({ success: false, message: "Product ID is required" });
     }
 
