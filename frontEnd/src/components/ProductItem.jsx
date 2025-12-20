@@ -1,19 +1,50 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { assets } from "../assets/assets";
 
 const ProductItem = ({ id, image, name, price, discountPercentage }) => {
+  const { products } = useContext(ShopContext);
+
   const [isHovered, setIsHovered] = useState(false);
+  const [isDetailClicked, setIsDetailClick] = useState(false);
+
+  const fetchDetailPreview = (e, id) => {
+    e.preventDefault();
+    try {
+      const product = products.find((item) => id === item._id);
+
+      console.log(id);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="w-[19.875rem] h-auto product-card flex-shrink-0">
-      <Link className="text-gray-700 cursor-pointer" to={`/product/${id}`}>
+      <Link
+        className="text-gray-700 cursor-pointer relative"
+        to={`/product/${id}`}
+      >
         <div className="overflow-hidden relative mb-5">
           {discountPercentage > 0 && (
             <span className="absolute top-2 left-2 z-50 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
               -{discountPercentage}%
             </span>
           )}
+
+          {/* detail_icon */}
+          <div
+            className="w-10 h-10 absolute bottom-2 right-2 z-50 flex justify-center items-center"
+            onClick={(e) => fetchDetailPreview(e, id)}
+          >
+            <img
+              src={assets.add_icon}
+              alt="detail_icon"
+              className="bg-slate-200 text-xs font-semibold rounded-full"
+            />
+          </div>
           <img
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}

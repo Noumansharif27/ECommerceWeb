@@ -32,7 +32,10 @@ const LatestCollections = () => {
         <div className="collection_icon">
           <img src={assets.right_arrow} alt="next" />
         </div>
-        <Link className="w-full flex items-center justify-between my-5">
+        <Link
+          className="w-full flex items-center justify-between my-5"
+          to="/collection"
+        >
           <a href="/" className="text-xl">
             <strong>Winter Collection</strong>
           </a>
@@ -79,10 +82,12 @@ const LatestCollections = () => {
         ))}
 
         <div className="flex flex-col items-start justify-center w-[19.875rem] h-[34.263rem] flex-shrink-0 pl-4 gap-1">
-          <p className="text-2xl">Collection Name</p>
-          <a href="/" className="underline">
-            View All
-          </a>
+          <Link to="/collection">
+            <p className="text-2xl">Collection Name</p>
+            <a href="/" className="underline">
+              View All
+            </a>
+          </Link>
         </div>
       </div>
     </div>
