@@ -119,4 +119,95 @@ const singleProduct = async (req, res) => {
   }
 };
 
-export { addProduct, listProduct, removeProduct, singleProduct };
+const editProduct = async (req, res) => {
+  try {
+    const { productId } = req.params;
+    const product = await productModel.findById(productId);
+    if (!product) {
+      return res.json({ success: false, message: "Product Not Found" });
+    }
+
+    res.json({ success: true, product });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+const updateProduct = async (req, res) => {
+  try {
+    const {
+      productId,
+      name,
+      description,
+      originalPrice,
+      discountPercentage,
+      category,
+      subCategory,
+      gender,
+      sizes,
+      bestSeller,
+      quantity,
+    } = req.body;
+
+    // 1. Find the existing product to get current images
+    const currentProduct = await productModel.findById(productId);
+    if (!currentProduct) {
+      return res.json({ success: false, message: "Product not found" });
+    }
+
+    // 2. Prepare to handle new images
+    const image1 = req.files.image1 && req.files.image1[0];
+    const image2 = req.files.image2 && req.files.image2[0];
+    const image3 = req.files.image3 && req.files.image3[0];
+    const image4 = req.files.image4 && req.files.image4[0];
+
+    const newImages = [image1, image2, image3, image4];
+    let updatedImageUrls = [...currentProduct.image]; // Start with existing images
+
+    // 3. Upload only NEW images to Cloudinary, else keep old ones
+    for (let i = 0; i < newImages.length; i++) {
+      if (newImages[i]) {
+        let result = await cloudinary.uploader.upload(newImages[i].path, {
+          resource_type: "image",
+        });
+        updatedImageUrls[i] = result.secure_url; // Overwrite specific slot with new URL
+      }
+    }
+
+    // 4. Construct updated data object
+    const updatedData = {
+      name,
+      description,
+      category,
+      subCategory,
+      gender,
+      originalPrice: Number(originalPrice),
+      discountPercentage: Number(discountPercentage || 0),
+      salesPrice: Math.round(
+        Number(originalPrice) -
+          (Number(originalPrice) * Number(discountPercentage || 0)) / 100
+      ),
+      bestSeller: bestSeller === "true",
+      sizes: JSON.parse(sizes),
+      image: updatedImageUrls,
+      quantity: Number(quantity),
+    };
+
+    await productModel.findByIdAndUpdate(productId, updatedData);
+
+    res.json({ success: true, message: "Product Updated Successfully!" });
+  } catch (error) {
+    console.log(error);
+    res.json({ success: false, message: error.message });
+  }
+};
+
+export {
+  addProduct,
+  listProduct,
+  removeProduct,
+  singleProduct,
+  editProduct,
+  updateProduct,
+};

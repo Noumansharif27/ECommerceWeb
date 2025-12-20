@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { backendUrl, currency } from "../App";
+import { assets } from "../assets/assets";
+import { Link } from "react-router-dom";
 
 const List = ({ token }) => {
   const [list, setList] = useState([]);
@@ -86,12 +88,23 @@ const List = ({ token }) => {
             <p className="bg-red-500 w-[3rem] rounded text-center text-white">
               {item.discountPercentage}%
             </p>
-            <p
-              onClick={() => removeProduct(item._id)}
-              className="text-right md:text-center cursor-pointer text-lg text-white bg-black w-[2rem] ml-12 rounded"
-            >
-              X
-            </p>
+
+            <div className="flex gap-4 items-center ml-5">
+              <p
+                onClick={() => removeProduct(item._id)}
+                className="text-right md:text-center cursor-pointer text-lg text-white bg-black w-[2rem] ml-2 rounded"
+              >
+                X
+              </p>
+
+              <Link to={`/${item._id}`}>
+                <img
+                  className="text-right md:text-center cursor-pointer text-lg text-white bg-black w-6 h-6 rounded"
+                  src={assets.edit_icon}
+                  alt="edit_icon"
+                />
+              </Link>
+            </div>
           </div>
         ))}
       </div>
