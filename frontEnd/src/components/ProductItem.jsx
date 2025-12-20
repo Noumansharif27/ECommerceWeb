@@ -32,7 +32,10 @@ const ProductItem = ({
   };
 
   return (
-    <div className="w-[19.875rem] h-auto product-card flex-shrink-0">
+    <div
+      className="w-[400px] min-w-[314px] flex-shrink-0 h-auto product-card box-content"
+      style={{ width: "314px", minWidth: "314px" }}
+    >
       <Link
         className="text-gray-700 cursor-pointer relative"
         to={`/product/${id}`}

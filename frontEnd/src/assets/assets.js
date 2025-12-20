@@ -73,6 +73,7 @@ import razorpay_logo from "./razorpay_logo.png";
 import stripe_logo from "./stripe_logo.png";
 import cross_icon from "./cross_icon.png";
 import add_icon from "./add_icon.png";
+import right_arrow from "./right_arrow.png";
 
 export const assets = {
   logo,
@@ -94,6 +95,7 @@ export const assets = {
   stripe_logo,
   cross_icon,
   add_icon,
+  right_arrow,
 };
 
 export const products = [

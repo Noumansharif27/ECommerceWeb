@@ -95,16 +95,16 @@ const Collection = () => {
       {/* product Preview Window */}
       <div>
         {previewProduct && showPreviewProduct && (
-          <div className="w-[25.0625rem] h-auto fixed top-0 right-5 z-70 pl-4 bg-white pb-5">
+          <div className="!w-[401px] !min-w-[401px] flex flex-col h-auto fixed top-0 right-0 z-70 bg-white pb-5">
             <img
               onClick={() => setShowPreviewProduct(false)}
               src={assets.cross_icon}
               alt="cross_icon"
-              className="right-0 w-5 h-5 my-3 ml-80 cursor-pointer"
+              className="right-0 w-5 h-5 my-3 ml-90 cursor-pointer"
             />
-            <div className="top flex justify-between">
+            <div className="top flex justify-between pl-4">
               <div className="details w-60 flex flex-col mt-2 gap-2">
-                <span className="text-[12px]">{previewProduct.name}</span>
+                <span className="text-[15px]">{previewProduct.name}</span>
                 <span className="text-[12px]">
                   {currency}
                   {previewProduct.originalPrice}
@@ -116,7 +116,7 @@ const Collection = () => {
             </div>
 
             {/* images */}
-            <div className="images my-4 w-[80] h-[60vh] bg-green-500 overflow-x-auto mr-3 flex gap-[1px]">
+            <div className="images my-4 w-[80] h-[60vh] object-cover overflow-x-auto mr-3 flex gap-[1px]">
               {previewProduct.image.map((item, index) => (
                 <img
                   src={item}
@@ -128,7 +128,7 @@ const Collection = () => {
             </div>
 
             {/* sizes */}
-            <div className="flex flex-col gap-4 mt-5">
+            <div className="flex flex-col gap-4 mt-5 pl-4">
               <p>Avaliable Size</p>
               <div className="flex flex-wrap gap-2">
                 {previewProduct.sizes.map((item, index) => (
@@ -277,7 +277,7 @@ const Collection = () => {
         {/* RightSide */}
         <div className="flex-1">
           {/* Map Product */}
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[2px] px-5">
+          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[2px] px-5">
             {filterProducts.map((product, index) => (
               <ProductItem
                 key={index}
