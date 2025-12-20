@@ -228,7 +228,9 @@ const Collection = () => {
 
             {/* images */}
             <div className="images my-4 w-[80] h-[60vh] bg-green-500 overflow-x-auto mr-3 flex gap-[1px]">
-              <img src={assets.logo} alt="product_images" className="h-full" />
+              {previewProduct.image.map((item, index) => (
+                <img src={item} alt="product_images" className="h-full" />
+              ))}
             </div>
 
             {/* sizes */}
@@ -249,7 +251,7 @@ const Collection = () => {
 
             <div className="btns flex justify-center mt-2">
               <Link>
-                <button className="bg-black text-white px-30 py-5 text-sm active:bg-gray-600 cursor-pointer">
+                <button className="bg-black text-white px-35 py-5 text-medium active:bg-gray-600 cursor-pointer rounded">
                   Add to Cart
                 </button>
               </Link>

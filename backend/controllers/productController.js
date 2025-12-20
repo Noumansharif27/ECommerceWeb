@@ -274,7 +274,7 @@ const updateProduct = async (req, res) => {
     };
 
     await productModel.findByIdAndUpdate(productId, updatedData);
-
+    console.log(updateProduct);
     res.json({ success: true, message: "Product Updated Successfully!" });
   } catch (error) {
     console.log(error);
