@@ -15,6 +15,8 @@ const Collection = () => {
   const { search, showSearch } = useContext(ShopContext);
 
   const [previewProduct, setPreviewProduct] = useState(null);
+  const [size, setSize] = useState("");
+
   console.log(previewProduct);
   let categoryToggle = (event) => {
     if (category.includes(event.target.value)) {
@@ -205,16 +207,17 @@ const Collection = () => {
       <div>
         {/* product Preview Window */}
         {previewProduct && (
-          <div className="w-[401px] h-full fixed top-0 right-0 z-60 pl-4">
+          <div className="w-[401px] h-auto fixed top-0 right-0 z-60 pl-4 bg-red-100 pb-5">
             <img
               src={assets.cross_icon}
               alt="cross_icon"
               className="right-0 w-5 h-5 my-3 ml-80"
             />
             <div className="top flex justify-between">
-              <div className="details w-60 flex flex-col mt-3 gap-2">
+              <div className="details w-60 flex flex-col mt-2 gap-2">
                 <span className="text-[12px]">{previewProduct.name}</span>
                 <span className="text-[12px]">
+                  {currency}
                   {previewProduct.originalPrice}
                 </span>
               </div>
@@ -224,31 +227,29 @@ const Collection = () => {
             </div>
 
             {/* images */}
-            <div className="images my-4 w-[80] h-[65vh] bg-green-500 overflow-x-auto mr-3 flex gap-[1px]">
+            <div className="images my-4 w-[80] h-[60vh] bg-green-500 overflow-x-auto mr-3 flex gap-[1px]">
               <img src={assets.logo} alt="product_images" className="h-full" />
             </div>
 
             {/* sizes */}
-            <div className="flex flex-col gap-4 mt-8">
+            <div className="flex flex-col gap-4 mt-5">
               <p>Avaliable Size</p>
-              <div className="flex gap-2">
-                {/* {productData.sizes.map((item, index) => (
-                <button
-                  onClick={() => setSize(item)}
-                  key={index}
-                  className={`border py-2 px-4 bg-gray-100 cursor-pointer ${
-                    item == size ? `border-orange-500` : ""
-                  }`}
-                >
-                  {item} */}
-                {/* </button>
-              ))} */}
+              <div className="flex flex-wrap gap-2">
+                {previewProduct.sizes.map((item, index) => (
+                  <button
+                    onClick={() => setSize(item)}
+                    key={index}
+                    className={`bg-black text-white px-4 py-1.5 rounded-md border text-sm font-medium transition-colors`}
+                  >
+                    {item}
+                  </button>
+                ))}
               </div>
             </div>
 
-            <div className="btns flex justify-center">
+            <div className="btns flex justify-center mt-2">
               <Link>
-                <button className="bg-black text-white px-20 py-5 text-sm active:bg-gray-600 cursor-pointer">
+                <button className="bg-black text-white px-30 py-5 text-sm active:bg-gray-600 cursor-pointer">
                   Add to Cart
                 </button>
               </Link>
