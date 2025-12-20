@@ -77,9 +77,9 @@ const Collection = () => {
   }, [sortType]);
 
   return (
-    <div className="flex flex-col sm:flex-row gap-1 sm:gap-10 pt-10 border-t">
+    <>
       {/* FilterOptions */}
-      <div className="min-w-60">
+      <div className="min-w-60 hidden">
         <div
           onClick={() => setShowFilter(!showFilter)}
           className="my-2 text-xl flex items-center cursor-pointer gap-2"
@@ -182,10 +182,8 @@ const Collection = () => {
             </p>
           </div>
         </div>
-      </div>
-      {/* RightSide */}
-      <div className="flex-1">
-        <div className="flex justify-between text-base sm:text-2xl mb-4">
+
+        <div className="flex justify-between text-base sm:text-2xl mb-4 hidden">
           <Tittle text1={"ALL"} text2={"COLLECTIONS"} />
           {/* Product Sort */}
           <select
@@ -199,47 +197,126 @@ const Collection = () => {
             <option value="high-low">Sort by: High to Low</option>
           </select>
         </div>
+      </div>
+      <div className="">
+        {/* RightSide */}
+        <div className="flex-1">
+          {/* Map Product */}
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[1px] px-5">
+            {filterProducts.map((product, index) => (
+              <ProductItem
+                key={index}
+                name={product.name}
+                id={product._id}
+                discountPercentage={product.discountPercentage}
+                price={
+                  <div className="flex gap-1 items-senter justify-start">
+                    {/* Original Price */}
 
-        {/* Map Product */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 gap-y-6">
-          {filterProducts.map((product, index) => (
-            <ProductItem
-              key={index}
-              name={product.name}
-              id={product._id}
-              discountPercentage={product.discountPercentage}
-              price={
-                <div className="flex gap-1 items-senter justify-start">
-                  {/* Original Price */}
+                    {product.discountPercentage > 0 &&
+                      product.originalPrice && (
+                        <p className="text-gray-400 line-through text-sm">
+                          {currency}
+                          {product.originalPrice.toFixed(2)}
+                        </p>
+                      )}
 
-                  {product.discountPercentage > 0 && product.originalPrice && (
-                    <p className="text-gray-400 line-through text-sm">
+                    {/* Sales Price */}
+                    <p
+                      className={`font-bold text-md ${
+                        product.discountPercentage > 0
+                          ? "text-green-600"
+                          : "text-black"
+                      }`}
+                    >
                       {currency}
-                      {product.originalPrice.toFixed(2)}
+                      {product.salesPrice
+                        ? product.salesPrice.toFixed(2)
+                        : "0.00"}
                     </p>
-                  )}
+                  </div>
+                }
+                image={product.image}
+              />
+            ))}
 
-                  {/* Sales Price */}
-                  <p
-                    className={`font-bold text-md ${
-                      product.discountPercentage > 0
-                        ? "text-green-600"
-                        : "text-black"
-                    }`}
-                  >
-                    {currency}
-                    {product.salesPrice
-                      ? product.salesPrice.toFixed(2)
-                      : "0.00"}
-                  </p>
-                </div>
-              }
-              image={product.image}
-            />
-          ))}
+            {filterProducts.map((product, index) => (
+              <ProductItem
+                key={index}
+                name={product.name}
+                id={product._id}
+                discountPercentage={product.discountPercentage}
+                price={
+                  <div className="flex gap-1 items-senter justify-start">
+                    {/* Original Price */}
+
+                    {product.discountPercentage > 0 &&
+                      product.originalPrice && (
+                        <p className="text-gray-400 line-through text-sm">
+                          {currency}
+                          {product.originalPrice.toFixed(2)}
+                        </p>
+                      )}
+
+                    {/* Sales Price */}
+                    <p
+                      className={`font-bold text-md ${
+                        product.discountPercentage > 0
+                          ? "text-green-600"
+                          : "text-black"
+                      }`}
+                    >
+                      {currency}
+                      {product.salesPrice
+                        ? product.salesPrice.toFixed(2)
+                        : "0.00"}
+                    </p>
+                  </div>
+                }
+                image={product.image}
+              />
+            ))}
+
+            {filterProducts.map((product, index) => (
+              <ProductItem
+                key={index}
+                name={product.name}
+                id={product._id}
+                discountPercentage={product.discountPercentage}
+                price={
+                  <div className="flex gap-1 items-senter justify-start">
+                    {/* Original Price */}
+
+                    {product.discountPercentage > 0 &&
+                      product.originalPrice && (
+                        <p className="text-gray-400 line-through text-sm">
+                          {currency}
+                          {product.originalPrice.toFixed(2)}
+                        </p>
+                      )}
+
+                    {/* Sales Price */}
+                    <p
+                      className={`font-bold text-md ${
+                        product.discountPercentage > 0
+                          ? "text-green-600"
+                          : "text-black"
+                      }`}
+                    >
+                      {currency}
+                      {product.salesPrice
+                        ? product.salesPrice.toFixed(2)
+                        : "0.00"}
+                    </p>
+                  </div>
+                }
+                image={product.image}
+              />
+            ))}
+          </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

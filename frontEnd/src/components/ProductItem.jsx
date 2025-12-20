@@ -6,7 +6,7 @@ import { useState } from "react";
 const ProductItem = ({ id, image, name, price, discountPercentage }) => {
   const [isHovered, setIsHovered] = useState(false);
   return (
-    <div className="w-[19.875rem] h-auto product-card mb-1 flex-shrink-0">
+    <div className="w-[19.875rem] h-auto product-card flex-shrink-0">
       <Link className="text-gray-700 cursor-pointer" to={`/product/${id}`}>
         <div className="overflow-hidden relative mb-5">
           {discountPercentage > 0 && (
@@ -17,13 +17,13 @@ const ProductItem = ({ id, image, name, price, discountPercentage }) => {
           <img
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="w-full h-[31.263rem] object-cover hover:scale-110 transition ease-in-out"
+            className="w-full h-[30.263rem] object-cover hover:scale-110 transition ease-in-out"
             src={isHovered ? image[1] : image[0]}
             alt="ProductImage"
           />
         </div>
-        <p className="pt-3 pb-1 text-sm">{name}</p>
-        <p className="text-sm font-medium">{price}</p>
+        <p className="pt-3 pb-1 text-sm ml-2">{name}</p>
+        <p className="text-sm font-medium mb-5 ml-2">{price}</p>
       </Link>
     </div>
   );
