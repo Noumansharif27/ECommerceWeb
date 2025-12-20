@@ -3,6 +3,7 @@ import { assets } from "../assets/assets";
 import { ShopContext } from "../context/ShopContext";
 import Tittle from "../components/Tittle";
 import ProductItem from "../components/ProductItem";
+import { Link } from "react-router-dom";
 
 const Collection = () => {
   const { products, currency } = useContext(ShopContext);
@@ -198,7 +199,27 @@ const Collection = () => {
           </select>
         </div>
       </div>
-      <div className="">
+      <div>
+        {/* product Preview Window */}
+        <div className="w-[401px] h-full bg-red-100 fixed top-0 right-0 z-60 pl-4">
+          <img
+            src={assets.cross_icon}
+            alt="cross_icon"
+            className="right-0 w-5 h-5"
+          />
+          <div className="top flex justify-between">
+            <div className="details w-60 flex flex-col mt-3 gap-2">
+              <span className="text-[12px]">
+                "Lafayette" Block print Denim Bomber Jacket
+              </span>
+              <span className="text-[12px]">RS: 78789</span>
+            </div>
+            <Link to="/collection" className="w-25 mt-4">
+              <span className="underline text-[12px]">View Details</span>
+            </Link>
+          </div>
+        </div>
+
         {/* RightSide */}
         <div className="flex-1">
           {/* Map Product */}
