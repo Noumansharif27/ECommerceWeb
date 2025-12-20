@@ -203,6 +203,8 @@ const Add = ({ token }) => {
             onChange={(e) => setOriginalPrice(e.target.value)}
             placeholder="Rs 5000"
             className="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-black"
+            min="1" // Prevents 0 and negative numbers in the UI
+            step="0.1" // Allows decimals but keeps them positive
             required
           />
         </div>
@@ -215,7 +217,7 @@ const Add = ({ token }) => {
             type="number"
             value={discountPercentage}
             min={0}
-            max={100}
+            max={99}
             onChange={(e) => setDiscountPercentage(e.target.value)}
             placeholder="0"
             className="px-3 py-1.5 w-full sm:w-[140px]"
@@ -233,7 +235,7 @@ const Add = ({ token }) => {
           <input
             type="number"
             value={quantity}
-            min={0}
+            min={1}
             onChange={(e) => setQuantity(e.target.value)}
             placeholder="e.g. 50"
             className="px-3 py-1.5 w-full sm:w-[140px]"

@@ -23,7 +23,16 @@ const List = ({ token }) => {
     }
   };
 
-  const removeProduct = async (id) => {
+  const removeProduct = async (id, name) => {
+    // 1. Show the confirmation popup
+    const isConfirmed = window.confirm(
+      `Are you sure you want to delete "${name}"? This action cannot be undone.`
+    );
+
+    // 2. If the admin cancels, exit the function
+    if (!isConfirmed) {
+      return;
+    }
     try {
       if (isDeleting) {
         return;
@@ -91,7 +100,7 @@ const List = ({ token }) => {
 
             <div className="flex gap-4 items-center ml-5">
               <p
-                onClick={() => removeProduct(item._id)}
+                onClick={() => removeProduct(item._id, item.name)}
                 className="text-right md:text-center cursor-pointer text-lg text-white bg-black w-[2rem] ml-2 rounded"
               >
                 X

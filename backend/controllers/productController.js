@@ -54,6 +54,28 @@ const addProduct = async (req, res) => {
       date: Date.now(),
     };
 
+    // Add this check inside addProduct AND updateProduct
+    if (Number(originalPrice) <= 0) {
+      return res.json({
+        success: false,
+        message: "Price must be greater than zero",
+      });
+    }
+
+    if (Number(discountPercentage) < 0 || Number(discountPercentage) > 100) {
+      return res.json({
+        success: false,
+        message: "Discount must be between 0 and 100",
+      });
+    }
+
+    if (Number(quantity) < 0) {
+      return res.json({
+        success: false,
+        message: "Quantity must be be above 0",
+      });
+    }
+
     const isExist = await productModel.findOne({ name });
     if (isExist) {
       return res.json({
@@ -88,6 +110,11 @@ const listProduct = async (req, res) => {
 const removeProduct = async (req, res) => {
   try {
     const product = await productModel.findByIdAndDelete(req.body._id);
+    // Validate ID presence
+    if (!_id) {
+      return res.json({ success: false, message: "Product ID is required" });
+    }
+
     console.log(product);
 
     if (!product) {
@@ -150,6 +177,20 @@ const updateProduct = async (req, res) => {
       quantity,
     } = req.body;
 
+    // Add this check inside addProduct AND updateProduct
+    if (Number(originalPrice) <= 0) {
+      return res.json({
+        success: false,
+        message: "Price must be greater than zero",
+      });
+    }
+
+    if (Number(discountPercentage) < 0 || Number(discountPercentage) > 100) {
+      return res.json({
+        success: false,
+        message: "Discount must be between 0 and 100",
+      });
+    }
     // 1. Find the existing product to get current images
     const currentProduct = await productModel.findById(productId);
     if (!currentProduct) {
