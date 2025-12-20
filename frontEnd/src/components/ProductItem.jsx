@@ -4,18 +4,26 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import { assets } from "../assets/assets";
 
-const ProductItem = ({ id, image, name, price, discountPercentage }) => {
+const ProductItem = ({
+  id,
+  image,
+  name,
+  price,
+  discountPercentage,
+  setPreviewProduct,
+}) => {
   const { products } = useContext(ShopContext);
 
   const [isHovered, setIsHovered] = useState(false);
-  const [isDetailClicked, setIsDetailClick] = useState(false);
+  // const [isDetailClicked, setIsDetailClick] = useState(false);
 
   const fetchDetailPreview = (e, id) => {
     e.preventDefault();
     try {
       const product = products.find((item) => id === item._id);
-
-      console.log(id);
+      if (product) {
+        setPreviewProduct(product);
+      }
     } catch (error) {
       console.log(error);
     }

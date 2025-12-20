@@ -14,6 +14,8 @@ const Collection = () => {
   const [sortType, setSortType] = useState("relevant");
   const { search, showSearch } = useContext(ShopContext);
 
+  const [previewProduct, setPreviewProduct] = useState(null);
+  console.log(previewProduct);
   let categoryToggle = (event) => {
     if (category.includes(event.target.value)) {
       setCategory((prev) => prev.filter((item) => item !== event.target.value));
@@ -199,29 +201,60 @@ const Collection = () => {
           </select>
         </div>
       </div>
+
       <div>
         {/* product Preview Window */}
-        <div className="w-[401px] h-full bg-red-100 fixed top-0 right-0 z-60 pl-4">
-          <img
-            src={assets.cross_icon}
-            alt="cross_icon"
-            className="right-0 w-5 h-5 my-3 ml-80"
-          />
-          <div className="top flex justify-between">
-            <div className="details w-60 flex flex-col mt-3 gap-2">
-              <span className="text-[12px]">
-                "Lafayette" Block print Denim Bomber Jacket
-              </span>
-              <span className="text-[12px]">RS: 78789</span>
+        {previewProduct && (
+          <div className="w-[401px] h-full fixed top-0 right-0 z-60 pl-4">
+            <img
+              src={assets.cross_icon}
+              alt="cross_icon"
+              className="right-0 w-5 h-5 my-3 ml-80"
+            />
+            <div className="top flex justify-between">
+              <div className="details w-60 flex flex-col mt-3 gap-2">
+                <span className="text-[12px]">{previewProduct.name}</span>
+                <span className="text-[12px]">
+                  {previewProduct.originalPrice}
+                </span>
+              </div>
+              <Link to={`/product/${previewProduct._id}`} className="w-25 mt-4">
+                <span className="underline text-[12px]">View Details</span>
+              </Link>
             </div>
-            <Link to="/collection" className="w-25 mt-4">
-              <span className="underline text-[12px]">View Details</span>
-            </Link>
+
+            {/* images */}
+            <div className="images my-4 w-[80] h-[65vh] bg-green-500 overflow-x-auto mr-3 flex gap-[1px]">
+              <img src={assets.logo} alt="product_images" className="h-full" />
+            </div>
+
+            {/* sizes */}
+            <div className="flex flex-col gap-4 mt-8">
+              <p>Avaliable Size</p>
+              <div className="flex gap-2">
+                {/* {productData.sizes.map((item, index) => (
+                <button
+                  onClick={() => setSize(item)}
+                  key={index}
+                  className={`border py-2 px-4 bg-gray-100 cursor-pointer ${
+                    item == size ? `border-orange-500` : ""
+                  }`}
+                >
+                  {item} */}
+                {/* </button>
+              ))} */}
+              </div>
+            </div>
+
+            <div className="btns flex justify-center">
+              <Link>
+                <button className="bg-black text-white px-20 py-5 text-sm active:bg-gray-600 cursor-pointer">
+                  Add to Cart
+                </button>
+              </Link>
+            </div>
           </div>
-          <div className="images">
-            <img src={assets.logo} alt="product_images" className="h-full" />
-          </div>
-        </div>
+        )}
 
         {/* RightSide */}
         <div className="flex-1">
@@ -233,80 +266,7 @@ const Collection = () => {
                 name={product.name}
                 id={product._id}
                 discountPercentage={product.discountPercentage}
-                price={
-                  <div className="flex gap-1 items-senter justify-start">
-                    {/* Original Price */}
-
-                    {product.discountPercentage > 0 &&
-                      product.originalPrice && (
-                        <p className="text-gray-400 line-through text-sm">
-                          {currency}
-                          {product.originalPrice.toFixed(2)}
-                        </p>
-                      )}
-
-                    {/* Sales Price */}
-                    <p
-                      className={`font-bold text-md ${
-                        product.discountPercentage > 0
-                          ? "text-green-600"
-                          : "text-black"
-                      }`}
-                    >
-                      {currency}
-                      {product.salesPrice
-                        ? product.salesPrice.toFixed(2)
-                        : "0.00"}
-                    </p>
-                  </div>
-                }
-                image={product.image}
-              />
-            ))}
-
-            {filterProducts.map((product, index) => (
-              <ProductItem
-                key={index}
-                name={product.name}
-                id={product._id}
-                discountPercentage={product.discountPercentage}
-                price={
-                  <div className="flex gap-1 items-senter justify-start">
-                    {/* Original Price */}
-
-                    {product.discountPercentage > 0 &&
-                      product.originalPrice && (
-                        <p className="text-gray-400 line-through text-sm">
-                          {currency}
-                          {product.originalPrice.toFixed(2)}
-                        </p>
-                      )}
-
-                    {/* Sales Price */}
-                    <p
-                      className={`font-bold text-md ${
-                        product.discountPercentage > 0
-                          ? "text-green-600"
-                          : "text-black"
-                      }`}
-                    >
-                      {currency}
-                      {product.salesPrice
-                        ? product.salesPrice.toFixed(2)
-                        : "0.00"}
-                    </p>
-                  </div>
-                }
-                image={product.image}
-              />
-            ))}
-
-            {filterProducts.map((product, index) => (
-              <ProductItem
-                key={index}
-                name={product.name}
-                id={product._id}
-                discountPercentage={product.discountPercentage}
+                setPreviewProduct={setPreviewProduct}
                 price={
                   <div className="flex gap-1 items-senter justify-start">
                     {/* Original Price */}
