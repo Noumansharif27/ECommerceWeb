@@ -1,4 +1,3 @@
-import { json } from "express";
 import jwt from "jsonwebtoken";
 
 const authUser = async (req, res, next) => {

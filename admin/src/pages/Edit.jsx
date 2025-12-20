@@ -37,7 +37,8 @@ const Edit = ({ token }) => {
 
     try {
       const response = await axios.get(
-        `${backendUrl}/api/product/${productId}`
+        `${backendUrl}/api/product/${productId}`,
+        { headers: { token } } // ADD THIS LINE HERE
       );
 
       if (response.data.success) {
@@ -122,7 +123,7 @@ const Edit = ({ token }) => {
         toast.success("Product Updated Successfully");
 
         // REDIRECT: Navigate to the list route after a short delay or immediately
-        navigate("/list");
+        // navigate("/list");
       } else {
         toast.error(response.data.message);
       }

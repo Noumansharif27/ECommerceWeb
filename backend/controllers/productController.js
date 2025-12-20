@@ -149,6 +149,7 @@ const singleProduct = async (req, res) => {
 const editProduct = async (req, res) => {
   try {
     const { productId } = req.params;
+    console.log(productId);
     const product = await productModel.findById(productId);
     if (!product) {
       return res.json({ success: false, message: "Product Not Found" });
@@ -219,8 +220,8 @@ const updateProduct = async (req, res) => {
     let updatedImageUrls = [...currentProduct.image]; // Start with existing images
 
     // 3. Loop through slots; if a new file is uploaded, delete the old one first
-    for (let i = 0; i < imageFiles.length; i++) {
-      if (imageFiles[i]) {
+    for (let i = 0; i < newImages.length; i++) {
+      if (newImages[i]) {
         const oldUrl = currentProduct.image[i];
         if (oldUrl) {
           const publicId = getPublicId(oldUrl);
@@ -231,7 +232,7 @@ const updateProduct = async (req, res) => {
         }
 
         // Upload the new file
-        const result = await cloudinary.uploader.upload(imageFiles[i].path, {
+        const result = await cloudinary.uploader.upload(newImages[i].path, {
           resource_type: "image",
         });
         updatedImageUrls[i] = result.secure_url;
