@@ -277,7 +277,7 @@ const Collection = () => {
         {/* RightSide */}
         <div className="flex-1">
           {/* Map Product */}
-          <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[2px] px-5">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[2px] px-5">
             {filterProducts.map((product, index) => (
               <ProductItem
                 key={index}

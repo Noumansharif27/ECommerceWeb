@@ -32,7 +32,7 @@ const ProductItem = ({
   };
 
   return (
-    <div className="w-full box-border flex-shrink-0 box-border product-card">
+    <div className="w-full max-w-[400px] mx-auto box-border">
       <Link
         className="text-gray-700 cursor-pointer relative"
         to={`/product/${id}`}
