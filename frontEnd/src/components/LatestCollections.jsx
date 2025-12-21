@@ -100,9 +100,9 @@ const LatestCollections = () => {
       </div>
 
       <div className="w-full">
-        <div className="collection_icon absolute top-265 right-10">
+        {/* <div className="collection_icon absolute top-265 right-10">
           <img src={assets.right_arrow} alt="next" className="w-10 h-10" />
-        </div>
+        </div> */}
         <Link
           className="w-full flex items-center justify-between my-5"
           to="/collection"

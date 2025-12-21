@@ -95,7 +95,7 @@ const Collection = () => {
       {/* product Preview Window */}
       <div>
         {previewProduct && showPreviewProduct && (
-          <div className="!w-[401px] !min-w-[401px] flex flex-col h-auto fixed top-0 right-0 z-70 bg-white pb-5">
+          <div className="fixed top-0 right-0 z-70 w-[400px] min-w-[400px] max-w-[400px] box-border flex flex-col bg-white">
             <img
               onClick={() => setShowPreviewProduct(false)}
               src={assets.cross_icon}
@@ -278,6 +278,84 @@ const Collection = () => {
         <div className="flex-1">
           {/* Map Product */}
           <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-[2px] px-5">
+            {filterProducts.map((product, index) => (
+              <ProductItem
+                key={index}
+                name={product.name}
+                id={product._id}
+                discountPercentage={product.discountPercentage}
+                setPreviewProduct={setPreviewProduct}
+                setShowPreviewProduct={setShowPreviewProduct}
+                price={
+                  <div className="flex gap-1 items-senter justify-start">
+                    {/* Original Price */}
+
+                    {product.discountPercentage > 0 &&
+                      product.originalPrice && (
+                        <p className="text-gray-400 line-through text-sm">
+                          {currency}
+                          {product.originalPrice.toFixed(2)}
+                        </p>
+                      )}
+
+                    {/* Sales Price */}
+                    <p
+                      className={`font-bold text-md ${
+                        product.discountPercentage > 0
+                          ? "text-green-600"
+                          : "text-black"
+                      }`}
+                    >
+                      {currency}
+                      {product.salesPrice
+                        ? product.salesPrice.toFixed(2)
+                        : "0.00"}
+                    </p>
+                  </div>
+                }
+                image={product.image}
+              />
+            ))}
+
+            {filterProducts.map((product, index) => (
+              <ProductItem
+                key={index}
+                name={product.name}
+                id={product._id}
+                discountPercentage={product.discountPercentage}
+                setPreviewProduct={setPreviewProduct}
+                setShowPreviewProduct={setShowPreviewProduct}
+                price={
+                  <div className="flex gap-1 items-senter justify-start">
+                    {/* Original Price */}
+
+                    {product.discountPercentage > 0 &&
+                      product.originalPrice && (
+                        <p className="text-gray-400 line-through text-sm">
+                          {currency}
+                          {product.originalPrice.toFixed(2)}
+                        </p>
+                      )}
+
+                    {/* Sales Price */}
+                    <p
+                      className={`font-bold text-md ${
+                        product.discountPercentage > 0
+                          ? "text-green-600"
+                          : "text-black"
+                      }`}
+                    >
+                      {currency}
+                      {product.salesPrice
+                        ? product.salesPrice.toFixed(2)
+                        : "0.00"}
+                    </p>
+                  </div>
+                }
+                image={product.image}
+              />
+            ))}
+
             {filterProducts.map((product, index) => (
               <ProductItem
                 key={index}
