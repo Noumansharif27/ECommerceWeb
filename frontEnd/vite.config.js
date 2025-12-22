@@ -3,5 +3,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 export default defineConfig({
   plugins: [tailwindcss()],
-  server: { port: 5173 },
+  server: {
+    port: 5173,
+    allowedHosts: ["testingly-erective-sofia.ngrok-free.dev"],
+  },
 });

@@ -87,15 +87,15 @@ const Collection = () => {
       {/* ----- Dark Overlay----- */}
       {showPreviewProduct && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-60 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-60 transition-opacity duration-300 cursor-pointer"
           onClick={() => setShowPreviewProduct(false)}
         ></div>
       )}
 
       {/* product Preview Window */}
-      <div>
+      <div className="h-auto">
         {previewProduct && showPreviewProduct && (
-          <div className="fixed top-0 right-0 z-70 w-[400px] min-w-[400px] max-w-[400px] box-border flex flex-col bg-white">
+          <div className="fixed top-0 right-0 z-70 w-[390px] min-w-[390px] max-w-[390px] box-border flex flex-col bg-white">
             <img
               onClick={() => setShowPreviewProduct(false)}
               src={assets.cross_icon}

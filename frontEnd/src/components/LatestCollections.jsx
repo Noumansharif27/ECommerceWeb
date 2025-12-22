@@ -4,6 +4,7 @@ import Tittle from "./Tittle";
 import ProductItem from "./ProductItem";
 import { Link } from "react-router-dom";
 import { assets } from "../assets/assets.js";
+import { useRef } from "react";
 
 const LatestCollections = () => {
   const { products, currency } = useContext(ShopContext);
@@ -12,25 +13,67 @@ const LatestCollections = () => {
   const [previewProduct, setPreviewProduct] = useState(null);
   const [showPreviewProduct, setShowPreviewProduct] = useState(false);
   const [size, setSize] = useState("");
+  const containerRef = useRef(null);
 
   useEffect(() => {
     setLatestProducts(products.slice(0, 10));
     // console.log(products);
   }, [products]);
 
+  const isDragging = useRef(false);
+  const startX = useRef(0);
+  const scrollLeft = useRef(0);
+
+  const onMouseDown = (e) => {
+    isDragging.current = true;
+    containerRef.current.classList.add("cursor-grabbing");
+    startX.current = e.pageX - containerRef.current.offsetLeft;
+    scrollLeft.current = containerRef.current.scrollLeft;
+  };
+
+  const onMouseLeave = () => {
+    isDragging.current = false;
+    containerRef.current.classList.remove("cursor-grabbing");
+  };
+
+  const onMouseUp = () => {
+    isDragging.current = false;
+    containerRef.current.classList.remove("cursor-grabbing");
+  };
+
+  const onMouseMove = (e) => {
+    if (!isDragging.current) return;
+    e.preventDefault();
+
+    const x = e.pageX - containerRef.current.offsetLeft;
+    const walk = (x - startX.current) * 1.5; // scroll speed
+    containerRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
+  const onTouchStart = (e) => {
+    startX.current = e.touches[0].pageX;
+    scrollLeft.current = containerRef.current.scrollLeft;
+  };
+
+  const onTouchMove = (e) => {
+    const x = e.touches[0].pageX;
+    const walk = (x - startX.current) * 1.5;
+    containerRef.current.scrollLeft = scrollLeft.current - walk;
+  };
+
   return (
-    <div className="my-10">
+    <div className="my-10 px-5">
       {/* ----- Dark Overlay----- */}
       {showPreviewProduct && (
         <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-60 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-60 transition-opacity duration-300 cursor-pointer"
           onClick={() => setShowPreviewProduct(false)}
         ></div>
       )}
 
       {/* -------------- Product Preview Window ------------ */}
       {previewProduct && showPreviewProduct && (
-        <div className="!w-[401px] !min-w-[401px] flex flex-col h-auto fixed top-0 right-0 z-70 bg-white pb-5">
+        <div className="fixed top-0 right-0 z-70 w-[390px] min-w-[390px] max-w-[390px] box-border flex flex-col bg-white">
           <img
             onClick={() => setShowPreviewProduct(false)}
             src={assets.cross_icon}
@@ -117,7 +160,16 @@ const LatestCollections = () => {
       </div>
 
       {/* Rendering Product */}
-      <div className="flex gap-[2px] flex-nowrap overflow-x-auto hide-vertical-scroll h-auto">
+      <div
+        ref={containerRef}
+        className="flex gap-[2px] flex-nowrap overflow-x-auto hide-vertical-scroll cursor-grab cursor-grabbing select-none"
+        onMouseDown={onMouseDown}
+        onMouseLeave={onMouseLeave}
+        onMouseUp={onMouseUp}
+        onMouseMove={onMouseMove}
+        onTouchStart={onTouchStart}
+        onTouchMove={onTouchMove}
+      >
         {latestProducts.map((product, index) => (
           <ProductItem
             key={index}
@@ -132,7 +184,7 @@ const LatestCollections = () => {
                 {/* Original Price */}
 
                 {product.discountPercentage > 0 && product.originalPrice && (
-                  <p className="text-gray-400 line-through text-sm">
+                  <p className="text-gray-400 line-through text-[10px]">
                     {currency}
                     {product.originalPrice.toFixed(2)}
                   </p>
@@ -140,10 +192,10 @@ const LatestCollections = () => {
 
                 {/* Sales Price */}
                 <p
-                  className={`font-bold text-md ${
+                  className={`text-md ${
                     product.discountPercentage > 0
                       ? "text-green-600"
-                      : "text-black"
+                      : "text-gray-800"
                   }`}
                 >
                   {currency}

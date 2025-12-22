@@ -32,14 +32,14 @@ const ProductItem = ({
   };
 
   return (
-    <div className="w-full max-w-[400px] mx-auto box-border">
+    <div className="w-full max-w-[400px] mx-auto box-border flex-shrink-0">
       <Link
         className="text-gray-700 cursor-pointer relative"
         to={`/product/${id}`}
       >
         <div className="overflow-hidden relative mb-5">
           {discountPercentage > 0 && (
-            <span className="absolute top-2 left-2 z-50 bg-red-500 text-white text-xs font-semibold px-2 py-1 rounded">
+            <span className="absolute top-2 left-2 z-50 bg-black text-white text-xs font-semibold px-2 py-1 rounded">
               -{discountPercentage}%
             </span>
           )}
@@ -64,7 +64,7 @@ const ProductItem = ({
           />
         </div>
         <p className="pt-3 pb-1 text-sm ml-2">{name}</p>
-        <p className="text-sm font-medium mb-5 ml-2">{price}</p>
+        <p className="text-[11px] font-medium mb-5 ml-2 mt-2">{price}</p>
       </Link>
     </div>
   );
