@@ -10,8 +10,6 @@ const Product = () => {
   const [productData, setProductData] = useState(false);
   const [image, setImage] = useState("");
   const [size, setSize] = useState("");
-  const [previewProduct, setPreviewProduct] = useState(null);
-  const [showPreviewProduct, setShowPreviewProduct] = useState(false);
 
   const fetchProductData = async () => {
     products.map((item) => {
@@ -85,10 +83,10 @@ const Product = () => {
             {/* Stock Status */}
             <p
               className={`text-sm font-semibold mt-2 ${
-                productData.inStock ? "text-green-600" : "text-red-600"
+                productData.quantity > 0 ? "text-green-600" : "text-red-600"
               }`}
             >
-              {productData.inStock ? "In Stock" : "Out of Stock"}
+              {productData.quantity > 0 ? "In Stock" : "Out of Stock"}
             </p>
 
             <p className="mt-5 text-gray-500 md:w-4/5">

@@ -235,7 +235,7 @@ const Add = ({ token }) => {
           <input
             type="number"
             value={quantity}
-            min={1}
+            min={0}
             onChange={(e) => setQuantity(e.target.value)}
             placeholder="e.g. 50"
             className="px-3 py-1.5 w-full sm:w-[140px]"

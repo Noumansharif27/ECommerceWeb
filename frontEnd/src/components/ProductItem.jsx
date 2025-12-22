@@ -3,6 +3,7 @@ import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { assets } from "../assets/assets";
+import { useLocation } from "react-router-dom";
 
 const ProductItem = ({
   id,
@@ -31,8 +32,26 @@ const ProductItem = ({
     }
   };
 
+  const location = useLocation();
+
+  // Automatically true if we are on the collection page
+  const isCollectionPage = location.pathname === "/collection";
+
+  const classes = `
+    w-full 
+    max-w-[400px] 
+    mx-auto 
+    box-border 
+    flex-shrink-0
+    ${
+      isCollectionPage
+        ? "max-w-[250px] h-[60vh] sm:max-w-[400px] sm:h-auto bg-black"
+        : ""
+    }
+  `;
+
   return (
-    <div className="w-full max-w-[400px] mx-auto box-border flex-shrink-0">
+    <div className={classes}>
       <Link
         className="text-gray-700 cursor-pointer relative"
         to={`/product/${id}`}
