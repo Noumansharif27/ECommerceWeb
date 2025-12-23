@@ -78,7 +78,7 @@ const ProductItem = ({
             <img
               src={assets.add_icon}
               alt="detail_icon"
-              className="bg-red-200 text-xs font-semibold rounded-full"
+              className="bg-slate-200 text-xs font-semibold rounded-full"
             />
           </div>
           <img

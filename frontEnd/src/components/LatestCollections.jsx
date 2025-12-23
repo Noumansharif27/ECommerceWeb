@@ -160,15 +160,13 @@ const LatestCollections = () => {
         className="
         flex
         items-stretch
-        gap-2
+        gap-[2px]
         flex-nowrap
         overflow-x-auto
         overflow-y-hidden
         hide-vertical-scroll
         cursor-grab
         select-none
-        bg-green-500
-
         h-[22rem]
         sm:h-auto
       "
@@ -216,12 +214,10 @@ const LatestCollections = () => {
           />
         ))}
 
-        <div className="flex flex-col items-start justify-center w-[19.875rem] h-[34.263rem] flex-shrink-0 pl-4 gap-1">
+        <div className="flex flex-col items-start justify-center flex-shrink-0 pl-4 gap-1 h-full w-[13rem] sm:w-[19.875rem] sm:h-[34.263rem]">
           <Link to="/collection">
             <p className="text-2xl">Collection Name</p>
-            <a href="/" className="underline">
-              View All
-            </a>
+            <span className="underline">View All</span>
           </Link>
         </div>
       </div>
