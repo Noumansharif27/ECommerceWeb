@@ -46,7 +46,7 @@ const ProductItem = ({
   ${
     isLatestCollection
       ? `
-        w-[200px]
+        w-[175px]
         sm:w-auto
       `
       : "max-w-[400px] mx-auto"

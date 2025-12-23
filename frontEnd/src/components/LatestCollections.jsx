@@ -138,20 +138,13 @@ const LatestCollections = () => {
           officia sunt!
         </p>
       </div>
-      <div className="w-full">
-        {/* <div className="collection_icon absolute top-265 right-10">
-          <img src={assets.right_arrow} alt="next" className="w-10 h-10" />
-        </div> */}
+      <div className="w-full px-4">
         <Link
           className="w-full flex items-center justify-between my-5"
           to="/collection"
         >
-          <a href="/" className="text-xl">
-            <strong>Winter Collection</strong>
-          </a>
-          <a href="/" className="underline">
-            Shop now
-          </a>
+          <span className="text-lg">Winter Collection</span>
+          <span className="underline">Shop now</span>
         </Link>
       </div>
       {/* Rendering Product */}
