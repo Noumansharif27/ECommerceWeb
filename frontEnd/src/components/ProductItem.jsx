@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 import { useState } from "react";
@@ -39,31 +39,31 @@ const ProductItem = ({
   // const isCollectionPage = location.pathname === "/collection";
 
   const classes = `
-  max-w-[400px]
-  max-h-[216]
+  box-border
   flex-shrink-0
+  h-full
 
   ${
     isLatestCollection
       ? `
-        w-full
-        flex
-        gap-3
-        sm:block
-        sm:p-0
-        sm:bg-transparent
+        w-[200px]
+        sm:w-auto
       `
-      : ""
+      : "max-w-[400px] mx-auto"
   }
 `;
 
   return (
     <div className={classes}>
       <Link
-        className="text-gray-700 cursor-pointer relative"
+        className="text-gray-700 cursor-pointer relative h-full flex flex-col"
         to={`/product/${id}`}
       >
-        <div className="overflow-hidden relative mb-5">
+        <div
+          className={`overflow-hidden relative ${
+            isLatestCollection ? "mb-2" : "mb-5"
+          }`}
+        >
           {discountPercentage > 0 && (
             <span className="absolute top-2 left-2 z-50 bg-black text-white text-xs font-semibold px-2 py-1 rounded">
               -{discountPercentage}%
@@ -78,7 +78,7 @@ const ProductItem = ({
             <img
               src={assets.add_icon}
               alt="detail_icon"
-              className="bg-slate-200 text-xs font-semibold rounded-full"
+              className="bg-red-200 text-xs font-semibold rounded-full"
             />
           </div>
           <img
@@ -93,8 +93,19 @@ const ProductItem = ({
             alt="ProductImage"
           />
         </div>
-        <p className="pt-3 pb-1 text-sm ml-2">{name}</p>
-        <p className="text-[11px] font-medium mb-5 ml-2 mt-2">{price}</p>
+        <div className="flex flex-col justify-between flex-1 px-2">
+          <p className={isLatestCollection ? "text-xs mt-1" : "text-sm pt-3"}>
+            {name}
+          </p>
+
+          <p
+            className={
+              isLatestCollection ? "text-[10px] mb-2" : "text-[11px] mb-5"
+            }
+          >
+            {price}
+          </p>
+        </div>
       </Link>
     </div>
   );

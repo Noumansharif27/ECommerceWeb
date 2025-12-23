@@ -62,7 +62,7 @@ const LatestCollections = () => {
   };
 
   return (
-    <div className="my-10 px-5">
+    <div className="my-10">
       {/* ----- Dark Overlay----- */}
       {showPreviewProduct && (
         <div
@@ -70,7 +70,6 @@ const LatestCollections = () => {
           onClick={() => setShowPreviewProduct(false)}
         ></div>
       )}
-
       {/* -------------- Product Preview Window ------------ */}
       {previewProduct && showPreviewProduct && (
         <div className="fixed top-0 right-0 z-70 w-[390px] min-w-[390px] max-w-[390px] box-border flex flex-col bg-white">
@@ -104,7 +103,6 @@ const LatestCollections = () => {
               />
             ))}
           </div>
-
           {/* sizes */}
           <div className="flex flex-col gap-4 mt-5 pl-4">
             <p>Avaliable Size</p>
@@ -120,7 +118,6 @@ const LatestCollections = () => {
               ))}
             </div>
           </div>
-
           <div className="btns flex justify-center mt-2">
             <Link>
               <button className="bg-black text-white px-35 py-5 text-medium active:bg-gray-600 cursor-pointer rounded">
@@ -141,7 +138,6 @@ const LatestCollections = () => {
           officia sunt!
         </p>
       </div>
-
       <div className="w-full">
         {/* <div className="collection_icon absolute top-265 right-10">
           <img src={assets.right_arrow} alt="next" className="w-10 h-10" />
@@ -158,11 +154,24 @@ const LatestCollections = () => {
           </a>
         </Link>
       </div>
-
       {/* Rendering Product */}
       <div
         ref={containerRef}
-        className="flex gap-[2px] flex-nowrap overflow-x-auto hide-vertical-scroll cursor-grab cursor-grabbing select-none bg-green-500"
+        className="
+        flex
+        items-stretch
+        gap-2
+        flex-nowrap
+        overflow-x-auto
+        overflow-y-hidden
+        hide-vertical-scroll
+        cursor-grab
+        select-none
+        bg-green-500
+
+        h-[22rem]
+        sm:h-auto
+      "
         onMouseDown={onMouseDown}
         onMouseLeave={onMouseLeave}
         onMouseUp={onMouseUp}
