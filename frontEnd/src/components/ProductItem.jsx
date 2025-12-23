@@ -13,6 +13,7 @@ const ProductItem = ({
   discountPercentage,
   setPreviewProduct,
   setShowPreviewProduct,
+  isLatestCollection,
 }) => {
   const { products } = useContext(ShopContext);
 
@@ -32,23 +33,29 @@ const ProductItem = ({
     }
   };
 
-  const location = useLocation();
+  // const location = useLocation();
 
   // Automatically true if we are on the collection page
-  const isCollectionPage = location.pathname === "/collection";
+  // const isCollectionPage = location.pathname === "/collection";
 
   const classes = `
-    w-full 
-    max-w-[400px] 
-    mx-auto 
-    box-border 
-    flex-shrink-0
-    ${
-      isCollectionPage
-        ? "max-w-[250px] h-[60vh] sm:max-w-[400px] sm:h-auto bg-black"
-        : ""
-    }
-  `;
+  max-w-[400px]
+  max-h-[216]
+  flex-shrink-0
+
+  ${
+    isLatestCollection
+      ? `
+        w-full
+        flex
+        gap-3
+        sm:block
+        sm:p-0
+        sm:bg-transparent
+      `
+      : ""
+  }
+`;
 
   return (
     <div className={classes}>
@@ -77,7 +84,11 @@ const ProductItem = ({
           <img
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
-            className="w-full h-[30.263rem] object-cover hover:scale-110 transition ease-in-out"
+            className={`w-full object-cover transition ease-in-out ${
+              isLatestCollection
+                ? "h-[18.5rem] sm:h-[30.263rem]"
+                : "h-[30.263rem]"
+            }`}
             src={isHovered ? image[1] : image[0]}
             alt="ProductImage"
           />

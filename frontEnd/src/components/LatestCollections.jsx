@@ -162,7 +162,7 @@ const LatestCollections = () => {
       {/* Rendering Product */}
       <div
         ref={containerRef}
-        className="flex gap-[2px] flex-nowrap overflow-x-auto hide-vertical-scroll cursor-grab cursor-grabbing select-none"
+        className="flex gap-[2px] flex-nowrap overflow-x-auto hide-vertical-scroll cursor-grab cursor-grabbing select-none bg-green-500"
         onMouseDown={onMouseDown}
         onMouseLeave={onMouseLeave}
         onMouseUp={onMouseUp}
@@ -179,6 +179,7 @@ const LatestCollections = () => {
             discountPercentage={product.discountPercentage}
             setShowPreviewProduct={setShowPreviewProduct}
             setPreviewProduct={setPreviewProduct}
+            isLatestCollection={true}
             price={
               <div className="flex gap-1 items-senter justify-start mb-3">
                 {/* Original Price */}
