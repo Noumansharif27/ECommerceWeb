@@ -32,7 +32,12 @@ const productSchema = new mongoose.Schema({
   },
   sizes: {
     type: Array,
-    required: true,
+    validate: {
+      validator: function (v) {
+        return v.length > 0;
+      },
+      message: "At least one size is required",
+    },
   },
   bestSeller: {
     type: Boolean,

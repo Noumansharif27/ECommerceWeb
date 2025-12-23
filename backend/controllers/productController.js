@@ -1,5 +1,6 @@
 import { v2 as cloudinary } from "cloudinary";
 import productModel from "../models/product.js";
+import validateAndCleanSizes from "../utils/sizeValidator.js";
 // Add product
 const addProduct = async (req, res) => {
   try {
@@ -20,6 +21,15 @@ const addProduct = async (req, res) => {
     const image2 = req.files.image2 && req.files.image2[0];
     const image3 = req.files.image3 && req.files.image3[0];
     const image4 = req.files.image4 && req.files.image4[0];
+
+    const cleanedSizes = validateAndCleanSizes(sizes);
+
+    if (cleanedSizes.length === 0) {
+      return res.json({
+        success: false,
+        message: "Please select at least one size",
+      });
+    }
 
     const images = [image1, image2, image3, image4].filter(
       (image) => image !== undefined
@@ -48,7 +58,7 @@ const addProduct = async (req, res) => {
       discountPercentage: Number(discountPercentage || 0),
       salesPrice: Number(originalPrice), // auto-corrected by pre-save hook
       bestSeller: bestSeller == "true" ? true : false, // converting string into boolean
-      sizes: JSON.parse(sizes), // converting the sizes from string into array
+      sizes: cleanedSizes,
       image: imageUrl,
       quantity: Number(quantity),
       date: Date.now(),
@@ -178,6 +188,14 @@ const updateProduct = async (req, res) => {
       quantity,
     } = req.body;
 
+    // Check wether the sizes were entered or not
+    if (!sizes) {
+      res.json({
+        success: false,
+        message: "Please select atleast 1 of the given sizes!",
+      });
+    }
+
     // Cloudinary Image URL
     const getPublicId = (url) => {
       try {
@@ -189,6 +207,16 @@ const updateProduct = async (req, res) => {
         return null;
       }
     };
+
+    // Size Validator
+    const cleanedSizes = validateAndCleanSizes(sizes);
+
+    if (cleanedSizes.length === 0) {
+      return res.json({
+        success: false,
+        message: "Please select at least one size",
+      });
+    }
 
     // Add this check inside addProduct AND updateProduct
     if (Number(originalPrice) <= 0) {
@@ -268,7 +296,7 @@ const updateProduct = async (req, res) => {
       discountPercentage: sanitizedDiscount,
       salesPrice: sanitizedSalesPrice,
       bestSeller: bestSeller === "true",
-      sizes: JSON.parse(sizes),
+      sizes: cleanedSizes,
       image: updatedImageUrls,
       quantity: sanitizedQuantity,
     };

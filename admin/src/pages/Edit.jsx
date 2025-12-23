@@ -277,7 +277,7 @@ const Edit = ({ token }) => {
         </div>
 
         <p className="text-green-600 text-medium font-semibold mt-7">
-          Sale Price: Rs {salePrice || 0}
+          Sale Price: $ {salePrice || 0}
         </p>
 
         <div>

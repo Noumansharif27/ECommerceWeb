@@ -223,9 +223,8 @@ const Add = ({ token }) => {
             className="px-3 py-1.5 w-full sm:w-[140px]"
           />
         </div>
-
         <p className="text-green-600 text-medium font-semibold mt-7">
-          Sale Price: Rs {salePrice || 0}
+          Sale Price: $ {salePrice || 0}
         </p>
 
         <div>
