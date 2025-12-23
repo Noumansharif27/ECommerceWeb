@@ -72,7 +72,7 @@ const LatestCollections = () => {
       )}
       {/* -------------- Product Preview Window ------------ */}
       {previewProduct && showPreviewProduct && (
-        <div className="fixed top-0 right-0 z-70 w-[390px] min-w-[390px] max-w-[390px] box-border flex flex-col bg-white">
+        <div className="fixed w-full bottom-25 sm:top-0 right-0 z-70 h-[182px] sm:w-[390px] sm:min-w-[390px] sm:max-w-[390px] box-border flex flex-col bg-white">
           <img
             onClick={() => setShowPreviewProduct(false)}
             src={assets.cross_icon}
@@ -80,7 +80,7 @@ const LatestCollections = () => {
             className="right-0 w-5 h-5 my-3 ml-90 cursor-pointer"
           />
           <div className="top flex justify-between pl-4">
-            <div className="details w-60 flex flex-col mt-2 gap-2">
+            <div className="details w-60 flex flex-col sm:mt-2 gap-2">
               <span className="text-[15px]">{previewProduct.name}</span>
               <span className="text-[12px]">
                 {currency}
@@ -93,7 +93,7 @@ const LatestCollections = () => {
           </div>
 
           {/* images */}
-          <div className="images my-4 w-[80] h-[60vh] object-cover overflow-x-auto mr-3 flex gap-[1px]">
+          <div className="images sm:my-4 w-[80] h-[60vh] object-cover overflow-x-auto mr-3 flex gap-[1px] hidden sm:block">
             {previewProduct.image.map((item, index) => (
               <img
                 src={item}
@@ -104,7 +104,7 @@ const LatestCollections = () => {
             ))}
           </div>
           {/* sizes */}
-          <div className="flex flex-col gap-4 mt-5 pl-4">
+          <div className="flex flex-col gap-4 mt-4 sm:mt-5 pl-4">
             <p>Avaliable Size</p>
             <div className="flex flex-wrap gap-2">
               {previewProduct.sizes.map((item, index) => (
@@ -118,9 +118,9 @@ const LatestCollections = () => {
               ))}
             </div>
           </div>
-          <div className="btns flex justify-center mt-2">
+          <div className="btns flex justify-center mt-4 sm:mt-2 relative z-50">
             <Link>
-              <button className="bg-black text-white px-35 py-5 text-medium active:bg-gray-600 cursor-pointer rounded">
+              <button className="bg-black text-white px-25 sm:px-35 py-3 sm:py-5 text-medium active:bg-gray-600 cursor-pointer rounded">
                 Add to Cart
               </button>
             </Link>

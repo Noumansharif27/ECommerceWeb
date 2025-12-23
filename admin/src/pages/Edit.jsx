@@ -123,7 +123,7 @@ const Edit = ({ token }) => {
         toast.success("Product Updated Successfully");
 
         // REDIRECT: Navigate to the list route after a short delay or immediately
-        // navigate("/list");
+        navigate("/list");
       } else {
         toast.error(response.data.message);
       }
