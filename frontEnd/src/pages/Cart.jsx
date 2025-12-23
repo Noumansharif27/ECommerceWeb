@@ -54,7 +54,7 @@ const Cart = () => {
                   <div className="flex items-center mt-2 gap-5">
                     <p>
                       {currency}
-                      {productData.price}
+                      {productData.salesPrice}
                     </p>
                     <p className="px-2 s:-px-3 sm:py-1 border  bg-slate-50">
                       {item.size}
@@ -77,7 +77,7 @@ const Cart = () => {
                 id=""
                 min={1}
                 defaultValue={item.quantity}
-                className="border mx-w-10 sm:mx-w-20 px-1 sm:px-2 py-1"
+                className="border max-w-10 sm:mx-w-20 px-1 sm:px-2 py-1"
               />
               <img
                 onClick={() => updateQuantity(item._id, item.size, 0)}
