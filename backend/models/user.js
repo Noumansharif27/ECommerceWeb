@@ -10,7 +10,8 @@ const userSchema = new mongoose.Schema(
     },
     password: { type: String, required: true },
 
-    cartDate: {
+    number: { type: Number, required: true },
+    cartData: {
       type: Object,
       default: {},
     },
