@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { ShopContext } from "./ShopContext";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import axios, { Axios } from "axios";
 
 const ShopContextProvider = (props) => {
   const currency = "$";
@@ -31,6 +31,19 @@ const ShopContextProvider = (props) => {
       cartData[itemId][size] = 1;
     }
     setCartItems(cartData);
+
+    if (token) {
+      try {
+        await axios.post(
+          backendUrl + "/cart/add",
+          { itemId, size },
+          { headers: { token } }
+        );
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message);
+      }
+    }
   };
 
   const getCartCount = () => {
