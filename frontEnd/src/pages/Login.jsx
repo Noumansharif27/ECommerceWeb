@@ -21,6 +21,7 @@ const Login = () => {
           name,
           email,
           password,
+          number,
         });
         if (response.data.success) {
           setToken(response.data.token);
