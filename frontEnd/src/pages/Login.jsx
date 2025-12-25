@@ -10,6 +10,7 @@ const Login = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [number, setNumber] = useState(null);
 
   const onFormSubmit = async (e) => {
     e.preventDefault();
@@ -81,6 +82,16 @@ const Login = () => {
         className="w-full px-3 py-2 border border-gray-800"
         required
       />
+      {currentState === "Sign Up" && (
+        <input
+          onChange={(e) => setNumber(e.target.value)}
+          value={number}
+          type="number"
+          placeholder="number"
+          className="w-full px-3 py-2 border border-gray-800"
+          required
+        />
+      )}
       <input
         onChange={(e) => setPassword(e.target.value)}
         value={password}
