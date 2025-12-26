@@ -1,10 +1,11 @@
 import axios from "axios";
-import React from "react";
-import { useState } from "react";
+import React, { useState } from "react";
 import { backendUrl } from "../App";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const Login = ({ setToken }) => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -17,6 +18,7 @@ const Login = ({ setToken }) => {
       });
       if (response.data.success) {
         setToken(response.data.token);
+        navigate("/list");
         toast.success("Welcome to Admin panel!");
       } else {
         toast.error(response.data.message);

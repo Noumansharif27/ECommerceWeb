@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 
 const OurPolicies = () => {
   return (
-    <div className="flex felx-col sm:flex-row justify-center gap-12 sm:gap-2 text-center py-20 text-xs sm:text-sm md:text-base text-gray-700">
+    <div className="flex felx-col sm:flex-row justify-center gap-12 sm:gap-12 text-center py-20 text-xs sm:text-sm md:text-base text-gray-700">
       <div>
         <img
           src={assets.exchange_icon}

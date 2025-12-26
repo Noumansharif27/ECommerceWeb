@@ -3,9 +3,9 @@ import { assets } from "../assets/assets";
 
 const Footer = () => {
   return (
-    <div>
-      <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm">
-        <div>
+    <>
+      <div className="flex flex-col sm:grid grid-cols-[3fr_1fr_1fr] gap-14 my-10 mt-40 text-sm px-5">
+        <div className="ml-15 sm:ml-0">
           <img src={assets.logo} className="mb-5 w-25" alt="footerLogo" />
           <p className="w-full sm:w-2/3 text-gray-600">
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cum
@@ -34,12 +34,12 @@ const Footer = () => {
         </div>
       </div>
       <div>
-        <hr className="text-gray-600" />
-        <p className="py-5 text-sm text-center">
+        <hr className="text-gray-800" />
+        <p className="py-5 text-sm text-center text-gray-700">
           Copyright 2025@ sehraekhaas.com All Right Reserved.
         </p>
       </div>
-    </div>
+    </>
   );
 };
 

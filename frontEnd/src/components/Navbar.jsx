@@ -22,7 +22,7 @@ export default function Navbar() {
   };
 
   return (
-    <div className="flex items-center justify-between py-5 font-medium">
+    <div className="flex items-center justify-between py-5 font-medium px-5">
       <Link to="/">
         <img src={assets.logo} alt="navBar-logo" className="w-25" />
       </Link>
@@ -49,7 +49,7 @@ export default function Navbar() {
         </NavLink>
       </ul>
 
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-5">
         <img
           onClick={() => setShowSearch(true)}
           className="w-5 cursor-pointer"
@@ -158,5 +158,3 @@ export default function Navbar() {
     </div>
   );
 }
-
-// export default Navbar;
