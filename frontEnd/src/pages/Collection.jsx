@@ -95,7 +95,7 @@ const Collection = () => {
       {/* product Preview Window */}
       <div className="h-auto">
         {previewProduct && showPreviewProduct && (
-          <div className="fixed top-0 right-0 z-70 w-[390px] min-w-[390px] max-w-[390px] box-border flex flex-col bg-white">
+          <div className="fixed bottom-10 sm:top-0 sm:right-0 z-70 sm:w-[390px] sm:min-w-[390px] sm:max-w-[390px] box-border flex flex-col bg-white">
             <img
               onClick={() => setShowPreviewProduct(false)}
               src={assets.cross_icon}
@@ -116,7 +116,7 @@ const Collection = () => {
             </div>
 
             {/* images */}
-            <div className="images my-4 w-[80] h-[60vh] object-cover overflow-x-auto mr-3 flex gap-[1px]">
+            <div className="images my-4 w-[80] h-[60vh] object-cover overflow-x-auto mr-3 flex gap-[1px] hidden sm:block">
               {previewProduct.image.map((item, index) => (
                 <img
                   src={item}
