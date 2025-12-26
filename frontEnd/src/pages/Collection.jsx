@@ -378,7 +378,7 @@ const Collection = () => {
 
                     {/* Sales Price */}
                     <p
-                      className={`font-bold text-md ${
+                      className={`text-[12px] ${
                         product.discountPercentage > 0
                           ? "text-green-600"
                           : "text-black"

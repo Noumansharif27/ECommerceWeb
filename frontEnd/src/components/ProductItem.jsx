@@ -94,7 +94,9 @@ const ProductItem = ({
           />
         </div>
         <div className="flex flex-col justify-between flex-1 px-2">
-          <p className={isLatestCollection ? "text-xs mt-1" : "text-sm pt-3"}>
+          <p
+            className={isLatestCollection ? "text-[15px] mt-1" : "text-sm pt-3"}
+          >
             {name}
           </p>
 
