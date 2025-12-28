@@ -250,7 +250,7 @@ const LatestCollections = () => {
                 )}
 
                 {/* Sales Price */}
-                <p
+                {/* <p
                   className={`text-md ${
                     product.discountPercentage > 0
                       ? "text-green-600"
@@ -259,7 +259,7 @@ const LatestCollections = () => {
                 >
                   {currency}
                   {product.salesPrice ? product.salesPrice.toFixed(2) : "0.00"}
-                </p>
+                </p> */}
               </div>
             }
           />
