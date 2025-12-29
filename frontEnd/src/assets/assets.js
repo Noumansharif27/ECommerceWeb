@@ -74,6 +74,8 @@ import stripe_logo from "./stripe_logo.png";
 import cross_icon from "./cross_icon.png";
 import add_icon from "./add_icon.png";
 import right_arrow from "./right_arrow.png";
+import four_box from "./4-box.svg";
+import eight_box from "./8-box.svg";
 
 export const assets = {
   logo,
@@ -96,6 +98,8 @@ export const assets = {
   cross_icon,
   add_icon,
   right_arrow,
+  four_box,
+  eight_box,
 };
 
 export const products = [

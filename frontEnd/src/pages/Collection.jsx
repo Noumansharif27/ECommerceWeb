@@ -163,15 +163,15 @@ const Collection = () => {
         </div>
 
         {/* FilterOptions */}
-        <div className="sm:w-full hidden sm:flex justify-between sm:mt-8 sm:mb-5">
+        <div className="sm:w-full hidden sm:flex justify-between sm:mt-8 sm:mb-10 items-center">
           <div className="flex gap-5">
             <p className="text-[12px]">104 Items</p>
             <p className="text-[12px]">FILTER & SORT</p>
           </div>
           <div className="flex gap-8">
             <div className="gender flex gap-2 text-gray-300 mt-2">
-              <p className="text-sm">MEN</p>
-              <p className="text-sm">WOMEN</p>
+              <p className="text-[13px]">MEN</p>
+              <p className="text-[13px]">WOMEN</p>
             </div>
             <div className="sizes flex items-start">
               <span className="border border-gray-100 px-5 py-2 hover:border-black">
@@ -188,7 +188,18 @@ const Collection = () => {
               </span>
             </div>
           </div>
-          <div>right</div>
+          <div className="flex gap-3">
+            <img
+              src={assets.eight_box}
+              className="opacity-25 w-5 h-5 hover:opacity-100"
+              alt=""
+            />
+            <img
+              src={assets.four_box}
+              className="opacity-25 w-5 h-5 hover:opacity-100"
+              alt=""
+            />
+          </div>
         </div>
 
         {/* RightSide */}
