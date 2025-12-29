@@ -129,28 +129,32 @@ const LatestCollections = () => {
       )} */}
 
       {previewProduct && showPreviewProduct && (
-        <div className="!w-[401px] !min-w-[401px] flex flex-col h-auto fixed top-0 right-0 z-70 bg-white pb-5">
+        <div className="w-full flex flex-col h-auto fixed bottom-0 z-70 bg-white">
           <img
             onClick={() => setShowPreviewProduct(false)}
             src={assets.cross_icon}
-            alt="cross_icon"
-            className="right-0 w-5 h-5 my-3 ml-90 cursor-pointer"
+            alt="close"
+            className="absolute top-10 right-7 w-4 h-4 cursor-pointer z-80"
           />
-          <div className="top flex justify-between pl-4">
+
+          <div className="top-10 flex justify-between pl-4 mt-20 mb-4">
             <div className="details w-60 flex flex-col mt-2 gap-2">
               <span className="text-[15px]">{previewProduct.name}</span>
-              <span className="text-[12px]">
+              <span className="text-[12px] text-gray-600">
                 {currency}
                 {previewProduct.originalPrice}
               </span>
             </div>
-            <Link to={`/product/${previewProduct._id}`} className="w-25 mt-4">
+            <Link
+              to={`/product/${previewProduct._id}`}
+              className="w-25 mt-4 pr-3"
+            >
               <span className="underline text-[12px]">View Details</span>
             </Link>
           </div>
 
           {/* images */}
-          <div className="images my-4 w-[80] h-[60vh] object-cover overflow-x-auto mr-3 flex gap-[1px]">
+          <div className="images my-4 w-[80] h-[60vh] object-cover overflow-x-auto mr-3 flex gap-[1px] hidden">
             {previewProduct.image.map((item, index) => (
               <img
                 src={item}
@@ -162,14 +166,14 @@ const LatestCollections = () => {
           </div>
 
           {/* sizes */}
-          <div className="flex flex-col gap-4 mt-5 pl-4">
+          <div className="flex flex-col gap-4 mt-3 pl-3 mb-2">
             <p>Avaliable Size</p>
             <div className="flex flex-wrap gap-2">
               {previewProduct.sizes.map((item, index) => (
                 <button
                   onClick={() => setSize(item)}
                   key={index}
-                  className={`bg-black text-white px-4 py-1.5 rounded-md border text-sm font-medium transition-colors`}
+                  className={`bg-black text-white px-5 py-2.5 rounded-md border text-sm font-medium transition-colors`}
                 >
                   {item}
                 </button>
@@ -179,13 +183,14 @@ const LatestCollections = () => {
 
           <div className="btns flex justify-center mt-2">
             <Link>
-              <button className="bg-black text-white px-35 py-5 text-medium active:bg-gray-600 cursor-pointer rounded">
+              <button className="bg-black text-white px-16 py-4 text-medium active:bg-gray-600 cursor-pointer rounded mt-8">
                 Add to Cart
               </button>
             </Link>
           </div>
         </div>
       )}
+
       <div className="text-center py-8 text-3xl">
         <Tittle text1={"LATEST"} text2={"COLLECTIONS"} />
         <p className="w-3/4 m-auto text-xs sm:text-sm md:text-base text-gray-600 mb-4">
