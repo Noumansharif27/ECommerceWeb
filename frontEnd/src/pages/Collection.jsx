@@ -92,31 +92,35 @@ const Collection = () => {
         ></div>
       )}
 
-      {/* product Preview Window */}
-      <div className="h-auto">
+      <div className="h-auto px-6">
+        {/* -------------- Product Preview Window ------------ */}
         {previewProduct && showPreviewProduct && (
-          <div className="fixed bottom-10 sm:top-0 sm:right-0 z-70 sm:w-[390px] sm:min-w-[390px] sm:max-w-[390px] box-border flex flex-col bg-white">
+          <div className="w-full sm:w-[401px] sm:min-w-[401px] flex flex-col h-auto fixed bottom-0 sm:top-0 sm:right-0 z-70 bg-white">
             <img
               onClick={() => setShowPreviewProduct(false)}
               src={assets.cross_icon}
-              alt="cross_icon"
-              className="right-0 w-5 h-5 my-3 ml-90 cursor-pointer"
+              alt="close"
+              className="absolute top-10 sm:top-5 right-7 w-4 h-4 cursor-pointer z-80"
             />
-            <div className="top flex justify-between pl-4">
+
+            <div className="top-10 flex justify-between pl-4 mt-20 mb-4 sm:mb-0 sm:mt-10">
               <div className="details w-60 flex flex-col mt-2 gap-2">
                 <span className="text-[15px]">{previewProduct.name}</span>
-                <span className="text-[12px]">
+                <span className="text-[12px] text-gray-600">
                   {currency}
                   {previewProduct.originalPrice}
                 </span>
               </div>
-              <Link to={`/product/${previewProduct._id}`} className="w-25 mt-4">
+              <Link
+                to={`/product/${previewProduct._id}`}
+                className="w-25 mt-4 pr-3 sm:pr-0"
+              >
                 <span className="underline text-[12px]">View Details</span>
               </Link>
             </div>
 
             {/* images */}
-            <div className="images my-4 w-[80] h-[60vh] object-cover overflow-x-auto mr-3 flex gap-[1px] hidden sm:block">
+            <div className="images my-4 w-[80] h-[60vh] object-cover overflow-x-auto mr-3 flex gap-[1px] hidden sm:flex">
               {previewProduct.image.map((item, index) => (
                 <img
                   src={item}
@@ -128,14 +132,14 @@ const Collection = () => {
             </div>
 
             {/* sizes */}
-            <div className="flex flex-col gap-4 mt-5 pl-4">
+            <div className="flex flex-col gap-4 mt-3 pl-3 mb-2 sm:mt-5 sm:pl-4">
               <p>Avaliable Size</p>
               <div className="flex flex-wrap gap-2">
                 {previewProduct.sizes.map((item, index) => (
                   <button
                     onClick={() => setSize(item)}
                     key={index}
-                    className={`bg-black text-white px-4 py-1.5 rounded-md border text-sm font-medium transition-colors`}
+                    className={`bg-black text-white px-5 sm:px-4 py-2.5 sm:py-1.5 rounded-md border text-sm font-medium transition-colors`}
                   >
                     {item}
                   </button>
@@ -145,7 +149,7 @@ const Collection = () => {
 
             <div className="btns flex justify-center mt-2">
               <Link>
-                <button className="bg-black text-white px-35 py-5 text-medium active:bg-gray-600 cursor-pointer rounded">
+                <button className="bg-black text-white px-16 sm:px-30 py-4 sm:py-5 text-medium active:bg-gray-600 cursor-pointer rounded mt-8 sm:mt-0">
                   Add to Cart
                 </button>
               </Link>
@@ -153,131 +157,44 @@ const Collection = () => {
           </div>
         )}
 
+        {/* collection Name */}
+        <div className="w-full flex items-center justify-center py-6 sm:py-12 border-b border-gray-100">
+          <h2 className="text-3xl sm:text-5xl">Winter 2025</h2>
+        </div>
+
         {/* FilterOptions */}
-        <div className="min-w-60 hidden">
-          <div
-            onClick={() => setShowFilter(!showFilter)}
-            className="my-2 text-xl flex items-center cursor-pointer gap-2"
-          >
-            FILTERS
-            <img
-              src={assets.dropdown_icon}
-              className={`h-3 sm:hidden ${showFilter ? "rotate-90" : ""}`}
-              alt=""
-            />
+        <div className="sm:w-full hidden sm:flex justify-between sm:mt-8 sm:mb-5">
+          <div className="flex gap-5">
+            <p className="text-[12px]">104 Items</p>
+            <p className="text-[12px]">FILTER & SORT</p>
           </div>
-
-          <div
-            className={`border border-gray-300 pl-5 py-3 mt-6 sm:block ${
-              showFilter ? "" : "hidden"
-            }`}
-          >
-            <p className="mb-3 text-sm font-medium">CATEGORIES</p>
-            <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
-              <p className="flex gap-2">
-                <input
-                  type="checkbox"
-                  name="category[men]"
-                  id="men"
-                  value={"Men"}
-                  className="w-3"
-                  onClick={categoryToggle}
-                />
-                Men
-              </p>
-
-              <p className="flex gap-2">
-                <input
-                  type="checkbox"
-                  name="category[women]"
-                  id="men"
-                  value={"Women"}
-                  className="w-3"
-                  onClick={categoryToggle}
-                />
-                Women
-              </p>
-
-              <p className="flex gap-2">
-                <input
-                  type="checkbox"
-                  name="category[kids]"
-                  id="men"
-                  value={"Kids"}
-                  className="w-3"
-                  onClick={categoryToggle}
-                />
-                Kids
-              </p>
+          <div className="flex gap-8">
+            <div className="gender flex gap-2 text-gray-300 mt-2">
+              <p className="text-sm">MEN</p>
+              <p className="text-sm">WOMEN</p>
+            </div>
+            <div className="sizes flex items-start">
+              <span className="border border-gray-100 px-5 py-2 hover:border-black">
+                M
+              </span>
+              <span className="border border-gray-100 px-5 py-2 hover:border-black">
+                L
+              </span>
+              <span className="border border-gray-100 px-5 py-2 hover:border-black">
+                XL
+              </span>
+              <span className="border border-gray-100 px-5 py-2 hover:border-black">
+                XXL
+              </span>
             </div>
           </div>
-
-          {/* SubCategory Products */}
-          <div
-            className={`border border-gray-300 pl-5 py-3 my-5 sm:block ${
-              showFilter ? "" : "hidden"
-            }`}
-          >
-            <p className="mb-3 text-sm font-medium">TYPE</p>
-            <div className="flex flex-col gap-2 text-sm font-light text-gray-700">
-              <p className="flex gap-2">
-                <input
-                  type="checkbox"
-                  name="type[Topwear]"
-                  id="men"
-                  value={"Topwear"}
-                  className="w-3"
-                  onClick={subCategoryToggle}
-                />
-                Topwear
-              </p>
-
-              <p className="flex gap-2">
-                <input
-                  type="checkbox"
-                  name="type[Bottomwear]"
-                  id="men"
-                  value={"Bottomwear"}
-                  className="w-3"
-                  onClick={subCategoryToggle}
-                />
-                Bottomwear
-              </p>
-
-              <p className="flex gap-2">
-                <input
-                  type="checkbox"
-                  name="category[Winterwear]"
-                  id="men"
-                  value={"Winterwear"}
-                  className="w-3"
-                  onClick={subCategoryToggle}
-                />
-                Winterwear
-              </p>
-            </div>
-          </div>
-
-          <div className="flex justify-between text-base sm:text-2xl mb-4 hidden">
-            <Tittle text1={"ALL"} text2={"COLLECTIONS"} />
-            {/* Product Sort */}
-            <select
-              name="priceFilter"
-              id="priceFilter"
-              className="border-2 border-gray-300 text-sm px-2"
-              onChange={(e) => setSortType(e.target.value)}
-            >
-              <option value="relavent">Sert by: Relavent</option>
-              <option value="low-high">Sort by: Low to High</option>
-              <option value="high-low">Sort by: High to Low</option>
-            </select>
-          </div>
+          <div>right</div>
         </div>
 
         {/* RightSide */}
         <div className="flex-1">
           {/* Map Product */}
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[2px] px-5">
+          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[2px]">
             {filterProducts.map((product, index) => (
               <ProductItem
                 key={index}

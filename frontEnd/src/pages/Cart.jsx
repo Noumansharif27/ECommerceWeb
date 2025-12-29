@@ -79,7 +79,7 @@ const Cart = () => {
                 id=""
                 min={1}
                 defaultValue={item.quantity}
-                className="border max-w-10 sm:mx-w-20 px-1 sm:px-2 py-1"
+                className="border max-w-15 sm:mx-w-30 px-1 sm:px-2 py-1"
               />
               <img
                 onClick={() => updateQuantity(item._id, item.size, 0)}
