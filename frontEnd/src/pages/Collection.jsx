@@ -166,7 +166,49 @@ const Collection = () => {
         <div className="sm:w-full hidden sm:flex justify-between sm:mt-8 sm:mb-10 items-center">
           <div className="flex gap-5">
             <p className="text-[12px]">104 Items</p>
-            <p className="text-[12px]">FILTER & SORT</p>
+            <div className="flex gap-1 cursor-pointer">
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="2"
+                  y="4"
+                  width="14"
+                  height="1.5"
+                  rx="0.75"
+                  fill="black"
+                />
+                <circle cx="5.5" cy="4.75" r="2.2" fill="black" />
+                <circle cx="5.5" cy="4.75" r="0.8" fill="white" />
+
+                <rect
+                  x="2"
+                  y="8.25"
+                  width="14"
+                  height="1.5"
+                  rx="0.75"
+                  fill="black"
+                />
+                <circle cx="12.5" cy="9" r="2.2" fill="black" />
+                <circle cx="12.5" cy="9" r="0.8" fill="white" />
+
+                <rect
+                  x="2"
+                  y="12.5"
+                  width="14"
+                  height="1.5"
+                  rx="0.75"
+                  fill="black"
+                />
+                <circle cx="8" cy="13.25" r="2.2" fill="black" />
+                <circle cx="8" cy="13.25" r="0.8" fill="white" />
+              </svg>
+              <p className="text-[12px]">FILTER & SORT</p>
+            </div>
           </div>
           <div className="flex gap-8">
             <div className="gender flex gap-2 text-gray-300 mt-2">
@@ -189,16 +231,27 @@ const Collection = () => {
             </div>
           </div>
           <div className="flex gap-3">
-            <img
-              src={assets.eight_box}
-              className="opacity-25 w-5 h-5 hover:opacity-100"
-              alt=""
-            />
-            <img
-              src={assets.four_box}
-              className="opacity-25 w-5 h-5 hover:opacity-100"
-              alt=""
-            />
+            <svg
+              class="w-[18px] h-[18px] text-slate-200 hover:text-slate-400 transition-colors duration-200"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="18" height="18" class="fill-current" />
+              <rect x="5" y="0" width="1" height="18" fill="#FEFEFE" />
+              <rect x="11" y="0" width="1" height="18" fill="#FEFEFE" />
+              <rect x="0" y="5" width="18" height="1" fill="#FEFEFE" />
+              <rect x="0" y="11" width="18" height="1" fill="#FEFEFE" />
+            </svg>
+            <svg
+              class="w-[18px] h-[18px] text-slate-200 hover:text-slate-400 transition-colors duration-200"
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="20" height="20" class="fill-current" />
+              <path d="M9 0h1v20h-1zM0 9h20v1h-20z" fill="#FEFEFE" />
+            </svg>
           </div>
         </div>
 
