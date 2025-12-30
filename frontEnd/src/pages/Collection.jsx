@@ -9,6 +9,7 @@ const Collection = () => {
   const { products, currency } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
+  const [gender, setGender] = useState([]);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("relevant");
@@ -19,11 +20,12 @@ const Collection = () => {
   const [size, setSize] = useState("");
 
   console.log(previewProduct);
-  let categoryToggle = (event) => {
-    if (category.includes(event.target.value)) {
-      setCategory((prev) => prev.filter((item) => item !== event.target.value));
+  let genderToggle = (value) => {
+    if (gender.includes(value)) {
+      console.log(value);
+      setGender((prev) => prev.filter((item) => item !== value));
     } else {
-      setCategory((prev) => [...prev, event.target.value]);
+      setGender((prev) => [...prev, value]);
     }
   };
 
@@ -166,7 +168,10 @@ const Collection = () => {
         <div className="sm:w-full flex justify-between sm:mt-8 sm:mb-10 items-center">
           <div className="flex gap-5">
             <p className="text-[12px]">104 Items</p>
-            <div className="gap-1 cursor-pointer hidden sm:flex">
+            <div
+              onClick={() => setShowFilter(!showFilter)}
+              className="gap-1 cursor-pointer hidden sm:flex"
+            >
               <svg
                 width="18"
                 height="18"
@@ -210,14 +215,21 @@ const Collection = () => {
               <p className="text-[12px]">FILTER & SORT</p>
             </div>
 
-            <span className="fixed bottom-15 left-1/2 -translate-x-1/2 text-sm bg-white z-70 py-2 px-4 sm:hidden">
+            <span
+              onClick={() => setShowFilter(!showFilter)}
+              className="fixed bottom-15 left-1/2 -translate-x-1/2 text-sm bg-white z-70 py-2 px-4 sm:hidden cursor-pointer"
+            >
               FILTER & SORT
             </span>
           </div>
           <div className="flex gap-8">
-            <div className="gender flex gap-2 text-gray-300">
-              <p className="text-[13px]">MEN</p>
-              <p className="text-[13px]">WOMEN</p>
+            <div className="gender flex gap-2 text-gray-300 cursor-pointer">
+              <p onClick={() => genderToggle("MEN")} className="text-[13px]">
+                MEN
+              </p>
+              <p onClick={() => genderToggle("WOMEN")} className="text-[13px]">
+                WOMEN
+              </p>
             </div>
             <div className="sizes flex items-start hidden sm:inline">
               <span className="border border-gray-100 px-5 py-2 hover:border-black">
