@@ -158,15 +158,15 @@ const Collection = () => {
         )}
 
         {/* collection Name */}
-        <div className="w-full flex items-center justify-center py-6 sm:py-12 border-b border-gray-100">
+        <div className="w-full flex items-center justify-center py-6 sm:py-12 border-b border-gray-100 mb-2 sm:mb-0">
           <h2 className="text-3xl sm:text-5xl">Winter 2025</h2>
         </div>
 
         {/* FilterOptions */}
-        <div className="sm:w-full hidden sm:flex justify-between sm:mt-8 sm:mb-10 items-center">
+        <div className="sm:w-full flex justify-between sm:mt-8 sm:mb-10 items-center">
           <div className="flex gap-5">
             <p className="text-[12px]">104 Items</p>
-            <div className="flex gap-1 cursor-pointer">
+            <div className="gap-1 cursor-pointer hidden sm:flex">
               <svg
                 width="18"
                 height="18"
@@ -209,13 +209,17 @@ const Collection = () => {
               </svg>
               <p className="text-[12px]">FILTER & SORT</p>
             </div>
+
+            <span className="fixed bottom-15 left-1/2 -translate-x-1/2 text-sm bg-white z-70 py-2 px-4 sm:hidden">
+              FILTER & SORT
+            </span>
           </div>
           <div className="flex gap-8">
-            <div className="gender flex gap-2 text-gray-300 mt-2">
+            <div className="gender flex gap-2 text-gray-300">
               <p className="text-[13px]">MEN</p>
               <p className="text-[13px]">WOMEN</p>
             </div>
-            <div className="sizes flex items-start">
+            <div className="sizes flex items-start hidden sm:inline">
               <span className="border border-gray-100 px-5 py-2 hover:border-black">
                 M
               </span>
@@ -232,7 +236,7 @@ const Collection = () => {
           </div>
           <div className="flex gap-3">
             <svg
-              class="w-[18px] h-[18px] text-slate-200 hover:text-slate-400 transition-colors duration-200"
+              class="w-[18px] h-[18px] hidden sm:inline text-slate-200 hover:text-slate-400 transition-colors duration-200"
               viewBox="0 0 18 18"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -244,7 +248,7 @@ const Collection = () => {
               <rect x="0" y="11" width="18" height="1" fill="#FEFEFE" />
             </svg>
             <svg
-              class="w-[18px] h-[18px] text-slate-200 hover:text-slate-400 transition-colors duration-200"
+              class="w-[18px] h-[18px] text-slate-200 hidden sm:inline hover:text-slate-400 transition-colors duration-200"
               viewBox="0 0 18 18"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -252,6 +256,27 @@ const Collection = () => {
               <rect width="20" height="20" class="fill-current" />
               <path d="M9 0h1v20h-1zM0 9h20v1h-20z" fill="#FEFEFE" />
             </svg>
+            <svg
+              viewBox="0 0 18 18"
+              class="w-[18px] h-[18px] fill-slate-200 hover:fill-slate-400 sm:hidden transition-colors cursor-pointer"
+            >
+              <rect width="18" height="18" />
+            </svg>
+            <div class="gap-[1px] flex sm:hidden">
+              <svg
+                viewBox="0 0 10 18"
+                class="w-[10px] h-[18px] fill-slate-200 hover:fill-slate-400 transition-colors cursor-pointer"
+              >
+                <rect width="10" height="18" />
+              </svg>
+
+              <svg
+                viewBox="0 0 10 18"
+                class="w-[10px] h-[18px] fill-slate-200 hover:fill-slate-400 transition-colors cursor-pointer"
+              >
+                <rect width="10" height="18" />
+              </svg>
+            </div>
           </div>
         </div>
 
