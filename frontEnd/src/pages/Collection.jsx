@@ -19,6 +19,10 @@ const Collection = () => {
   const [showPreviewProduct, setShowPreviewProduct] = useState(false);
   const [size, setSize] = useState("");
 
+  const [gridMode, setGridMode] = useState("fewer");
+  // "dense" = more products
+  // "wide" = fewer products
+
   console.log(previewProduct);
   let genderToggle = (value) => {
     if (gender.includes(value)) {
@@ -83,6 +87,19 @@ const Collection = () => {
   useEffect(() => {
     sortProduct();
   }, [sortType]);
+
+  const gridClasses =
+    gridMode === "dense"
+      ? `
+        grid-cols-1
+        sm:grid-cols-2
+        lg:grid-cols-4
+      `
+      : `
+        grid-cols-2
+        sm:grid-cols-2
+        lg:grid-cols-2
+      `;
 
   return (
     <>
@@ -248,7 +265,10 @@ const Collection = () => {
           </div>
           <div className="flex gap-3">
             <svg
-              class="w-[18px] h-[18px] hidden sm:inline text-slate-200 hover:text-slate-400 transition-colors duration-200"
+              onClick={() => setGridMode("dense")}
+              class={`w-[18px] h-[18px] hidden sm:inline transition-colors duration-200 ${
+                gridMode === "dense" ? "text-slate-400" : "text-slate-200"
+              }`}
               viewBox="0 0 18 18"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -260,7 +280,10 @@ const Collection = () => {
               <rect x="0" y="11" width="18" height="1" fill="#FEFEFE" />
             </svg>
             <svg
-              class="w-[18px] h-[18px] text-slate-200 hidden sm:inline hover:text-slate-400 transition-colors duration-200"
+              onClick={() => setGridMode("wide")}
+              class={`w-[18px] h-[18px] hidden sm:inline transition-colors duration-200 ${
+                gridMode === "wide" ? "text-slate-400" : "text-slate-200"
+              }`}
               viewBox="0 0 18 18"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
@@ -268,23 +291,37 @@ const Collection = () => {
               <rect width="20" height="20" class="fill-current" />
               <path d="M9 0h1v20h-1zM0 9h20v1h-20z" fill="#FEFEFE" />
             </svg>
+
+            {/* Small Screen dense and Wide */}
             <svg
+              onClick={() => setGridMode("dense")}
               viewBox="0 0 18 18"
-              class="w-[18px] h-[18px] fill-slate-200 hover:fill-slate-400 sm:hidden transition-colors cursor-pointer"
+              class={`w-[18px] h-[18px] sm:hidden transition-colors cursor-pointer ${
+                gridMode === "dense" ? "fill-slate-400" : "fill-slate-200"
+              }`}
             >
               <rect width="18" height="18" />
             </svg>
-            <div class="gap-[1px] flex sm:hidden">
+            <div
+              onClick={() => setGridMode("wide")}
+              class="gap-[1px] flex sm:hidden"
+            >
               <svg
+                onClick={() => setGridMode("wide")}
                 viewBox="0 0 10 18"
-                class="w-[10px] h-[18px] fill-slate-200 hover:fill-slate-400 transition-colors cursor-pointer"
+                class={`w-[10px] h-[18px] transition-colors cursor-pointer
+                  ${gridMode === "wide" ? "fill-slate-200" : "fill-slate-400"}
+                  `}
               >
                 <rect width="10" height="18" />
               </svg>
 
               <svg
+                onClick={() => setGridMode("wide")}
                 viewBox="0 0 10 18"
-                class="w-[10px] h-[18px] fill-slate-200 hover:fill-slate-400 transition-colors cursor-pointer"
+                class={`w-[10px] h-[18px] transition-colors cursor-pointer
+                  ${gridMode === "wide" ? "fill-slate-200" : "fill-slate-400"}
+                  `}
               >
                 <rect width="10" height="18" />
               </svg>
@@ -295,7 +332,7 @@ const Collection = () => {
         {/* RightSide */}
         <div className="flex-1">
           {/* Map Product */}
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[2px]">
+          <div className={`grid ${gridClasses} gap-[2px]`}>
             {filterProducts.map((product, index) => (
               <ProductItem
                 key={index}
