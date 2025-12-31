@@ -3,7 +3,6 @@ import { ShopContext } from "../context/ShopContext";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { assets } from "../assets/assets";
-import { useLocation } from "react-router-dom";
 
 const ProductItem = ({
   id,
@@ -14,11 +13,11 @@ const ProductItem = ({
   setPreviewProduct,
   setShowPreviewProduct,
   isLatestCollection,
+  IsWideOrDense,
 }) => {
   const { products } = useContext(ShopContext);
 
   const [isHovered, setIsHovered] = useState(false);
-  // const [isDetailClicked, setIsDetailClick] = useState(false);
 
   const fetchDetailPreview = (e, id) => {
     e.preventDefault();
@@ -33,11 +32,6 @@ const ProductItem = ({
     }
   };
 
-  // const location = useLocation();
-
-  // Automatically true if we are on the collection page
-  // const isCollectionPage = location.pathname === "/collection";
-
   const classes = `
   box-border
   flex-shrink-0
@@ -51,6 +45,13 @@ const ProductItem = ({
       `
       : "max-w-[400px] mx-auto"
   }
+
+  ${
+    IsWideOrDense == "wide"
+      ? `w-[175px]
+    sm:w-auto`
+      : "max-w-[400px] mx-auto"
+  }
 `;
 
   return (
@@ -61,7 +62,7 @@ const ProductItem = ({
       >
         <div
           className={`overflow-hidden relative ${
-            isLatestCollection ? "mb-2" : "mb-5"
+            isLatestCollection || IsWideOrDense == "wide" ? "mb-2" : "mb-5"
           }`}
         >
           {discountPercentage > 0 && (
@@ -85,7 +86,7 @@ const ProductItem = ({
             onMouseEnter={() => setIsHovered(true)}
             onMouseLeave={() => setIsHovered(false)}
             className={`w-full object-cover transition ease-in-out ${
-              isLatestCollection
+              isLatestCollection || IsWideOrDense == "wide"
                 ? "h-[18.5rem] sm:h-[30.263rem]"
                 : "h-[30.263rem]"
             }`}
@@ -95,14 +96,20 @@ const ProductItem = ({
         </div>
         <div className="flex flex-col justify-between flex-1 px-2">
           <p
-            className={isLatestCollection ? "text-[15px] mt-1" : "text-sm pt-3"}
+            className={
+              isLatestCollection || IsWideOrDense == "wide"
+                ? "text-[15px] mt-1"
+                : "text-sm pt-3"
+            }
           >
             {name}
           </p>
 
           <p
             className={
-              isLatestCollection ? "text-[10px] mb-2" : "text-[11px] mb-5"
+              isLatestCollection || IsWideOrDense == "wide"
+                ? "text-[10px] mb-2"
+                : "text-[11px] mb-5"
             }
           >
             {price}

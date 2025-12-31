@@ -19,7 +19,7 @@ const Collection = () => {
   const [showPreviewProduct, setShowPreviewProduct] = useState(false);
   const [size, setSize] = useState("");
 
-  const [gridMode, setGridMode] = useState("fewer");
+  const [gridMode, setGridMode] = useState("wide");
   // "dense" = more products
   // "wide" = fewer products
 
@@ -310,7 +310,7 @@ const Collection = () => {
                 onClick={() => setGridMode("wide")}
                 viewBox="0 0 10 18"
                 class={`w-[10px] h-[18px] transition-colors cursor-pointer
-                  ${gridMode === "wide" ? "fill-slate-200" : "fill-slate-400"}
+                  ${gridMode === "wide" ? "fill-slate-400" : "fill-slate-200"}
                   `}
               >
                 <rect width="10" height="18" />
@@ -320,7 +320,7 @@ const Collection = () => {
                 onClick={() => setGridMode("wide")}
                 viewBox="0 0 10 18"
                 class={`w-[10px] h-[18px] transition-colors cursor-pointer
-                  ${gridMode === "wide" ? "fill-slate-200" : "fill-slate-400"}
+                  ${gridMode === "wide" ? "fill-slate-400" : "fill-slate-200"}
                   `}
               >
                 <rect width="10" height="18" />
@@ -341,6 +341,7 @@ const Collection = () => {
                 discountPercentage={product.discountPercentage}
                 setPreviewProduct={setPreviewProduct}
                 setShowPreviewProduct={setShowPreviewProduct}
+                IsWideOrDense={gridMode}
                 price={
                   <div className="flex gap-1 items-senter justify-start">
                     {/* Original Price */}
@@ -356,84 +357,6 @@ const Collection = () => {
                     {/* Sales Price */}
                     <p
                       className={`font-bold text-md ${
-                        product.discountPercentage > 0
-                          ? "text-green-600"
-                          : "text-black"
-                      }`}
-                    >
-                      {currency}
-                      {product.salesPrice
-                        ? product.salesPrice.toFixed(2)
-                        : "0.00"}
-                    </p>
-                  </div>
-                }
-                image={product.image}
-              />
-            ))}
-
-            {filterProducts.map((product, index) => (
-              <ProductItem
-                key={index}
-                name={product.name}
-                id={product._id}
-                discountPercentage={product.discountPercentage}
-                setPreviewProduct={setPreviewProduct}
-                setShowPreviewProduct={setShowPreviewProduct}
-                price={
-                  <div className="flex gap-1 items-senter justify-start">
-                    {/* Original Price */}
-
-                    {product.discountPercentage > 0 &&
-                      product.originalPrice && (
-                        <p className="text-gray-400 line-through text-sm">
-                          {currency}
-                          {product.originalPrice.toFixed(2)}
-                        </p>
-                      )}
-
-                    {/* Sales Price */}
-                    <p
-                      className={`font-bold text-md ${
-                        product.discountPercentage > 0
-                          ? "text-green-600"
-                          : "text-black"
-                      }`}
-                    >
-                      {currency}
-                      {product.salesPrice
-                        ? product.salesPrice.toFixed(2)
-                        : "0.00"}
-                    </p>
-                  </div>
-                }
-                image={product.image}
-              />
-            ))}
-
-            {filterProducts.map((product, index) => (
-              <ProductItem
-                key={index}
-                name={product.name}
-                id={product._id}
-                discountPercentage={product.discountPercentage}
-                setPreviewProduct={setPreviewProduct}
-                setShowPreviewProduct={setShowPreviewProduct}
-                price={
-                  <div className="flex gap-1 items-senter justify-start">
-                    {/* Original Price */}
-
-                    {product.discountPercentage > 0 &&
-                      product.originalPrice && (
-                        <p className="text-gray-400 line-through text-sm">
-                          {currency}
-                          {product.originalPrice.toFixed(2)}
-                        </p>
-                      )}
-
-                    {/* Sales Price */}
-                    <p
-                      className={`text-[12px] ${
                         product.discountPercentage > 0
                           ? "text-green-600"
                           : "text-black"
