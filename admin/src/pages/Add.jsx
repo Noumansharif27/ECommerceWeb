@@ -3,6 +3,7 @@ import { assets } from "../assets/assets.js";
 import axios from "axios";
 import { backendUrl } from "../App.jsx";
 import { toast } from "react-toastify";
+import { Upload, Info, CheckCircle2, Layers, BadgePercent } from "lucide-react";
 
 const Add = ({ token }) => {
   const [image1, setImage1] = useState(false);
@@ -25,7 +26,6 @@ const Add = ({ token }) => {
 
   const [isUploading, setIsUploading] = useState(false);
 
-  // Live calculation of sale price
   useEffect(() => {
     const calculatedPrice =
       originalPrice && discountPercentage
@@ -41,15 +41,12 @@ const Add = ({ token }) => {
 
     try {
       const formData = new FormData();
-
       formData.append("name", name);
       formData.append("description", description);
       formData.append("category", category);
       formData.append("subCategory", subCategory);
       formData.append("bestSeller", bestSeller);
       formData.append("sizes", JSON.stringify(sizes));
-
-      // Append new price fields separately
       formData.append("originalPrice", Number(originalPrice));
       formData.append("discountPercentage", Number(discountPercentage));
       formData.append("salesPrice", Number(salePrice));
@@ -64,34 +61,25 @@ const Add = ({ token }) => {
       const response = await axios.post(
         `${backendUrl}/api/product/add`,
         formData,
-        {
-          headers: { token },
-        }
+        { headers: { token } }
       );
 
       if (response.data.success) {
         toast.success(response.data.message);
-        // Reset form
         setName("");
         setDescription("");
         setOriginalPrice("");
         setDiscountPercentage(0);
-        setSalePrice("");
         setSizes([]);
+        setQuantity("");
         setImage1(false);
         setImage2(false);
         setImage3(false);
         setImage4(false);
-        setBestSeller(false);
-        setGender("Men");
-        setCategory("Clothes");
-        setSubCategory("Topwear");
-        setQuantity("");
       } else {
         toast.error(response.data.message);
       }
     } catch (error) {
-      console.log(error);
       toast.error(error.message);
     } finally {
       setIsUploading(false);
@@ -99,199 +87,270 @@ const Add = ({ token }) => {
   };
 
   return (
-    <form onSubmit={onSubmitForm}>
-      {/* Image Upload */}
-      <div className="flex flex-col w-full items-start gap-3">
-        <p className="mb-2">Upload Image</p>
-        <div className="flex gap-2">
-          {[image1, image2, image3, image4].map((img, i) => (
-            <label key={i} htmlFor={`image${i + 1}`}>
-              <img
-                className="w-20 cursor-pointer"
-                src={!img ? assets.upload_area : URL.createObjectURL(img)}
-                alt="UploadAreaIcon"
-              />
-              <input
-                onChange={(e) => {
-                  if (i === 0) setImage1(e.target.files[0]);
-                  else if (i === 1) setImage2(e.target.files[0]);
-                  else if (i === 2) setImage3(e.target.files[0]);
-                  else setImage4(e.target.files[0]);
-                }}
-                type="file"
-                id={`image${i + 1}`}
-                hidden
-              />
-            </label>
-          ))}
-        </div>
-      </div>
+    <div className="p-4 md:p-8 bg-gray-50 min-h-screen">
+      <div className="max-w-5xl mx-auto">
+        <header className="mb-8">
+          <h1 className="text-2xl font-bold text-gray-900">
+            Create New Product
+          </h1>
+          <p className="text-gray-500">
+            Add photos and details to list your item in the shop.
+          </p>
+        </header>
 
-      {/* Name and Description */}
-      <div className="w-full mt-2">
-        <p className="mb-2">Product name</p>
-        <input
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-          className="w-full max-w-[500px] px-3 py-2"
-          type="text"
-          placeholder="Type here"
-          required
-        />
-      </div>
+        <form
+          onSubmit={onSubmitForm}
+          className="grid grid-cols-1 lg:grid-cols-3 gap-8"
+        >
+          {/* LEFT COLUMN: Media and Info */}
+          <div className="lg:col-span-2 space-y-6">
+            {/* Image Upload Card */}
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+              <h3 className="font-semibold mb-4 flex items-center gap-2 text-gray-800">
+                <Upload size={18} className="text-blue-600" /> Product Images
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                {[image1, image2, image3, image4].map((img, i) => (
+                  <label
+                    key={i}
+                    className="relative group cursor-pointer aspect-square bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl hover:border-blue-400 transition-all flex items-center justify-center overflow-hidden"
+                  >
+                    {!img ? (
+                      <div className="text-center p-2">
+                        <Upload size={20} className="mx-auto text-gray-400" />
+                        <span className="text-[10px] text-gray-500 mt-1 block">
+                          Click to upload
+                        </span>
+                      </div>
+                    ) : (
+                      <img
+                        src={URL.createObjectURL(img)}
+                        className="w-full h-full object-cover"
+                        alt="preview"
+                      />
+                    )}
+                    <input
+                      type="file"
+                      hidden
+                      id={`image${i + 1}`}
+                      onChange={(e) => {
+                        const file = e.target.files[0];
+                        if (i === 0) setImage1(file);
+                        else if (i === 1) setImage2(file);
+                        else if (i === 2) setImage3(file);
+                        else setImage4(file);
+                      }}
+                    />
+                  </label>
+                ))}
+              </div>
+            </div>
 
-      <div className="w-full mt-2">
-        <p className="mb-2">Product description</p>
-        <textarea
-          onChange={(e) => setDescription(e.target.value)}
-          value={description}
-          className="w-full max-w-[500px] px-3 py-2"
-          placeholder="Write content here"
-          required
-        />
-      </div>
+            {/* Basic Details Card */}
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-4">
+              <h3 className="font-semibold mb-4 text-gray-800">
+                General Information
+              </h3>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Product Name
+                </label>
+                <input
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  type="text"
+                  placeholder="e.g. Slim Fit Cotton Shirt"
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  required
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Description
+                </label>
+                <textarea
+                  value={description}
+                  onChange={(e) => setDescription(e.target.value)}
+                  rows="4"
+                  placeholder="Describe the materials, fit, and style..."
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  required
+                />
+              </div>
+            </div>
 
-      {/* Category, Subcategory, Prices */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
-        <div>
-          <label className="block text-sm font-medium mb-1">Gender</label>
-          <select
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black"
-            required
-          >
-            <option value="Men">Men</option>
-            <option value="Women">Women</option>
-            <option value="Kids">Kids</option>
-            <option value="Unisex">Unisex</option>
-          </select>
-        </div>
+            {/* Pricing Card */}
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm">
+              <h3 className="font-semibold mb-4 flex items-center gap-2 text-gray-800">
+                <BadgePercent size={18} className="text-green-600" /> Pricing &
+                Offer
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Original Price
+                  </label>
+                  <input
+                    type="number"
+                    value={originalPrice}
+                    onChange={(e) => setOriginalPrice(e.target.value)}
+                    placeholder="0.00"
+                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                    required
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Discount (%)
+                  </label>
+                  <input
+                    type="number"
+                    value={discountPercentage}
+                    onChange={(e) => setDiscountPercentage(e.target.value)}
+                    className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
+                  />
+                </div>
+                <div className="bg-blue-50 p-3 rounded-lg border border-blue-100 flex flex-col justify-center">
+                  <span className="text-[10px] uppercase font-bold text-blue-600 tracking-wider">
+                    Final Sale Price
+                  </span>
+                  <p className="text-xl font-bold text-blue-900">
+                    $ {salePrice}
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
 
-        <div>
-          <label className="block text-sm font-medium mb-1">Category</label>
-          <select
-            onChange={(e) => setCategory(e.target.value)}
-            className="w-full px-3 py-2"
-          >
-            <option value="Clothes">Clothes</option>
-            <option value="Shoes">Shoes</option>
-            <option value="Accessories">Accessories</option>
-            <option value="Perfum">Perfum</option>
-          </select>
-        </div>
+          {/* RIGHT COLUMN: Sidebar Metadata */}
+          <div className="space-y-6">
+            <div className="bg-white p-6 rounded-xl border border-gray-200 shadow-sm space-y-6">
+              <h3 className="font-semibold flex items-center gap-2 text-gray-800">
+                <Layers size={18} className="text-blue-600" /> Organization
+              </h3>
 
-        <div>
-          <label className="block text-sm font-medium mb-1">Sub Category</label>
-          <select
-            onChange={(e) => setSubCategory(e.target.value)}
-            className="w-full px-3 py-2"
-          >
-            <option value="Topwear">Topwear</option>
-            <option value="Bottomwear">Bottomwear</option>
-            <option value="Winterwear">Winterwear</option>
-          </select>
-        </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Inventory
+                </label>
+                <input
+                  type="number"
+                  value={quantity}
+                  onChange={(e) => setQuantity(e.target.value)}
+                  placeholder="Total Stock"
+                  className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
+                  required
+                />
+              </div>
 
-        <div className="flex flex-col">
-          <label className="block text-sm font-medium mb-1">
-            Original Price
-          </label>
-          <input
-            type="number"
-            value={originalPrice}
-            onChange={(e) => setOriginalPrice(e.target.value)}
-            placeholder="Rs 5000"
-            className="w-full border rounded-md px-3 py-2 focus:ring-2 focus:ring-black"
-            min="1" // Prevents 0 and negative numbers in the UI
-            step="0.1" // Allows decimals but keeps them positive
-            required
-          />
-        </div>
-      </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Category & Gender
+                </label>
+                <div className="space-y-3">
+                  <select
+                    value={gender}
+                    onChange={(e) => setGender(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg text-sm bg-white outline-none"
+                  >
+                    <option value="Men">Men</option>
+                    <option value="Women">Women</option>
+                    <option value="Kids">Kids</option>
+                    <option value="Unisex">Unisex</option>
+                  </select>
+                  <select
+                    value={category}
+                    onChange={(e) => setCategory(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg text-sm bg-white outline-none"
+                  >
+                    <option value="Clothes">Clothes</option>
+                    <option value="Shoes">Shoes</option>
+                    <option value="Accessories">Accessories</option>
+                    <option value="Perfum">Perfum</option>
+                  </select>
+                  <select
+                    value={subCategory}
+                    onChange={(e) => setSubCategory(e.target.value)}
+                    className="w-full px-3 py-2 border rounded-lg text-sm bg-white outline-none"
+                  >
+                    <option value="Topwear">Topwear</option>
+                    <option value="Bottomwear">Bottomwear</option>
+                    <option value="Winterwear">Winterwear</option>
+                  </select>
+                </div>
+              </div>
 
-      <div className="mt-6 bg-gray-50 p-4 rounded-lg grid grid-cols-1 sm:grid-cols-3 gap-6">
-        <div>
-          <label className="block text-sm font-medium mb-1">Discount %</label>
-          <input
-            type="number"
-            value={discountPercentage}
-            min={0}
-            max={99}
-            onChange={(e) => setDiscountPercentage(e.target.value)}
-            placeholder="0"
-            className="px-3 py-1.5 w-full sm:w-[140px]"
-          />
-        </div>
-        <p className="text-green-600 text-medium font-semibold mt-7">
-          Sale Price: $ {salePrice || 0}
-        </p>
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-2">
+                  Available Sizes
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  {["S", "M", "L", "XL", "XXL"].map((size) => (
+                    <button
+                      type="button"
+                      key={size}
+                      onClick={() =>
+                        setSizes((prev) =>
+                          prev.includes(size)
+                            ? prev.filter((s) => s !== size)
+                            : [...prev, size]
+                        )
+                      }
+                      className={`px-3 py-1 rounded-md text-xs font-bold border transition-all ${
+                        sizes.includes(size)
+                          ? "bg-blue-600 border-blue-600 text-white shadow-md shadow-blue-200"
+                          : "bg-white border-gray-200 text-gray-600 hover:bg-gray-50"
+                      }`}
+                    >
+                      {size}
+                    </button>
+                  ))}
+                </div>
+              </div>
 
-        <div>
-          <label className="block text-sm font-medium mb-1">
-            Total Quantity
-          </label>
-          <input
-            type="number"
-            value={quantity}
-            min={0}
-            onChange={(e) => setQuantity(e.target.value)}
-            placeholder="e.g. 50"
-            className="px-3 py-1.5 w-full sm:w-[140px]"
-            required
-          />
-        </div>
-      </div>
+              <div className="pt-4 border-t border-gray-100">
+                <label className="flex items-center gap-3 cursor-pointer group">
+                  <div
+                    className={`w-10 h-5 rounded-full relative transition-all ${
+                      bestSeller ? "bg-green-500" : "bg-gray-200"
+                    }`}
+                  >
+                    <div
+                      className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${
+                        bestSeller ? "left-6" : "left-1"
+                      }`}
+                    />
+                  </div>
+                  <input
+                    type="checkbox"
+                    hidden
+                    checked={bestSeller}
+                    onChange={() => setBestSeller(!bestSeller)}
+                  />
+                  <span className="text-sm font-medium text-gray-700">
+                    Mark as Bestseller
+                  </span>
+                </label>
+              </div>
+            </div>
 
-      {/* Sizes */}
-      <div className="mt-6">
-        <p className="text-sm font-medium mb-2">Available Sizes</p>
-        <div className="flex flex-wrap gap-2">
-          {["S", "M", "L", "XL", "XXL"].map((size) => (
             <button
-              type="button"
-              key={size}
-              onClick={() =>
-                setSizes((prev) =>
-                  prev.includes(size)
-                    ? prev.filter((s) => s !== size)
-                    : [...prev, size]
-                )
-              }
-              className={`px-4 py-1.5 rounded-md border text-sm font-medium
-          ${
-            sizes.includes(size)
-              ? "bg-black text-white"
-              : "bg-white hover:bg-gray-100"
-          }`}
+              disabled={isUploading}
+              type="submit"
+              className="w-full bg-blue-600 text-white py-4 rounded-xl font-bold hover:bg-blue-700 shadow-lg shadow-blue-200 transition-all flex items-center justify-center gap-2 disabled:opacity-50 active:scale-95"
             >
-              {size}
+              {isUploading ? (
+                "Publishing..."
+              ) : (
+                <>
+                  <CheckCircle2 size={20} /> Publish Product
+                </>
+              )}
             </button>
-          ))}
-        </div>
+          </div>
+        </form>
       </div>
-
-      {/* Bestseller */}
-      <div className="mt-2 mb-2 flex gap-2">
-        <input
-          onChange={() => setBestSeller((prev) => !prev)}
-          checked={bestSeller}
-          type="checkbox"
-          id="bestseller"
-        />
-        <label htmlFor="bestseller" className="cursor-pointer">
-          Add to bestseller
-        </label>
-      </div>
-
-      <button
-        disabled={isUploading}
-        className="mt-8 bg-black text-white px-6 py-3 rounded-md font-medium hover:bg-gray-900 active:scale-95 transition disabled:opacity-50"
-        type="submit"
-      >
-        {isUploading ? "Uploading..." : "Add Product"}
-      </button>
-    </form>
+    </div>
   );
 };
 

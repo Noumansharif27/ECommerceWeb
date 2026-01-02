@@ -1,46 +1,107 @@
-import React from "react";
+import React, { useState } from "react";
 import { NavLink } from "react-router-dom";
-import { assets } from "../assets/assets";
-import Login from "../components/Login";
+import {
+  LayoutDashboard,
+  ListOrdered,
+  PlusCircle,
+  ShoppingBag,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 
-const sidebar = () => {
+const Sidebar = () => {
+  // 1. State to manage collapse
+  const [isCollapsed, setIsCollapsed] = useState(false);
+
   return (
-    <div className="w-[18%] min-h-screen border-r-2">
-      <div className="flex flex-col gap-4 pt-6 pl-[20%] text-[15px]">
-        <NavLink
+    <div
+      className={`relative min-h-screen border-r bg-white transition-all duration-300 ease-in-out ${
+        isCollapsed ? "w-20" : "w-64"
+      }`}
+    >
+      {/* --- COLLAPSE TOGGLE BUTTON --- */}
+      <button
+        onClick={() => setIsCollapsed(!isCollapsed)}
+        className="absolute -right-3 top-10 bg-blue-600 text-white rounded-full p-1 shadow-md hover:bg-blue-700 transition-colors z-50"
+      >
+        {isCollapsed ? <ChevronRight size={16} /> : <ChevronLeft size={16} />}
+      </button>
+
+      {/* --- LOGO / BRAND AREA --- */}
+      <div
+        className={`p-6 mb-4 flex items-center ${
+          isCollapsed ? "justify-center" : "gap-3"
+        }`}
+      >
+        <div className="bg-blue-600 p-2 rounded-lg text-white">
+          <ShoppingBag size={24} />
+        </div>
+        {!isCollapsed && (
+          <span className="text-xl font-bold text-gray-800 whitespace-nowrap">
+            ShopAdmin
+          </span>
+        )}
+      </div>
+
+      {/* --- NAV LINKS --- */}
+      <div className="flex flex-col gap-2 px-3">
+        <SidebarLink
           to="/dashboard"
-          className="flex items-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l"
-        >
-          <img className="w-7 h-7" src={assets.dashboard_icon} alt="Add_icon" />
-          <p className="hidden md:block">Dashboard</p>
-        </NavLink>
-
-        <NavLink
+          icon={<LayoutDashboard size={22} />}
+          label="Dashboard"
+          isCollapsed={isCollapsed}
+        />
+        <SidebarLink
           to="/list"
-          className="flex items-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l"
-        >
-          <img className="w-5 h-5" src={assets.order_icon} alt="Add_icon" />
-          <p className="hidden md:block">List Items</p>
-        </NavLink>
-
-        <NavLink
+          icon={<ListOrdered size={22} />}
+          label="List Items"
+          isCollapsed={isCollapsed}
+        />
+        <SidebarLink
           to="/orders"
-          className="flex items-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l"
-        >
-          <img className="w-5 h-5" src={assets.order_icon} alt="Add_icon" />
-          <p className="hidden md:block">Orders</p>
-        </NavLink>
-
-        <NavLink
+          icon={<ShoppingBag size={22} />}
+          label="Orders"
+          isCollapsed={isCollapsed}
+        />
+        <SidebarLink
           to="/add"
-          className="flex items-center gap-3 border border-gray-300 border-r-0 px-3 py-2 rounded-l"
-        >
-          <img className="w-5 h-5" src={assets.add_icon} alt="Add_icon" />
-          <p className="hidden md:block">Add Items</p>
-        </NavLink>
+          icon={<PlusCircle size={22} />}
+          label="Add Items"
+          isCollapsed={isCollapsed}
+        />
       </div>
     </div>
   );
 };
 
-export default sidebar;
+// --- HELPER COMPONENT FOR LINKS ---
+const SidebarLink = ({ to, icon, label, isCollapsed }) => {
+  return (
+    <NavLink
+      to={to}
+      className={({ isActive }) =>
+        `flex items-center gap-4 px-3 py-3 rounded-lg transition-all group ${
+          isActive
+            ? "bg-blue-50 text-blue-600 border-r-4 border-blue-600 rounded-r-none"
+            : "text-gray-500 hover:bg-gray-50 hover:text-gray-900"
+        }`
+      }
+    >
+      <div className="min-w-[24px]">{icon}</div>
+      {!isCollapsed && (
+        <span className="font-medium whitespace-nowrap transition-opacity duration-200">
+          {label}
+        </span>
+      )}
+
+      {/* Tooltip for collapsed mode */}
+      {isCollapsed && (
+        <div className="absolute left-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity z-[100]">
+          {label}
+        </div>
+      )}
+    </NavLink>
+  );
+};
+
+export default Sidebar;
