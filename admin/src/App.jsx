@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import { Routes, Route } from "react-router-dom";
 import Sidebar from "./components/Sidebar";
 import Add from "./pages/Add";
+import Dashboard from "./pages/Dashboard";
 import List from "./pages/List";
 import Orders from "./pages/Orders";
 import Login from "./components/Login";
@@ -36,7 +37,8 @@ const App = () => {
             <Sidebar />
             <div className="w-[70%] mx-auto ml-[max(5vw,25px)] my-8 text-gray-600 text-base">
               <Routes>
-                <Route path="/add" element={<Add token={token} />} />
+                  <Route path="/add" element={<Add token={token} />} />
+                <Route path="/dashboard" element={<Dashboard />} />
                 <Route path="/list" element={<List token={token} />} />
                 <Route path="/orders" element={<Orders token={token} />} />
                 <Route path="/:productId" element={<Edit token={token} />} />
