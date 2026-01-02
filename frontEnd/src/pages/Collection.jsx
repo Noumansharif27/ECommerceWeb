@@ -23,16 +23,6 @@ const Collection = () => {
   // "dense" = more products
   // "wide" = fewer products
 
-  console.log(previewProduct);
-  let genderToggle = (value) => {
-    if (gender.includes(value)) {
-      console.log(value);
-      setGender((prev) => prev.filter((item) => item !== value));
-    } else {
-      setGender((prev) => [...prev, value]);
-    }
-  };
-
   let subCategoryToggle = (e) => {
     if (subCategory.includes(e.target.value)) {
       setSubCategory((prev) => prev.filter((item) => item !== e.target.value));
@@ -47,6 +37,13 @@ const Collection = () => {
     if (search && showSearch) {
       productsCopy = productsCopy.filter((item) =>
         item.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    if (gender.length > 0) {
+      productsCopy = productsCopy.filter((item) =>
+        // Ensure item.gender exists and matches the case of your state
+        gender.includes(item.gender)
       );
     }
 
@@ -82,7 +79,7 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [category, subCategory, search, showSearch, products]);
+  }, [category, subCategory, gender, search, showSearch, products]);
 
   useEffect(() => {
     sortProduct();
@@ -241,10 +238,26 @@ const Collection = () => {
           </div>
           <div className="flex gap-8">
             <div className="gender flex gap-2 text-gray-300 cursor-pointer">
-              <p onClick={() => genderToggle("MEN")} className="text-[13px]">
+              <p
+                onClick={() => setGender("Men")}
+                onDoubleClick={() => setGender("")}
+                className={`text-[13px] ${
+                  gender.includes("Men")
+                    ? "text-black font-bold"
+                    : "text-gray-300"
+                }`}
+              >
                 MEN
               </p>
-              <p onClick={() => genderToggle("WOMEN")} className="text-[13px]">
+              <p
+                onClick={() => setGender("Women")}
+                onDoubleClick={() => setGender("")}
+                className={`text-[13px] ${
+                  gender.includes("Women")
+                    ? "text-black font-bold"
+                    : "text-gray-300"
+                }`}
+              >
                 WOMEN
               </p>
             </div>
