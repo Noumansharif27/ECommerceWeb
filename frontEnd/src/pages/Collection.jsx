@@ -101,12 +101,13 @@ const Collection = () => {
   return (
     <>
       {/* ----- Dark Overlay----- */}
-      {showPreviewProduct && (
-        <div
-          className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-60 transition-opacity duration-300 cursor-pointer"
-          onClick={() => setShowPreviewProduct(false)}
-        ></div>
-      )}
+      {showPreviewProduct ||
+        (showFilter && (
+          <div
+            className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-60 transition-opacity duration-300 cursor-pointer"
+            onClick={() => (setShowPreviewProduct(false), setShowFilter(false))}
+          ></div>
+        ))}
 
       <div className="h-auto px-6">
         {/* -------------- Product Preview Window ------------ */}
@@ -183,7 +184,7 @@ const Collection = () => {
           <div className="flex gap-5">
             <p className="text-[12px]">{products.length} Items</p>
             <div
-              onClick={() => setShowFilter(!showFilter)}
+              onClick={() => setShowFilter(true)}
               className="gap-1 cursor-pointer hidden sm:flex"
             >
               <svg
@@ -340,6 +341,74 @@ const Collection = () => {
               </svg>
             </div>
           </div>
+
+          {showFilter && (
+            <div className="filter-window fixed right-0 top-0 h-full w-[21.75rem] bg-white z-70">
+              <div className="p-4 flex justify-between sm:mb-2 items-center border-b">
+                <p>Filter</p>
+                <img
+                  onClick={() => setShowFilter(false)}
+                  src={assets.cross_icon}
+                  alt="crossIcon"
+                  className="w-3 h-3 cursor-pointer"
+                />
+              </div>
+
+              <div className="flex-1 flex flex-col mt-2">
+                <div className="h-[4rem] border-b border-slate-200 p-4 flex justify-between">
+                  <label htmlFor="price">Price</label>
+                  <select name="price" id="price">
+                    <option value="low to high">Price, Low To High</option>
+                    <option value="high to low">Price, High To Low</option>
+                  </select>
+                </div>
+
+                <div className="h-[4rem] border-b border-slate-200 p-4 flex justify-between">
+                  <label htmlFor="stock-status">Avalibility</label>
+                  <select name="stock-status" id="stock-status">
+                    <option value="inStock">In Stock</option>
+                    <option value="outOfStock">Out Of Stock</option>
+                  </select>
+                </div>
+
+                <div className="h-[4rem] border-b border-slate-200 p-4 flex justify-between">
+                  <label htmlFor="size">Size</label>
+                  <select name="size" id="size">
+                    <option value="XXS">XXS</option>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                  </select>
+                </div>
+
+                <div className="h-[4rem] border-b border-slate-200 p-4 flex justify-between">
+                  <label htmlFor="subCategory">Sub-Category</label>
+                  <select name="subCategory" id="subCategory">
+                    <option value="Topwear">Topwear</option>
+                    <option value="Bottomwear">Bottomwear</option>
+                    <option value="Winterwear">Winterwear</option>
+                  </select>
+                </div>
+
+                <div className="h-[4rem] border-b border-slate-200 p-4 flex justify-between">
+                  <label htmlFor="DiscountPercentage">
+                    Discount Percentage
+                  </label>
+                  <select name="DiscountPercentage" id="DiscountPercentage">
+                    <option value="25">25%</option>
+                    <option value="50">50%</option>
+                    <option value="75">75%</option>
+                  </select>
+                </div>
+              </div>
+              <button className="absolute bottom-10 right-2 mx-4 px-32 py-3 bg-black text-white mt-60">
+                Done
+              </button>
+            </div>
+          )}
         </div>
 
         {/* RightSide */}
