@@ -11,6 +11,7 @@ const Collection = () => {
   const [filterProducts, setFilterProducts] = useState([]);
   const [gender, setGender] = useState([]);
   const [category, setCategory] = useState([]);
+  const [filterSize, setFilterSize] = useState("");
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("relevant");
   const { search, showSearch } = useContext(ShopContext);
@@ -47,6 +48,10 @@ const Collection = () => {
       );
     }
 
+    if (filterSize.length > 0) {
+      productsCopy = products.filter((item) => filterSize.includes(item.size));
+    }
+
     if (category.length > 0) {
       productsCopy = productsCopy.filter((item) =>
         category.includes(item.category)
@@ -79,7 +84,7 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [category, subCategory, gender, search, showSearch, products]);
+  }, [category, subCategory, gender, search, showSearch, products, filterSize]);
 
   useEffect(() => {
     sortProduct();
@@ -227,7 +232,7 @@ const Collection = () => {
                 <circle cx="8" cy="13.25" r="2.2" fill="black" />
                 <circle cx="8" cy="13.25" r="0.8" fill="white" />
               </svg>
-              <p className="text-[12px]">FILTER & SORT</p>
+              <p className="text-sm">FILTER & SORT</p>
             </div>
 
             <span
@@ -263,16 +268,28 @@ const Collection = () => {
               </p>
             </div>
             <div className="sizes flex items-start hidden sm:inline">
-              <span className="border border-gray-100 px-5 py-2 hover:border-black">
+              <span
+                onClick={() => setFilterSize(M)}
+                className="border border-gray-100 px-5 py-2 hover:border-black"
+              >
                 M
               </span>
-              <span className="border border-gray-100 px-5 py-2 hover:border-black">
+              <span
+                onClick={() => setFilterSize(L)}
+                className="border border-gray-100 px-5 py-2 hover:border-black"
+              >
                 L
               </span>
-              <span className="border border-gray-100 px-5 py-2 hover:border-black">
+              <span
+                onClick={() => setFilterSize(XL)}
+                className="border border-gray-100 px-5 py-2 hover:border-black"
+              >
                 XL
               </span>
-              <span className="border border-gray-100 px-5 py-2 hover:border-black">
+              <span
+                onClick={() => setFilterSize(XXL)}
+                className="border border-gray-100 px-5 py-2 hover:border-black"
+              >
                 XXL
               </span>
             </div>
