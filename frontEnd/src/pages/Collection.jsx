@@ -19,7 +19,7 @@ const Collection = () => {
   const [showPreviewProduct, setShowPreviewProduct] = useState(false);
   const [size, setSize] = useState("");
 
-  const [gridMode, setGridMode] = useState("wide");
+  const [gridMode, setGridMode] = useState("dense");
   // "dense" = more products
   // "wide" = fewer products
 
@@ -179,9 +179,9 @@ const Collection = () => {
         </div>
 
         {/* FilterOptions */}
-        <div className="sm:w-full flex justify-between sm:mt-8 sm:mb-10 items-center">
+        <div className="sm:w-full flex justify-between sm:mt-8 sm:mb-10 items-center mb-3">
           <div className="flex gap-5">
-            <p className="text-[12px]">104 Items</p>
+            <p className="text-[12px]">{products.length} Items</p>
             <div
               onClick={() => setShowFilter(!showFilter)}
               className="gap-1 cursor-pointer hidden sm:flex"
@@ -280,7 +280,7 @@ const Collection = () => {
             <svg
               onClick={() => setGridMode("dense")}
               class={`w-[18px] h-[18px] hidden sm:inline transition-colors duration-200 ${
-                gridMode === "dense" ? "text-slate-400" : "text-slate-200"
+                gridMode === "dense" ? "text-black" : "text-slate-200"
               }`}
               viewBox="0 0 18 18"
               fill="none"
@@ -295,7 +295,7 @@ const Collection = () => {
             <svg
               onClick={() => setGridMode("wide")}
               class={`w-[18px] h-[18px] hidden sm:inline transition-colors duration-200 ${
-                gridMode === "wide" ? "text-slate-400" : "text-slate-200"
+                gridMode === "wide" ? "text-black" : "text-slate-200"
               }`}
               viewBox="0 0 18 18"
               fill="none"
@@ -310,7 +310,7 @@ const Collection = () => {
               onClick={() => setGridMode("dense")}
               viewBox="0 0 18 18"
               class={`w-[18px] h-[18px] sm:hidden transition-colors cursor-pointer ${
-                gridMode === "dense" ? "fill-slate-400" : "fill-slate-200"
+                gridMode === "dense" ? "fill-black" : "fill-slate-200"
               }`}
             >
               <rect width="18" height="18" />
@@ -323,7 +323,7 @@ const Collection = () => {
                 onClick={() => setGridMode("wide")}
                 viewBox="0 0 10 18"
                 class={`w-[10px] h-[18px] transition-colors cursor-pointer
-                  ${gridMode === "wide" ? "fill-slate-400" : "fill-slate-200"}
+                  ${gridMode === "wide" ? "fill-black" : "fill-slate-200"}
                   `}
               >
                 <rect width="10" height="18" />
@@ -333,7 +333,7 @@ const Collection = () => {
                 onClick={() => setGridMode("wide")}
                 viewBox="0 0 10 18"
                 class={`w-[10px] h-[18px] transition-colors cursor-pointer
-                  ${gridMode === "wide" ? "fill-slate-400" : "fill-slate-200"}
+                  ${gridMode === "wide" ? "fill-black" : "fill-slate-200"}
                   `}
               >
                 <rect width="10" height="18" />
