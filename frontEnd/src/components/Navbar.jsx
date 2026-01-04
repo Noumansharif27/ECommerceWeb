@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import { NavLink, Link } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
+import { Handbag, UserRound, Search } from "lucide-react";
 
 export default function Navbar() {
   const [visable, setVisable] = useState(false);
@@ -50,20 +51,17 @@ export default function Navbar() {
       </ul>
 
       <div className="flex items-center gap-5">
-        <img
+        <Search
           onClick={() => setShowSearch(true)}
-          className="w-5 cursor-pointer"
-          src={assets.search_icon}
-          alt="navBar_SearchIcon"
+          size={20}
+          className="cursor-pointer"
         />
 
         <div className="group relative">
           <Link to="/login">
-            <img
+            <UserRound
+              size={20}
               onClick={() => (token ? null : navigate("/login"))}
-              className="w-5 cursor-pointer"
-              src={assets.profile_icon}
-              alt="NavBAr_ProfileIcon"
             />
           </Link>
 
@@ -86,11 +84,7 @@ export default function Navbar() {
           )}
         </div>
         <Link to="/cart" className="relative">
-          <img
-            className="w-5 min-w-5"
-            src={assets.cart_icon}
-            alt="NavBar_CartIcon"
-          />
+          <Handbag size={20} />
           <p className="absolute right-[-5px] bottom-[-5px] w-4 text-center leading-4 bg-black text-white aspect-square rounded-full text-[8px]">
             {getCartCount()}
           </p>

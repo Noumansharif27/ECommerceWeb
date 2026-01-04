@@ -404,7 +404,10 @@ const Collection = () => {
                   </select>
                 </div>
               </div>
-              <button className="absolute bottom-10 right-2 mx-4 px-32 py-3 bg-black text-white mt-60">
+              <button
+                onClick={() => setShowFilter(false)}
+                className="absolute bottom-10 right-2 mx-4 px-32 py-3 bg-black text-white mt-60 cursor-pointer"
+              >
                 Done
               </button>
             </div>
