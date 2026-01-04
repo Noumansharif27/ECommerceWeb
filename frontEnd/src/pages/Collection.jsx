@@ -9,6 +9,7 @@ const Collection = () => {
   const { products, currency } = useContext(ShopContext);
   const [showFilter, setShowFilter] = useState(false);
   const [filterProducts, setFilterProducts] = useState([]);
+  const [gender, setGender] = useState([]);
   const [category, setCategory] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("relevant");
@@ -18,14 +19,9 @@ const Collection = () => {
   const [showPreviewProduct, setShowPreviewProduct] = useState(false);
   const [size, setSize] = useState("");
 
-  console.log(previewProduct);
-  let categoryToggle = (event) => {
-    if (category.includes(event.target.value)) {
-      setCategory((prev) => prev.filter((item) => item !== event.target.value));
-    } else {
-      setCategory((prev) => [...prev, event.target.value]);
-    }
-  };
+  const [gridMode, setGridMode] = useState("wide");
+  // "dense" = more products
+  // "wide" = fewer products
 
   let subCategoryToggle = (e) => {
     if (subCategory.includes(e.target.value)) {
@@ -41,6 +37,13 @@ const Collection = () => {
     if (search && showSearch) {
       productsCopy = productsCopy.filter((item) =>
         item.name.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+
+    if (gender.length > 0) {
+      productsCopy = productsCopy.filter((item) =>
+        // Ensure item.gender exists and matches the case of your state
+        gender.includes(item.gender)
       );
     }
 
@@ -76,11 +79,24 @@ const Collection = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [category, subCategory, search, showSearch, products]);
+  }, [category, subCategory, gender, search, showSearch, products]);
 
   useEffect(() => {
     sortProduct();
   }, [sortType]);
+
+  const gridClasses =
+    gridMode === "dense"
+      ? `
+        grid-cols-1
+        sm:grid-cols-2
+        lg:grid-cols-4
+      `
+      : `
+        grid-cols-2
+        sm:grid-cols-2
+        lg:grid-cols-2
+      `;
 
   return (
     <>
@@ -158,22 +174,94 @@ const Collection = () => {
         )}
 
         {/* collection Name */}
-        <div className="w-full flex items-center justify-center py-6 sm:py-12 border-b border-gray-100">
+        <div className="w-full flex items-center justify-center py-6 sm:py-12 border-b border-gray-100 mb-2 sm:mb-0">
           <h2 className="text-3xl sm:text-5xl">Winter 2025</h2>
         </div>
 
         {/* FilterOptions */}
-        <div className="sm:w-full hidden sm:flex justify-between sm:mt-8 sm:mb-10 items-center">
+        <div className="sm:w-full flex justify-between sm:mt-8 sm:mb-10 items-center">
           <div className="flex gap-5">
             <p className="text-[12px]">104 Items</p>
-            <p className="text-[12px]">FILTER & SORT</p>
+            <div
+              onClick={() => setShowFilter(!showFilter)}
+              className="gap-1 cursor-pointer hidden sm:flex"
+            >
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 18 18"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <rect
+                  x="2"
+                  y="4"
+                  width="14"
+                  height="1.5"
+                  rx="0.75"
+                  fill="black"
+                />
+                <circle cx="5.5" cy="4.75" r="2.2" fill="black" />
+                <circle cx="5.5" cy="4.75" r="0.8" fill="white" />
+
+                <rect
+                  x="2"
+                  y="8.25"
+                  width="14"
+                  height="1.5"
+                  rx="0.75"
+                  fill="black"
+                />
+                <circle cx="12.5" cy="9" r="2.2" fill="black" />
+                <circle cx="12.5" cy="9" r="0.8" fill="white" />
+
+                <rect
+                  x="2"
+                  y="12.5"
+                  width="14"
+                  height="1.5"
+                  rx="0.75"
+                  fill="black"
+                />
+                <circle cx="8" cy="13.25" r="2.2" fill="black" />
+                <circle cx="8" cy="13.25" r="0.8" fill="white" />
+              </svg>
+              <p className="text-[12px]">FILTER & SORT</p>
+            </div>
+
+            <span
+              onClick={() => setShowFilter(!showFilter)}
+              className="fixed bottom-15 left-1/2 -translate-x-1/2 text-sm bg-white z-70 py-2 px-4 sm:hidden cursor-pointer"
+            >
+              FILTER & SORT
+            </span>
           </div>
           <div className="flex gap-8">
-            <div className="gender flex gap-2 text-gray-300 mt-2">
-              <p className="text-[13px]">MEN</p>
-              <p className="text-[13px]">WOMEN</p>
+            <div className="gender flex gap-2 text-gray-300 cursor-pointer">
+              <p
+                onClick={() => setGender("Men")}
+                onDoubleClick={() => setGender("")}
+                className={`text-[13px] ${
+                  gender.includes("Men")
+                    ? "text-black font-bold"
+                    : "text-gray-300"
+                }`}
+              >
+                MEN
+              </p>
+              <p
+                onClick={() => setGender("Women")}
+                onDoubleClick={() => setGender("")}
+                className={`text-[13px] ${
+                  gender.includes("Women")
+                    ? "text-black font-bold"
+                    : "text-gray-300"
+                }`}
+              >
+                WOMEN
+              </p>
             </div>
-            <div className="sizes flex items-start">
+            <div className="sizes flex items-start hidden sm:inline">
               <span className="border border-gray-100 px-5 py-2 hover:border-black">
                 M
               </span>
@@ -189,23 +277,75 @@ const Collection = () => {
             </div>
           </div>
           <div className="flex gap-3">
-            <img
-              src={assets.eight_box}
-              className="opacity-25 w-5 h-5 hover:opacity-100"
-              alt=""
-            />
-            <img
-              src={assets.four_box}
-              className="opacity-25 w-5 h-5 hover:opacity-100"
-              alt=""
-            />
+            <svg
+              onClick={() => setGridMode("dense")}
+              class={`w-[18px] h-[18px] hidden sm:inline transition-colors duration-200 ${
+                gridMode === "dense" ? "text-slate-400" : "text-slate-200"
+              }`}
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="18" height="18" class="fill-current" />
+              <rect x="5" y="0" width="1" height="18" fill="#FEFEFE" />
+              <rect x="11" y="0" width="1" height="18" fill="#FEFEFE" />
+              <rect x="0" y="5" width="18" height="1" fill="#FEFEFE" />
+              <rect x="0" y="11" width="18" height="1" fill="#FEFEFE" />
+            </svg>
+            <svg
+              onClick={() => setGridMode("wide")}
+              class={`w-[18px] h-[18px] hidden sm:inline transition-colors duration-200 ${
+                gridMode === "wide" ? "text-slate-400" : "text-slate-200"
+              }`}
+              viewBox="0 0 18 18"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect width="20" height="20" class="fill-current" />
+              <path d="M9 0h1v20h-1zM0 9h20v1h-20z" fill="#FEFEFE" />
+            </svg>
+
+            {/* Small Screen dense and Wide */}
+            <svg
+              onClick={() => setGridMode("dense")}
+              viewBox="0 0 18 18"
+              class={`w-[18px] h-[18px] sm:hidden transition-colors cursor-pointer ${
+                gridMode === "dense" ? "fill-slate-400" : "fill-slate-200"
+              }`}
+            >
+              <rect width="18" height="18" />
+            </svg>
+            <div
+              onClick={() => setGridMode("wide")}
+              class="gap-[1px] flex sm:hidden"
+            >
+              <svg
+                onClick={() => setGridMode("wide")}
+                viewBox="0 0 10 18"
+                class={`w-[10px] h-[18px] transition-colors cursor-pointer
+                  ${gridMode === "wide" ? "fill-slate-400" : "fill-slate-200"}
+                  `}
+              >
+                <rect width="10" height="18" />
+              </svg>
+
+              <svg
+                onClick={() => setGridMode("wide")}
+                viewBox="0 0 10 18"
+                class={`w-[10px] h-[18px] transition-colors cursor-pointer
+                  ${gridMode === "wide" ? "fill-slate-400" : "fill-slate-200"}
+                  `}
+              >
+                <rect width="10" height="18" />
+              </svg>
+            </div>
           </div>
         </div>
 
         {/* RightSide */}
         <div className="flex-1">
           {/* Map Product */}
-          <div className="grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-[2px]">
+          <div className={`grid ${gridClasses} gap-[2px]`}>
             {filterProducts.map((product, index) => (
               <ProductItem
                 key={index}
@@ -214,6 +354,7 @@ const Collection = () => {
                 discountPercentage={product.discountPercentage}
                 setPreviewProduct={setPreviewProduct}
                 setShowPreviewProduct={setShowPreviewProduct}
+                IsWideOrDense={gridMode}
                 price={
                   <div className="flex gap-1 items-senter justify-start">
                     {/* Original Price */}
@@ -229,84 +370,6 @@ const Collection = () => {
                     {/* Sales Price */}
                     <p
                       className={`font-bold text-md ${
-                        product.discountPercentage > 0
-                          ? "text-green-600"
-                          : "text-black"
-                      }`}
-                    >
-                      {currency}
-                      {product.salesPrice
-                        ? product.salesPrice.toFixed(2)
-                        : "0.00"}
-                    </p>
-                  </div>
-                }
-                image={product.image}
-              />
-            ))}
-
-            {filterProducts.map((product, index) => (
-              <ProductItem
-                key={index}
-                name={product.name}
-                id={product._id}
-                discountPercentage={product.discountPercentage}
-                setPreviewProduct={setPreviewProduct}
-                setShowPreviewProduct={setShowPreviewProduct}
-                price={
-                  <div className="flex gap-1 items-senter justify-start">
-                    {/* Original Price */}
-
-                    {product.discountPercentage > 0 &&
-                      product.originalPrice && (
-                        <p className="text-gray-400 line-through text-sm">
-                          {currency}
-                          {product.originalPrice.toFixed(2)}
-                        </p>
-                      )}
-
-                    {/* Sales Price */}
-                    <p
-                      className={`font-bold text-md ${
-                        product.discountPercentage > 0
-                          ? "text-green-600"
-                          : "text-black"
-                      }`}
-                    >
-                      {currency}
-                      {product.salesPrice
-                        ? product.salesPrice.toFixed(2)
-                        : "0.00"}
-                    </p>
-                  </div>
-                }
-                image={product.image}
-              />
-            ))}
-
-            {filterProducts.map((product, index) => (
-              <ProductItem
-                key={index}
-                name={product.name}
-                id={product._id}
-                discountPercentage={product.discountPercentage}
-                setPreviewProduct={setPreviewProduct}
-                setShowPreviewProduct={setShowPreviewProduct}
-                price={
-                  <div className="flex gap-1 items-senter justify-start">
-                    {/* Original Price */}
-
-                    {product.discountPercentage > 0 &&
-                      product.originalPrice && (
-                        <p className="text-gray-400 line-through text-sm">
-                          {currency}
-                          {product.originalPrice.toFixed(2)}
-                        </p>
-                      )}
-
-                    {/* Sales Price */}
-                    <p
-                      className={`text-[12px] ${
                         product.discountPercentage > 0
                           ? "text-green-600"
                           : "text-black"

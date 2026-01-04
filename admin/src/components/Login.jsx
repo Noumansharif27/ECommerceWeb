@@ -18,7 +18,7 @@ const Login = ({ setToken }) => {
       });
       if (response.data.success) {
         setToken(response.data.token);
-        navigate("/list");
+        navigate("/dashboard");
         toast.success("Welcome to Admin panel!");
       } else {
         toast.error(response.data.message);
