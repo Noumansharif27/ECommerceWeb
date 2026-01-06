@@ -4,6 +4,7 @@ import { ShopContext } from "../context/ShopContext";
 import Tittle from "../components/Tittle";
 import ProductItem from "../components/ProductItem";
 import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 
 const Collection = () => {
   const { products, currency } = useContext(ShopContext);
@@ -23,6 +24,12 @@ const Collection = () => {
   const [gridMode, setGridMode] = useState("dense");
   // "dense" = more products
   // "wide" = fewer products
+
+  const [openSection, setOpenSection] = useState(""); // tracks 'price', 'size', etc.
+
+  const toggleSection = (name) => {
+    setOpenSection(openSection === name ? "" : name);
+  };
 
   // let subCategoryToggle = (e) => {
   //   if (subCategory.includes(e.target.value)) {
@@ -378,12 +385,85 @@ const Collection = () => {
               </div>
 
               <div className="flex-1 flex flex-col mt-2">
-                <div className="h-[4rem] border-b border-slate-200 p-4 flex justify-between">
-                  <label htmlFor="price">Price</label>
-                  <select name="price" id="price">
-                    <option value="low to high">Price, Low To High</option>
-                    <option value="high to low">Price, High To Low</option>
-                  </select>
+                {/* PRICE SECTION */}
+                <div className="flex flex-col gap-1 bg-200">
+                  <div
+                    onClick={() => toggleSection("price")}
+                    className="p-4 flex justify-between items-center cursor-pointer "
+                  >
+                    <label className="cursor-pointer">Price</label>
+                    <ArrowRight
+                      size={20}
+                      className={`${
+                        openSection === "price" ? "rotate-90" : ""
+                      }`}
+                    />
+                  </div>
+
+                  {/* This div animates open/close */}
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${
+                      openSection === "price" ? "max-h-40 pb-4 px-4" : "max-h-0"
+                    }`}
+                  >
+                    <div className="flex flex-col gap-2 text-sm text-gray-700">
+                      <p className="cursor-pointer hover:text-black">
+                        Price, Low To High
+                      </p>
+                      <p className="cursor-pointer hover:text-black">
+                        Price, High To Low
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* SIZE SECTION (Repeat the pattern) */}
+                  <div className="border-b border-slate-200">
+                    <div
+                      onClick={() => toggleSection("size")}
+                      className="p-4 flex justify-between items-center cursor-pointer"
+                    >
+                      <label>
+                        Size{" "}
+                        {filterSize.length > 0 && (
+                          <span className="bg-black text-white px-1.5 rounded-full text-[10px]">
+                            {filterSize.length}
+                          </span>
+                        )}
+                      </label>
+                      {/* <img src={assets.dropdown_icon} alt="" /> */}
+
+                      <ArrowRight
+                        size={20}
+                        className={`${
+                          openSection === "size" ? "rotate-90" : ""
+                        }`}
+                      />
+                    </div>
+
+                    <div
+                      className={`overflow-hidden transition-all duration-300 ${
+                        openSection === "size"
+                          ? "max-h-60 pb-4 px-4"
+                          : "max-h-0"
+                      }`}
+                    >
+                      <div className="flex flex-wrap gap-2">
+                        {["S", "M", "L", "XL", "XXL"].map((s) => (
+                          <button
+                            key={s}
+                            onClick={() => toggleSize(s)}
+                            className={`border px-3 py-1 text-xs ${
+                              filterSize.includes(s)
+                                ? "bg-black text-white"
+                                : "border-gray-300"
+                            }`}
+                          >
+                            {s}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  </div>
                 </div>
 
                 <div className="h-[4rem] border-b border-slate-200 p-4 flex justify-between">
