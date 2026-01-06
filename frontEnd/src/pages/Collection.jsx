@@ -24,13 +24,13 @@ const Collection = () => {
   // "dense" = more products
   // "wide" = fewer products
 
-  let subCategoryToggle = (e) => {
-    if (subCategory.includes(e.target.value)) {
-      setSubCategory((prev) => prev.filter((item) => item !== e.target.value));
-    } else {
-      setSubCategory((prev) => [...prev, e.target.value]);
-    }
-  };
+  // let subCategoryToggle = (e) => {
+  //   if (subCategory.includes(e.target.value)) {
+  //     setSubCategory((prev) => prev.filter((item) => item !== e.target.value));
+  //   } else {
+  //     setSubCategory((prev) => [...prev, e.target.value]);
+  //   }
+  // };
 
   const applyFilters = () => {
     let productsCopy = products.slice();
@@ -49,7 +49,11 @@ const Collection = () => {
     }
 
     if (filterSize.length > 0) {
-      productsCopy = products.filter((item) => filterSize.includes(item.size));
+      productsCopy = products.filter((item) =>
+        // console.log(filterSize.includes(item.size))
+        item.sizes.some((s) => filterSize.includes(s))
+      );
+      // console.log(filterSize);
     }
 
     if (category.length > 0) {
@@ -269,26 +273,26 @@ const Collection = () => {
             </div>
             <div className="sizes flex items-start hidden sm:inline">
               <span
-                onClick={() => setFilterSize(M)}
-                className="border border-gray-100 px-5 py-2 hover:border-black"
+                onClick={() => setFilterSize("M")}
+                className="border border-gray-100 px-5 py-2 hover:border-black cursor-pointer"
               >
                 M
               </span>
               <span
-                onClick={() => setFilterSize(L)}
-                className="border border-gray-100 px-5 py-2 hover:border-black"
+                onClick={() => setFilterSize("L")}
+                className="border border-gray-100 px-5 py-2 hover:border-black cursor-pointer"
               >
                 L
               </span>
               <span
-                onClick={() => setFilterSize(XL)}
-                className="border border-gray-100 px-5 py-2 hover:border-black"
+                onClick={() => setFilterSize("XL")}
+                className="border border-gray-100 px-5 py-2 hover:border-black cursor-pointer"
               >
                 XL
               </span>
               <span
-                onClick={() => setFilterSize(XXL)}
-                className="border border-gray-100 px-5 py-2 hover:border-black"
+                onClick={() => setFilterSize("XXL")}
+                className="border border-gray-100 px-5 py-2 hover:border-black cursor-pointer"
               >
                 XXL
               </span>
