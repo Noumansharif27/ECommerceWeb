@@ -11,7 +11,7 @@ const Collection = () => {
   const [filterProducts, setFilterProducts] = useState([]);
   const [gender, setGender] = useState([]);
   const [category, setCategory] = useState([]);
-  const [filterSize, setFilterSize] = useState("");
+  const [filterSize, setFilterSize] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("relevant");
   const { search, showSearch } = useContext(ShopContext);
@@ -32,6 +32,23 @@ const Collection = () => {
   //   }
   // };
 
+  // Add these right after your useState declarations
+  const toggleSize = (size) => {
+    if (filterSize.includes(size)) {
+      setFilterSize((prev) => prev.filter((item) => item !== size));
+    } else {
+      setFilterSize((prev) => [...prev, size]);
+    }
+  };
+
+  const toggleGender = (selectedGender) => {
+    if (gender.includes(selectedGender)) {
+      setGender((prev) => prev.filter((item) => item !== selectedGender));
+    } else {
+      setGender((prev) => [...prev, selectedGender]);
+    }
+  };
+
   const applyFilters = () => {
     let productsCopy = products.slice();
 
@@ -49,11 +66,9 @@ const Collection = () => {
     }
 
     if (filterSize.length > 0) {
-      productsCopy = products.filter((item) =>
-        // console.log(filterSize.includes(item.size))
-        item.sizes.some((s) => filterSize.includes(s))
+      productsCopy = productsCopy.filter((item) =>
+        item.sizes?.some((s) => filterSize.includes(s))
       );
-      // console.log(filterSize);
     }
 
     if (category.length > 0) {
@@ -249,9 +264,8 @@ const Collection = () => {
           <div className="flex gap-8">
             <div className="gender flex gap-2 text-gray-300 cursor-pointer">
               <p
-                onClick={() => setGender("Men")}
-                onDoubleClick={() => setGender("")}
-                className={`text-[13px] ${
+                onClick={() => toggleGender("Men")}
+                className={`text-[13px] select-none cursor-pointer ${
                   gender.includes("Men")
                     ? "text-black font-bold"
                     : "text-gray-300"
@@ -260,9 +274,8 @@ const Collection = () => {
                 MEN
               </p>
               <p
-                onClick={() => setGender("Women")}
-                onDoubleClick={() => setGender("")}
-                className={`text-[13px] ${
+                onClick={() => toggleGender("Women")}
+                className={`text-[13px] select-none cursor-pointer ${
                   gender.includes("Women")
                     ? "text-black font-bold"
                     : "text-gray-300"
@@ -272,30 +285,19 @@ const Collection = () => {
               </p>
             </div>
             <div className="sizes flex items-start hidden sm:inline">
-              <span
-                onClick={() => setFilterSize("M")}
-                className="border border-gray-100 px-5 py-2 hover:border-black cursor-pointer"
-              >
-                M
-              </span>
-              <span
-                onClick={() => setFilterSize("L")}
-                className="border border-gray-100 px-5 py-2 hover:border-black cursor-pointer"
-              >
-                L
-              </span>
-              <span
-                onClick={() => setFilterSize("XL")}
-                className="border border-gray-100 px-5 py-2 hover:border-black cursor-pointer"
-              >
-                XL
-              </span>
-              <span
-                onClick={() => setFilterSize("XXL")}
-                className="border border-gray-100 px-5 py-2 hover:border-black cursor-pointer"
-              >
-                XXL
-              </span>
+              {["M", "L", "XL", "XXL"].map((size) => (
+                <span
+                  key={size}
+                  onClick={() => toggleSize(size)}
+                  className={`border px-5 py-2 cursor-pointer select-none transition-all ${
+                    filterSize.includes(size)
+                      ? "border-black bg-gray-100 font-medium"
+                      : "border-gray-300 text-gray-500"
+                  } hover:border-black`}
+                >
+                  {size}
+                </span>
+              ))}
             </div>
           </div>
           <div className="flex gap-3">
