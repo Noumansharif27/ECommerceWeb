@@ -1,10 +1,15 @@
 import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
-import { NavLink, Link } from "react-router-dom";
+import { NavLink, Link, useLocation } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
 import { Handbag, UserRound, Search } from "lucide-react";
 
 export default function Navbar() {
+  const location = useLocation();
+
+  // Check if we are on the home page
+  const isHomePage = location.pathname === "/";
+
   const [visable, setVisable] = useState(false);
   const {
     setShowSearch,
@@ -23,12 +28,24 @@ export default function Navbar() {
   };
 
   return (
-    <div className="flex items-center justify-between py-5 font-medium px-5">
+    <div
+      className={`flex items-center justify-between py-5 font-medium px-5
+    ${
+      isHomePage
+        ? "absolute top-10 left-0 bg-transparent hover:bg-white z-70 flex items-center justify-between py-5"
+        : ""
+    }
+    `}
+    >
       <Link to="/">
         <img src={assets.logo} alt="navBar-logo" className="w-25" />
       </Link>
 
-      <ul className="hidden sm:flex gap-5 text-sm text-gray-700">
+      <ul
+        className={`hidden sm:flex gap-5 text-sm ${
+          isHomePage ? "text-white" : "text-gray-700"
+        }`}
+      >
         <NavLink to="/" className="flex flex-col items-center gap-1">
           <p>HOME</p>
           <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
