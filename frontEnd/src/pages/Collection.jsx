@@ -386,7 +386,7 @@ const Collection = () => {
 
               <div className="flex-1 flex flex-col mt-2">
                 {/* PRICE SECTION */}
-                <div className="flex flex-col gap-1 bg-200">
+                <div className="border-b border-slate-200">
                   <div
                     onClick={() => toggleSection("price")}
                     className="p-4 flex justify-between items-center cursor-pointer "
@@ -415,96 +415,154 @@ const Collection = () => {
                       </p>
                     </div>
                   </div>
+                </div>
 
-                  {/* SIZE SECTION (Repeat the pattern) */}
-                  <div className="border-b border-slate-200">
-                    <div
-                      onClick={() => toggleSection("size")}
-                      className="p-4 flex justify-between items-center cursor-pointer"
-                    >
-                      <label>
-                        Size{" "}
-                        {filterSize.length > 0 && (
-                          <span className="bg-black text-white px-1.5 rounded-full text-[10px]">
-                            {filterSize.length}
-                          </span>
-                        )}
-                      </label>
-                      {/* <img src={assets.dropdown_icon} alt="" /> */}
-
-                      <ArrowRight
-                        size={20}
-                        className={`${
-                          openSection === "size" ? "rotate-90" : ""
-                        }`}
-                      />
-                    </div>
-
-                    <div
-                      className={`overflow-hidden transition-all duration-300 ${
-                        openSection === "size"
-                          ? "max-h-60 pb-4 px-4"
-                          : "max-h-0"
+                <div className="border-b border-slate-200">
+                  <div
+                    onClick={() => toggleSection("avaliblity")}
+                    className="p-4 flex justify-between items-center cursor-pointer "
+                  >
+                    <label className="cursor-pointer">Avaliblity</label>
+                    <ArrowRight
+                      size={20}
+                      className={`${
+                        openSection === "avaliblity" ? "rotate-90" : ""
                       }`}
-                    >
-                      <div className="flex flex-wrap gap-2">
-                        {["S", "M", "L", "XL", "XXL"].map((s) => (
-                          <button
-                            key={s}
-                            onClick={() => toggleSize(s)}
-                            className={`border px-3 py-1 text-xs ${
-                              filterSize.includes(s)
-                                ? "bg-black text-white"
-                                : "border-gray-300"
-                            }`}
-                          >
-                            {s}
-                          </button>
-                        ))}
-                      </div>
+                    />
+                  </div>
+
+                  {/* This div animates open/close */}
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${
+                      openSection === "avaliblity"
+                        ? "max-h-40 pb-4 px-4"
+                        : "max-h-0"
+                    }`}
+                  >
+                    <div className="flex flex-col gap-2 text-sm text-gray-700">
+                      <p className="cursor-pointer hover:text-black">
+                        In Stock
+                      </p>
+                      <p className="cursor-pointer hover:text-black">
+                        Out of Stock
+                      </p>
                     </div>
                   </div>
                 </div>
 
-                <div className="h-[4rem] border-b border-slate-200 p-4 flex justify-between">
-                  <label htmlFor="stock-status">Avalibility</label>
-                  <select name="stock-status" id="stock-status">
-                    <option value="inStock">In Stock</option>
-                    <option value="outOfStock">Out Of Stock</option>
-                  </select>
+                {/* SIZE SECTION (Repeat the pattern) */}
+                <div className="border-b border-slate-200">
+                  <div
+                    onClick={() => toggleSection("size")}
+                    className="p-4 flex justify-between items-center cursor-pointer"
+                  >
+                    <label>
+                      Size{" "}
+                      {filterSize.length > 0 && (
+                        <span className="bg-black text-white px-1.5 rounded-full text-[10px]">
+                          {filterSize.length}
+                        </span>
+                      )}
+                    </label>
+
+                    <ArrowRight
+                      size={20}
+                      className={`${openSection === "size" ? "rotate-90" : ""}`}
+                    />
+                  </div>
+
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${
+                      openSection === "size" ? "max-h-60 pb-4 px-4" : "max-h-0"
+                    }`}
+                  >
+                    <div className="flex flex-wrap gap-2">
+                      {["S", "M", "L", "XL", "XXL"].map((s) => (
+                        <button
+                          key={s}
+                          onClick={() => toggleSize(s)}
+                          className={`border px-3 py-1 text-xs ${
+                            filterSize.includes(s)
+                              ? "bg-black text-white"
+                              : "border-gray-300"
+                          }`}
+                        >
+                          {s}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="h-[4rem] border-b border-slate-200 p-4 flex justify-between">
-                  <label htmlFor="size">Size</label>
-                  <select name="size" id="size">
-                    <option value="XXS">XXS</option>
-                    <option value="XS">XS</option>
-                    <option value="S">S</option>
-                    <option value="M">M</option>
-                    <option value="L">L</option>
-                    <option value="XL">XL</option>
-                    <option value="XXL">XXL</option>
-                  </select>
+                {/* Sub-Category filter */}
+                <div className="border-b border-slate-200">
+                  <div
+                    onClick={() => toggleSection("subCategory")}
+                    className="p-4 flex justify-between items-center cursor-pointer "
+                  >
+                    <label className="cursor-pointer">Sub-Category</label>
+                    <ArrowRight
+                      size={20}
+                      className={`${
+                        openSection === "subCategory" ? "rotate-90" : ""
+                      }`}
+                    />
+                  </div>
+
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${
+                      openSection === "subCategory"
+                        ? "max-h-40 pb-4 px-4"
+                        : "max-h-0"
+                    }`}
+                  >
+                    <div className="flex flex-col gap-1 justify-start items-start">
+                      {/* This div animates open/close */}
+                      {["topwear", "Bottomwear", "Winterwear"].map(
+                        (category) => (
+                          <button
+                            key={category}
+                            className={`px-3 py-1 text-s cursor-pointer ${
+                              filterSize.includes(category)
+                                ? "text-black"
+                                : "text-gray-500"
+                            }`}
+                          >
+                            {category}
+                          </button>
+                        )
+                      )}
+                    </div>
+                  </div>
                 </div>
 
-                <div className="h-[4rem] border-b border-slate-200 p-4 flex justify-between">
-                  <label htmlFor="subCategory">Sub-Category</label>
-                  <select name="subCategory" id="subCategory">
-                    <option value="Topwear">Topwear</option>
-                    <option value="Bottomwear">Bottomwear</option>
-                    <option value="Winterwear">Winterwear</option>
-                  </select>
-                </div>
+                {/* Discount Filter */}
+                <div className="border-b border-slate-200">
+                  <div
+                    onClick={() => toggleSection("discount")}
+                    className="p-4 flex justify-between items-center cursor-pointer "
+                  >
+                    <label className="cursor-pointer">Discount</label>
+                    <ArrowRight
+                      size={20}
+                      className={`${
+                        openSection === "discount" ? "rotate-90" : ""
+                      }`}
+                    />
+                  </div>
 
-                <div className="h-[4rem] border-b border-slate-200 p-4 flex justify-between">
-                  <label htmlFor="DiscountPercentage">
-                    Discount Percentage
-                  </label>
-                  <select name="DiscountPercentage" id="DiscountPercentage">
-                    <option value="25">25%</option>
-                    <option value="50">50%</option>
-                    <option value="75">75%</option>
-                  </select>
+                  {/* This div animates open/close */}
+                  <div
+                    className={`overflow-hidden transition-all duration-300 ${
+                      openSection === "discount"
+                        ? "max-h-40 pb-4 px-4"
+                        : "max-h-0"
+                    }`}
+                  >
+                    <div className="flex flex-col gap-2 text-sm text-gray-700">
+                      <p className="cursor-pointer hover:text-black">15%</p>
+                    </div>
+                  </div>
                 </div>
               </div>
               <button
