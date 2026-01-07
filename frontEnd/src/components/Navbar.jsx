@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { assets } from "../assets/assets";
 import { NavLink, Link, useLocation } from "react-router-dom";
 import { ShopContext } from "../context/ShopContext";
-import { Handbag, UserRound, Search } from "lucide-react";
+import { Handbag, UserRound, Search, Menu } from "lucide-react";
 
 export default function Navbar() {
   const location = useLocation();
@@ -11,6 +11,7 @@ export default function Navbar() {
   const isHomePage = location.pathname === "/";
 
   const [visable, setVisable] = useState(false);
+  const [showMenu, setShowMenu] = useState(false);
   const {
     setShowSearch,
     getCartCount,
@@ -37,35 +38,46 @@ export default function Navbar() {
     }
     `}
     >
+      <div
+        className={`flex ${
+          isHomePage ? "text-white hover:text-gray-700" : "text-gray-700"
+        }`}
+      >
+        <Menu size={25} />
+
+        {showMenu && (
+          <ul
+            className={`fixed top-0 left-0 w-[25rem] h-full bg-white z-80 flex flex-col items-start pt-25 pl-5 gap-2 text-black text-light`}
+          >
+            <NavLink to="/" className="flex flex-col items-center gap-1">
+              <p>HOME</p>
+              <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+            </NavLink>
+
+            <NavLink
+              to="/collection"
+              className="flex flex-col items-center gap-1"
+            >
+              <p>COLLECTION</p>
+              <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+            </NavLink>
+
+            <NavLink to="/about" className="flex flex-col items-center gap-1">
+              <p>ABOUT</p>
+              <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+            </NavLink>
+
+            <NavLink to="/contact" className="flex flex-col items-center gap-1">
+              <p>CONTACT</p>
+              <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+            </NavLink>
+          </ul>
+        )}
+      </div>
+
       <Link to="/">
         <img src={assets.logo} alt="navBar-logo" className="w-25" />
       </Link>
-
-      <ul
-        className={`hidden sm:flex gap-5 text-sm ${
-          isHomePage ? "text-white" : "text-gray-700"
-        }`}
-      >
-        <NavLink to="/" className="flex flex-col items-center gap-1">
-          <p>HOME</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
-        </NavLink>
-
-        <NavLink to="/collection" className="flex flex-col items-center gap-1">
-          <p>COLLECTION</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
-        </NavLink>
-
-        <NavLink to="/about" className="flex flex-col items-center gap-1">
-          <p>ABOUT</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
-        </NavLink>
-
-        <NavLink to="/contact" className="flex flex-col items-center gap-1">
-          <p>CONTACT</p>
-          <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
-        </NavLink>
-      </ul>
 
       <div
         className={`flex items-center gap-5 ${
