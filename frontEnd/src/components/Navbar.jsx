@@ -33,16 +33,12 @@ export default function Navbar() {
       className={`flex items-center justify-between py-5 font-medium px-5
     ${
       isHomePage
-        ? "absolute top-0 left-0 bg-transparent hover:bg-white hover:text-black z-70 w-full"
+        ? "absolute top-0 left-0 bg-transparent text-white hover:bg-white hover:text-black z-70 w-full"
         : ""
     }
     `}
     >
-      <div
-        className={`flex ${
-          isHomePage ? "text-white hover:text-gray-700" : "text-gray-700"
-        }`}
-      >
+      <div className={`flex `}>
         <Menu size={25} />
 
         {showMenu && (
@@ -79,11 +75,7 @@ export default function Navbar() {
         <img src={assets.logo} alt="navBar-logo" className="w-25" />
       </Link>
 
-      <div
-        className={`flex items-center gap-5 ${
-          isHomePage ? "text-white" : "text-black"
-        }`}
-      >
+      <div className={`flex items-center gap-5`}>
         <Search
           onClick={() => setShowSearch(true)}
           size={20}
