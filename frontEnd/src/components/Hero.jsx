@@ -3,30 +3,19 @@ import { assets } from "../assets/assets";
 
 const Hero = () => {
   return (
-    <div className="flex flex-col sm:flex-row border border-gray-400">
-      {/* Hero Left-Side */}
-      <div className="w-full sm:w-1/2 flex items-center justify-center py-10 sm:-py-0">
-        <div className="text-[#414141]">
-          <div className="flex items-center gap-2">
-            <p className="w-8 md:w-11 h-[2px] bg-[#414141]"></p>
-            <p>OUR BEST SELLER</p>
-          </div>
-          <h1 className=" prata-regular text-3xl sm:py-3 lg:text-5xl leading-relaxed">
-            Latest Arrival
-          </h1>
-          <div className="flex items-center gap-2">
-            <p className="font-semibold text-sm md:text-base">SHOP NOW</p>
-            <p className="w-8 md:w-11 h-[2px] bg-[#414141]"></p>
-          </div>
-        </div>
+    <div className="w-full h-full">
+      <div className="relative w-full aspect-video bg-black overflow-hidden shadow-2xl">
+        <video
+          className="w-full h-full object-contain"
+          autoPlay
+          loop
+          muted
+          playsInline
+        >
+          <source src={assets.hero_video} type="video/mp4" />
+          Your browser does not support the video tag.
+        </video>
       </div>
-
-      {/* Hero Right-Side */}
-      <img
-        className="w-full sm:w-1/2 h-[26rem] object-cover"
-        src={assets.hero_img}
-        alt="HeroRightImage"
-      />
     </div>
   );
 };

@@ -77,6 +77,8 @@ import right_arrow from "./right_arrow.png";
 import four_box from "./4-box.svg";
 import eight_box from "./8-box.svg";
 
+import hero_video from "./hero-video.mp4";
+
 export const assets = {
   logo,
   hero_img,
@@ -100,6 +102,7 @@ export const assets = {
   right_arrow,
   four_box,
   eight_box,
+  hero_video,
 };
 
 export const products = [
