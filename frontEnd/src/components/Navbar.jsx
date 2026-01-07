@@ -32,7 +32,7 @@ export default function Navbar() {
       className={`flex items-center justify-between py-5 font-medium px-5
     ${
       isHomePage
-        ? "absolute top-10 left-0 bg-transparent hover:bg-white z-70 flex items-center justify-between py-5"
+        ? "absolute top-0 left-0 bg-transparent hover:bg-white hover:text-black z-70 w-full"
         : ""
     }
     `}
@@ -67,7 +67,11 @@ export default function Navbar() {
         </NavLink>
       </ul>
 
-      <div className="flex items-center gap-5">
+      <div
+        className={`flex items-center gap-5 ${
+          isHomePage ? "text-white" : "text-black"
+        }`}
+      >
         <Search
           onClick={() => setShowSearch(true)}
           size={20}
