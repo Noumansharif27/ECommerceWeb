@@ -93,13 +93,25 @@ const Collection = () => {
 
   const sortProduct = () => {
     let fpCopy = filterProducts.slice();
+
+    // This helper calculates the final price for one product
+    const getEffectivePrice = (item) => {
+      // If there's no discount, just use the original price
+      const discount = item.discountPercentage || 0;
+      return item.originalPrice * (1 - discount / 100);
+    };
+
     switch (sortType) {
-      case "low-high":
-        setFilterProducts(fpCopy.sort((a, b) => a.price - b.price));
+      case "low-to-high":
+        setFilterProducts(
+          fpCopy.sort((a, b) => getEffectivePrice(a) - getEffectivePrice(b))
+        );
         break;
 
-      case "high-low":
-        setFilterProducts(fpCopy.sort((a, b) => b.price - a.price));
+      case "high-to-low":
+        setFilterProducts(
+          fpCopy.sort((a, b) => getEffectivePrice(b) - getEffectivePrice(a))
+        );
         break;
 
       default:
@@ -407,10 +419,18 @@ const Collection = () => {
                     }`}
                   >
                     <div className="flex flex-col gap-2 text-sm text-gray-700">
-                      <p className="cursor-pointer hover:text-black">
+                      <p
+                        className="cursor-pointer hover:text-black
+                    "
+                        onClick={() => setSortType("low-to-high")}
+                      >
                         Price, Low To High
                       </p>
-                      <p className="cursor-pointer hover:text-black">
+                      <p
+                        className="cursor-pointer hover:text-black
+                      "
+                        onClick={() => setSortType("high-to-low")}
+                      >
                         Price, High To Low
                       </p>
                     </div>

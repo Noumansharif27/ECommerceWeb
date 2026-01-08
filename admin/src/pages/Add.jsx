@@ -58,6 +58,10 @@ const Add = ({ token }) => {
       image3 && formData.append("image3", image3);
       image4 && formData.append("image4", image4);
 
+      if (discountPercentage > 15) {
+        return toast.error("Discount Should not be above 15%");
+      }
+
       const response = await axios.post(
         `${backendUrl}/api/product/add`,
         formData,
@@ -206,6 +210,7 @@ const Add = ({ token }) => {
                   <input
                     type="number"
                     value={discountPercentage}
+                    max={15}
                     onChange={(e) => setDiscountPercentage(e.target.value)}
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
                   />
