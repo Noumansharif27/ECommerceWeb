@@ -15,6 +15,7 @@ const Collection = () => {
   const [filterSize, setFilterSize] = useState([]);
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("relevant");
+  const [stockAvaliblity, setStockAvaliblity] = useState("none");
   const { search, showSearch } = useContext(ShopContext);
 
   const [previewProduct, setPreviewProduct] = useState(null);
@@ -120,6 +121,21 @@ const Collection = () => {
     }
   };
 
+  const stockFilter = () => {
+    let StockCopy = filterProducts.slice();
+
+    console.log(StockCopy);
+    console.log(stockAvaliblity);
+    if (stockAvaliblity == "inStock") {
+      StockCopy = StockCopy.filter((item) => item.quantity > 0);
+      setFilterProducts(StockCopy);
+    }
+    if (stockAvaliblity == "outOfStock") {
+      StockCopy = StockCopy.filter((item) => item.quantity <= 0);
+      setFilterProducts(StockCopy);
+    }
+  };
+
   useEffect(() => {
     applyFilters();
   }, [category, subCategory, gender, search, showSearch, products, filterSize]);
@@ -127,6 +143,10 @@ const Collection = () => {
   useEffect(() => {
     sortProduct();
   }, [sortType]);
+
+  useEffect(() => {
+    stockFilter();
+  }, [stockAvaliblity]);
 
   const gridClasses =
     gridMode === "dense"
@@ -144,13 +164,12 @@ const Collection = () => {
   return (
     <>
       {/* ----- Dark Overlay----- */}
-      {showPreviewProduct ||
-        (showFilter && (
-          <div
-            className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-60 transition-opacity duration-300 cursor-pointer"
-            onClick={() => (setShowPreviewProduct(false), setShowFilter(false))}
-          ></div>
-        ))}
+      {(showPreviewProduct || showFilter) && (
+        <div
+          className="fixed inset-0 bg-black/60 backdrop-blur-[2px] z-60 transition-opacity duration-300 cursor-pointer"
+          onClick={() => (setShowPreviewProduct(false), setShowFilter(false))}
+        ></div>
+      )}
 
       <div className="h-auto px-6">
         {/* -------------- Product Preview Window ------------ */}
@@ -418,17 +437,24 @@ const Collection = () => {
                       openSection === "price" ? "max-h-40 pb-4 px-4" : "max-h-0"
                     }`}
                   >
-                    <div className="flex flex-col gap-2 text-sm text-gray-700">
+                    <div className="flex flex-col gap-2 text-sm ">
                       <p
-                        className="cursor-pointer hover:text-black
-                    "
+                        className={`cursor-pointer ${
+                          sortType == "low-to-high"
+                            ? "text-black"
+                            : "text-gray-700"
+                        }
+                    `}
                         onClick={() => setSortType("low-to-high")}
                       >
                         Price, Low To High
                       </p>
                       <p
-                        className="cursor-pointer hover:text-black
-                      "
+                        className={`cursor-pointer ${
+                          sortType == "high-to-low"
+                            ? "text-black"
+                            : "text-gray-700"
+                        }`}
                         onClick={() => setSortType("high-to-low")}
                       >
                         Price, High To Low
@@ -437,6 +463,7 @@ const Collection = () => {
                   </div>
                 </div>
 
+                {/* Stock Avaliblity Filter */}
                 <div className="border-b border-slate-200">
                   <div
                     onClick={() => toggleSection("avaliblity")}
@@ -460,10 +487,16 @@ const Collection = () => {
                     }`}
                   >
                     <div className="flex flex-col gap-2 text-sm text-gray-700">
-                      <p className="cursor-pointer hover:text-black">
+                      <p
+                        className="cursor-pointer hover:text-black"
+                        onClick={() => setStockAvaliblity("inStock")}
+                      >
                         In Stock
                       </p>
-                      <p className="cursor-pointer hover:text-black">
+                      <p
+                        className="cursor-pointer hover:text-black"
+                        onClick={() => setStockAvaliblity("outOfStock")}
+                      >
                         Out of Stock
                       </p>
                     </div>
