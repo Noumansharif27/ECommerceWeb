@@ -16,6 +16,7 @@ const Collection = () => {
   const [subCategory, setSubCategory] = useState([]);
   const [sortType, setSortType] = useState("relevant");
   const [stockAvaliblity, setStockAvaliblity] = useState("none");
+  const [discountPercentage, setdiscountPercentage] = useState([]);
   const { search, showSearch } = useContext(ShopContext);
 
   const [previewProduct, setPreviewProduct] = useState(null);
@@ -84,11 +85,14 @@ const Collection = () => {
         category.includes(item.category)
       );
     }
+
     if (subCategory.length > 0) {
+      console.log(subCategory);
       productsCopy = productsCopy.filter((item) =>
         subCategory.includes(item.subCategory)
       );
     }
+
     setFilterProducts(productsCopy);
   };
 
@@ -124,8 +128,6 @@ const Collection = () => {
   const stockFilter = () => {
     let StockCopy = filterProducts.slice();
 
-    console.log(StockCopy);
-    console.log(stockAvaliblity);
     if (stockAvaliblity == "inStock") {
       StockCopy = StockCopy.filter((item) => item.quantity > 0);
       setFilterProducts(StockCopy);
@@ -133,6 +135,16 @@ const Collection = () => {
     if (stockAvaliblity == "outOfStock") {
       StockCopy = StockCopy.filter((item) => item.quantity <= 0);
       setFilterProducts(StockCopy);
+    }
+  };
+
+  const discountProduct = () => {
+    let discoutCopy = filterProducts.slice();
+    if (discountPercentage == 15) {
+      discoutCopy = discoutCopy.filter(
+        (item) => (item.discountPercentage = discountPercentage)
+      );
+      setFilterProducts(discoutCopy);
     }
   };
 
@@ -147,6 +159,10 @@ const Collection = () => {
   useEffect(() => {
     stockFilter();
   }, [stockAvaliblity]);
+
+  useEffect(() => {
+    discountProduct();
+  }, [discountPercentage]);
 
   const gridClasses =
     gridMode === "dense"
@@ -579,7 +595,14 @@ const Collection = () => {
                               filterSize.includes(category)
                                 ? "text-black"
                                 : "text-gray-500"
-                            }`}
+                            }
+                            
+                            ${
+                              subCategory.includes(category)
+                                ? "text-black"
+                                : "text-gray-200z"
+                            }  `}
+                            onClick={() => setSubCategory(category)}
                           >
                             {category}
                           </button>
@@ -613,7 +636,12 @@ const Collection = () => {
                     }`}
                   >
                     <div className="flex flex-col gap-2 text-sm text-gray-700">
-                      <p className="cursor-pointer hover:text-black">15%</p>
+                      <p
+                        className="cursor-pointer hover:text-black"
+                        onClick={() => setdiscountPercentage(15)}
+                      >
+                        15%
+                      </p>
                     </div>
                   </div>
                 </div>
