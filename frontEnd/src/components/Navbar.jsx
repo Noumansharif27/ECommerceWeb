@@ -38,12 +38,18 @@ export default function Navbar() {
     }
     `}
     >
-      <div className={`flex `}>
-        <Menu size={25} />
+      <div className="flex bg-red-100">
+        <div
+          className="flex-1 pl-4"
+          onMouseEnter={() => setShowMenu(true)}
+          onMouseLeave={() => setShowMenu(false)}
+        >
+          <Menu size={25} />
+        </div>
 
         {showMenu && (
           <ul
-            className={`fixed top-0 left-0 w-[25rem] h-full bg-white z-80 flex flex-col items-start pt-25 pl-5 gap-2 text-black text-light`}
+            className={`fixed top-0 left-0 w-[25rem] h-full bg-white z-80 flex flex-col items-start pt-25 pl-5 gap-2 text-black text-light transition-all`}
           >
             <NavLink to="/" className="flex flex-col items-center gap-1">
               <p>HOME</p>
