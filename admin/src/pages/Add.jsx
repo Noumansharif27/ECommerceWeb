@@ -65,7 +65,7 @@ const Add = ({ token }) => {
       const response = await axios.post(
         `${backendUrl}/api/product/add`,
         formData,
-        { headers: { token } }
+        { headers: { token } },
       );
 
       if (response.data.success) {
@@ -165,7 +165,6 @@ const Add = ({ token }) => {
                   type="text"
                   placeholder="e.g. Slim Fit Cotton Shirt"
                   className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                  required
                 />
               </div>
               <div>
@@ -178,7 +177,6 @@ const Add = ({ token }) => {
                   rows="4"
                   placeholder="Describe the materials, fit, and style..."
                   className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                  required
                 />
               </div>
             </div>
@@ -200,7 +198,6 @@ const Add = ({ token }) => {
                     onChange={(e) => setOriginalPrice(e.target.value)}
                     placeholder="0.00"
                     className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none transition-all"
-                    required
                   />
                 </div>
                 <div>
@@ -244,7 +241,6 @@ const Add = ({ token }) => {
                   onChange={(e) => setQuantity(e.target.value)}
                   placeholder="Total Stock"
                   className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 outline-none"
-                  required
                 />
               </div>
 
@@ -298,7 +294,7 @@ const Add = ({ token }) => {
                         setSizes((prev) =>
                           prev.includes(size)
                             ? prev.filter((s) => s !== size)
-                            : [...prev, size]
+                            : [...prev, size],
                         )
                       }
                       className={`px-3 py-1 rounded-md text-xs font-bold border transition-all ${
