@@ -8,7 +8,8 @@ export default function Navbar() {
   const location = useLocation();
 
   // Check if we are on the home page
-  const isHomePage = location.pathname === "/";
+  // const isHomePage = location.pathname === "/";
+  const isHomePage = false;
 
   const [visable, setVisable] = useState(false);
   const [showMenu, setShowMenu] = useState(false);
@@ -38,7 +39,7 @@ export default function Navbar() {
     }
     `}
     >
-      <div className="flex bg-red-100">
+      <div className="flex bg-red-100 w-[250px]">
         <div
           className="flex-1 pl-4"
           onMouseEnter={() => setShowMenu(true)}
