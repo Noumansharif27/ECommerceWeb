@@ -63,33 +63,33 @@ const Collection = () => {
 
     if (search && showSearch) {
       productsCopy = productsCopy.filter((item) =>
-        item.name.toLowerCase().includes(search.toLowerCase())
+        item.name.toLowerCase().includes(search.toLowerCase()),
       );
     }
 
     if (gender.length > 0) {
       productsCopy = productsCopy.filter((item) =>
         // Ensure item.gender exists and matches the case of your state
-        gender.includes(item.gender)
+        gender.includes(item.gender),
       );
     }
 
     if (filterSize.length > 0) {
       productsCopy = productsCopy.filter((item) =>
-        item.sizes?.some((s) => filterSize.includes(s))
+        item.sizes?.some((s) => filterSize.includes(s)),
       );
     }
 
     if (category.length > 0) {
       productsCopy = productsCopy.filter((item) =>
-        category.includes(item.category)
+        category.includes(item.category),
       );
     }
 
     if (subCategory.length > 0) {
       console.log(subCategory);
       productsCopy = productsCopy.filter((item) =>
-        subCategory.includes(item.subCategory)
+        subCategory.includes(item.subCategory),
       );
     }
 
@@ -109,13 +109,13 @@ const Collection = () => {
     switch (sortType) {
       case "low-to-high":
         setFilterProducts(
-          fpCopy.sort((a, b) => getEffectivePrice(a) - getEffectivePrice(b))
+          fpCopy.sort((a, b) => getEffectivePrice(a) - getEffectivePrice(b)),
         );
         break;
 
       case "high-to-low":
         setFilterProducts(
-          fpCopy.sort((a, b) => getEffectivePrice(b) - getEffectivePrice(a))
+          fpCopy.sort((a, b) => getEffectivePrice(b) - getEffectivePrice(a)),
         );
         break;
 
@@ -142,7 +142,7 @@ const Collection = () => {
     let discoutCopy = filterProducts.slice();
     if (discountPercentage == 15) {
       discoutCopy = discoutCopy.filter(
-        (item) => (item.discountPercentage = discountPercentage)
+        (item) => (item.discountPercentage = discountPercentage),
       );
       setFilterProducts(discoutCopy);
     }
@@ -346,7 +346,7 @@ const Collection = () => {
                   className={`border px-5 py-2 cursor-pointer select-none transition-all ${
                     filterSize.includes(size)
                       ? "border-black bg-gray-100 font-medium"
-                      : "border-gray-300 text-gray-500"
+                      : "border-gray-100 text-gray-500"
                   } hover:border-black`}
                 >
                   {size}
@@ -449,7 +449,7 @@ const Collection = () => {
 
                   {/* This div animates open/close */}
                   <div
-                    className={`overflow-hidden transition-all duration-300 ${
+                    className={`overflow-hidden transition-all duration-300 text-s ${
                       openSection === "price" ? "max-h-40 pb-4 px-4" : "max-h-0"
                     }`}
                   >
@@ -458,7 +458,7 @@ const Collection = () => {
                         className={`cursor-pointer ${
                           sortType == "low-to-high"
                             ? "text-black"
-                            : "text-gray-700"
+                            : "text-gray-400"
                         }
                     `}
                         onClick={() => setSortType("low-to-high")}
@@ -466,10 +466,10 @@ const Collection = () => {
                         Price, Low To High
                       </p>
                       <p
-                        className={`cursor-pointer ${
+                        className={`cursor-pointer text-xs ${
                           sortType == "high-to-low"
                             ? "text-black"
-                            : "text-gray-700"
+                            : "text-gray-400"
                         }`}
                         onClick={() => setSortType("high-to-low")}
                       >
@@ -483,7 +483,7 @@ const Collection = () => {
                 <div className="border-b border-slate-200">
                   <div
                     onClick={() => toggleSection("avaliblity")}
-                    className="p-4 flex justify-between items-center cursor-pointer "
+                    className="p-4 flex justify-between items-center cursor-pointer"
                   >
                     <label className="cursor-pointer">Avaliblity</label>
                     <ArrowRight
@@ -504,13 +504,25 @@ const Collection = () => {
                   >
                     <div className="flex flex-col gap-2 text-sm text-gray-700">
                       <p
-                        className="cursor-pointer hover:text-black"
+                        className={`cursor-pointer  text-xs
+                          ${
+                            stockAvaliblity.includes("inStock")
+                              ? "text-black"
+                              : "text-gray-400"
+                          }
+                          `}
                         onClick={() => setStockAvaliblity("inStock")}
                       >
                         In Stock
                       </p>
                       <p
-                        className="cursor-pointer hover:text-black"
+                        className={`cursor-pointer text-xs
+                           ${
+                             stockAvaliblity.includes("outOfStock")
+                               ? "text-black"
+                               : "text-gray-400"
+                           }
+                          `}
                         onClick={() => setStockAvaliblity("outOfStock")}
                       >
                         Out of Stock
@@ -553,7 +565,7 @@ const Collection = () => {
                           className={`border px-3 py-1 text-xs ${
                             filterSize.includes(s)
                               ? "bg-black text-white"
-                              : "border-gray-300"
+                              : "border-gray-100"
                           }`}
                         >
                           {s}
@@ -591,22 +603,17 @@ const Collection = () => {
                         (category) => (
                           <button
                             key={category}
-                            className={`px-3 py-1 text-s cursor-pointer ${
-                              filterSize.includes(category)
-                                ? "text-black"
-                                : "text-gray-500"
-                            }
-                            
+                            className={`px-3 py-1 text-xs cursor-pointer
                             ${
                               subCategory.includes(category)
                                 ? "text-black"
-                                : "text-gray-200z"
+                                : "text-gray-400"
                             }  `}
                             onClick={() => setSubCategory(category)}
                           >
                             {category}
                           </button>
-                        )
+                        ),
                       )}
                     </div>
                   </div>
@@ -635,7 +642,7 @@ const Collection = () => {
                         : "max-h-0"
                     }`}
                   >
-                    <div className="flex flex-col gap-2 text-sm text-gray-700">
+                    <div className="flex flex-col gap-2 text-xs text-gray-700">
                       <p
                         className="cursor-pointer hover:text-black"
                         onClick={() => setdiscountPercentage(15)}
