@@ -31,7 +31,7 @@ export default function Navbar() {
 
   return (
     <div
-      className={`flex items-center justify-between py-5 font-medium px-5
+      className={`relative flex items-center justify-between py-5 font-medium px-5
     ${
       isHomePage
         ? "absolute top-0 left-0 bg-transparent text-white hover:bg-white hover:text-black z-70 w-full"
@@ -39,12 +39,12 @@ export default function Navbar() {
     }
     `}
     >
-      <div className="flex bg-red-100 w-[250px]">
-        <div
-          className="flex-1 pl-4"
-          onMouseEnter={() => setShowMenu(true)}
-          onMouseLeave={() => setShowMenu(false)}
-        >
+      <div
+        className="flex bg-red-100 w-[250px] cursor-pointer py-4 pr-10 -ml-4"
+        onMouseEnter={() => setShowMenu(true)}
+        onMouseLeave={() => setShowMenu(false)}
+      >
+        <div className="flex-1 pl-4">
           <Menu size={25} />
         </div>
 
@@ -78,7 +78,7 @@ export default function Navbar() {
         )}
       </div>
 
-      <Link to="/">
+      <Link to="/" className="absolute left-1/2 -translate-x-1/2">
         <img src={assets.logo} alt="navBar-logo" className="w-25" />
       </Link>
 
