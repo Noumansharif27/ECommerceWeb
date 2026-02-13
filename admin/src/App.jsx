@@ -15,7 +15,7 @@ export const currency = "$";
 
 const App = () => {
   const [token, setToken] = useState(
-    localStorage.getItem("token") ? localStorage.getItem("token") : "" // setting the token from ocalstorage so when we refresh the page we will be still login
+    localStorage.getItem("token") ? localStorage.getItem("token") : "", // setting the token from ocalstorage so when we refresh the page we will be still login
   );
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const App = () => {
             <div className="w-[70%] mx-auto ml-[max(5vw,25px)] my-8 text-gray-600 text-base ">
               <Routes>
                 <Route path="/add" element={<Add token={token} />} />
-                <Route path="/dashboard" element={<Dashboard />} />
+                <Route path="/" element={<Dashboard />} />
                 <Route path="/list" element={<List token={token} />} />
                 <Route path="/orders" element={<Orders token={token} />} />
                 <Route path="/:productId" element={<Edit token={token} />} />

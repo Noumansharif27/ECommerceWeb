@@ -46,7 +46,7 @@ const Sidebar = () => {
       {/* --- NAV LINKS --- */}
       <div className="flex flex-col gap-2 px-3">
         <SidebarLink
-          to="/dashboard"
+          to="/"
           icon={<LayoutDashboard size={22} />}
           label="Dashboard"
           isCollapsed={isCollapsed}
