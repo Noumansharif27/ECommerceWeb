@@ -62,11 +62,11 @@ export default function Navbar() {
 
           {showMenu && (
             <ul
-              className={`fixed top-0 left-0 w-[25rem] h-full bg-white z-80 flex flex-col items-start pt-25 pl-5 gap-2 text-black text-light transition-all`}
+              className={`fixed top-0 left-0 w-[25rem] h-full bg-white z-80 flex flex-col items-start pt-25 pl-5 gap-2 text-black font-light transition-all`}
             >
-              <NavLink to="/" className="flex flex-col items-center gap-1">
+              <NavLink to="/" className="flex flex-col items-start gap-1">
                 <p>HOME</p>
-                <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
+                <hr className="w-2/4 border-none h-[1px] bg-gray-700 hidden" />
               </NavLink>
 
               <NavLink
