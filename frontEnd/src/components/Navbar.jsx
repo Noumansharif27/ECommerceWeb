@@ -33,7 +33,7 @@ export default function Navbar() {
       className={`relative flex items-center justify-between py-5 font-medium px-5
     ${
       isHomePage
-        ? "absolute top-0 left-0 bg-transparent text-white hover:bg-white hover:text-black z-70 w-full"
+        ? "absolute top-0 left-0 bg-none text-white hover:text-black z-70 w-full"
         : ""
     }
     `}
@@ -52,7 +52,7 @@ export default function Navbar() {
             className={`fixed top-0 left-0 w-[25rem] h-full bg-white z-80 flex flex-col items-start pt-25 pl-5 gap-2 text-black text-light transition-all`}
           >
             <NavLink to="/" className="flex flex-col items-center gap-1">
-              <p>HOME</p>
+              <p onClick={() => setShowMenu(false)}>HOME</p>
               <hr className="w-2/4 border-none h-[1.5px] bg-gray-700 hidden" />
             </NavLink>
 
