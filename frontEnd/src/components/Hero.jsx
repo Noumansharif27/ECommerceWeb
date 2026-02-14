@@ -3,9 +3,9 @@ import { assets } from "../assets/assets";
 
 const Hero = () => {
   return (
-    <div className="w-full h-auto">
-      <div className="relative w-full aspect-video bg-black overflow-hidden shadow-2xl">
-        <video
+    <div className="w-full h-100 z-90">
+      <div className="absolute top-6 w-full aspect-video bg-black overflow-hidden shadow-2xl">
+        {/* <video
           className="w-full h-full object-contain"
           autoPlay
           loop
@@ -14,7 +14,12 @@ const Hero = () => {
         >
           <source src={assets.hero_video} type="video/mp4" />
           Your browser does not support the video tag.
-        </video>
+        </video> */}
+        <img
+          src={assets.HomeBanner}
+          alt="HomeBanner"
+          className="w-full h-full"
+        />
       </div>
     </div>
   );

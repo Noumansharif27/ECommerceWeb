@@ -8,6 +8,7 @@ export default defineConfig({
     allowedHosts: [
       "testingly-erective-sofia.ngrok-free.dev",
       "uncongruous-shiveringly-linwood.ngrok-free.dev",
+      "https://biuniquely-nonconstrictive-chery.ngrok-free.dev",
     ],
   },
 });

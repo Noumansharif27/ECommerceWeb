@@ -55,6 +55,7 @@ import p_img51 from "./p_img51.png";
 import p_img52 from "./p_img52.png";
 
 import logo from "./sehra-e-khaas-logo.png";
+import whiteLogo from "./whiteLogo.png";
 import hero_img from "./hero_img.png";
 import cart_icon from "./cart_icon.png";
 import bin_icon from "./bin_icon.png";
@@ -78,9 +79,11 @@ import four_box from "./4-box.svg";
 import eight_box from "./8-box.svg";
 
 import hero_video from "./hero-video.mp4";
+import HomeBanner from "./homeBanner.webp";
 
 export const assets = {
   logo,
+  whiteLogo,
   hero_img,
   cart_icon,
   dropdown_icon,
@@ -103,6 +106,7 @@ export const assets = {
   four_box,
   eight_box,
   hero_video,
+  HomeBanner,
 };
 
 export const products = [
