@@ -1,6 +1,6 @@
-import { React, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import backendUrl from "../App";
+import { backendUrl } from "../App";
 import { toast } from "react-toastify";
 
 const Orders = ({ token }) => {
