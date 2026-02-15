@@ -29,7 +29,7 @@ const Orders = () => {
             item["date"] = order.date;
             allOrdersItem.push(item);
           });
-          setOrderData(allOrdersItem.reverse());
+          // setOrderData(allOrdersItem.reverse());
         });
       }
     } catch (error) {
