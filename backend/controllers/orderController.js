@@ -15,6 +15,8 @@ const placeOrderCod = async (req, res) => {
       date: Date.now(),
     };
 
+    console.log(orderData);
+
     const newOrder = await orderModel(orderData);
     await newOrder.save();
 
