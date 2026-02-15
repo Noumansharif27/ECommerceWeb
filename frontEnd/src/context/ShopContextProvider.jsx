@@ -37,7 +37,7 @@ const ShopContextProvider = (props) => {
         await axios.post(
           backendUrl + "/api/cart/add",
           { itemId, size },
-          { headers: { token } }
+          { headers: { token } },
         );
       } catch (error) {
         console.log(error);
@@ -73,7 +73,7 @@ const ShopContextProvider = (props) => {
         await axios.post(
           backendUrl + "/api/cart/update",
           { itemId, size, quantity },
-          { headers: { token } }
+          { headers: { token } },
         );
       } catch (error) {
         console.log(error);
@@ -86,6 +86,10 @@ const ShopContextProvider = (props) => {
     let totalAmount = 0;
     for (const items in cartItems) {
       let itemInfo = products.find((product) => product._id === items);
+
+      // FIX: If product data isn't loaded yet, skip this iteration to prevent crash
+      if (!itemInfo) continue;
+
       for (const item in cartItems[items]) {
         try {
           if (cartItems[items][item] > 0) {
@@ -120,7 +124,7 @@ const ShopContextProvider = (props) => {
       const response = await axios.post(
         backendUrl + "/api/cart/get",
         {},
-        { headers: { token } }
+        { headers: { token } },
       );
       if (response.data.success) {
         setCartItems(response.data.cartData);

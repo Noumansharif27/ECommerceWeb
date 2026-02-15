@@ -46,7 +46,7 @@ const PlaceOrder = () => {
         for (const item in cartItems[items]) {
           if (cartItems[items][item] > 0) {
             const itemInfo = structuredClone(
-              products.find((product) => product._id == items)
+              products.find((product) => product._id == items),
             );
             if (itemInfo) {
               itemInfo.size = item;
@@ -58,7 +58,7 @@ const PlaceOrder = () => {
           let orderData = {
             address: formData,
             items: orderItems,
-            amount: getCartAmount + delivery_fee,
+            amount: getCartAmount() + delivery_fee,
           };
 
           switch (method) {
@@ -67,8 +67,9 @@ const PlaceOrder = () => {
               const response = await axios.post(
                 backendUrl + "/api/order/place",
                 orderData,
-                { headers: { token } }
+                { headers: { token } },
               );
+              console.log(response.data);
               if (response.data.success) {
                 setCartItems({});
                 navigate("/orders");
@@ -163,7 +164,7 @@ const PlaceOrder = () => {
           <input
             onChange={onChangeHandler}
             name="zipcode"
-            value={onChangeHandler.zipcode}
+            value={onChangeHandler.zipCode}
             type="number"
             placeholder="Zipcode"
             className="border border-gray-300 rounded py-1.5 px-3.5 w-full"

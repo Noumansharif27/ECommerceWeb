@@ -357,7 +357,7 @@ const Collection = () => {
           <div className="flex gap-3">
             <svg
               onClick={() => setGridMode("dense")}
-              class={`w-[18px] h-[18px] hidden sm:inline transition-colors duration-200 ${
+              className={`w-[18px] h-[18px] hidden sm:inline transition-colors duration-200 ${
                 gridMode === "dense" ? "text-black" : "text-slate-200"
               }`}
               viewBox="0 0 18 18"
