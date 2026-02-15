@@ -43,7 +43,7 @@ export default function Navbar() {
         <MoveRightIcon size={15} />
       </div>
       <div
-        className={`relative flex items-center justify-between py-5 font-medium px-5
+        className={`relative flex items-center justify-between font-medium px-5
     ${
       isHomePage
         ? "absolute top-0 left-0 bg-transparent text-white hover:bg-white hover:text-black z-70 w-full"
@@ -52,12 +52,12 @@ export default function Navbar() {
     `}
       >
         <div
-          className="flex w-[250px] cursor-pointer py-4 pr-10 -ml-4"
+          className="flex w-[250px] cursor-pointer py-4 pr-10"
           onMouseEnter={() => setShowMenu(true)}
           onMouseLeave={() => setShowMenu(false)}
         >
-          <div className="flex-1 pl-4">
-            <Menu size={25} />
+          <div className="flex-1">
+            <Menu size={15} />
           </div>
 
           {showMenu && (
@@ -101,21 +101,17 @@ export default function Navbar() {
           />
         </Link>
 
-        {/* <Link to="/" className="absolute left-1/2 -translate-x-1/2">
-        
-      </Link> */}
-
-        <div className={`flex items-center gap-5`}>
+        <div className={`flex items-center gap-10 opacity-[0.7]`}>
           <Search
             onClick={() => setShowSearch(true)}
-            size={20}
+            size={15}
             className="cursor-pointer"
           />
 
           <div className="group relative">
             <Link to="/login">
               <UserRound
-                size={20}
+                size={15}
                 onClick={() => (token ? null : navigate("/login"))}
               />
             </Link>

@@ -3,7 +3,7 @@ import { assets } from "../assets/assets";
 
 const Hero = () => {
   return (
-    <div className="w-full h-100 z-90">
+    <div className="w-full h-[100vh] mb-5">
       <div className="absolute top-6 w-full aspect-video bg-black overflow-hidden shadow-2xl">
         {/* <video
           className="w-full h-full object-contain"
@@ -18,7 +18,7 @@ const Hero = () => {
         <img
           src={assets.HomeBanner}
           alt="HomeBanner"
-          className="w-full h-full"
+          className="w-full h-full object-fit"
         />
       </div>
     </div>
