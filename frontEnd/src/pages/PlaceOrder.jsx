@@ -19,7 +19,7 @@ const PlaceOrder = () => {
   } = useContext(ShopContext);
   const [method, setMethod] = useState("cod");
   const [formData, setFormData] = useState({
-    firstname: "",
+    firstName: "",
     lastName: "",
     email: "",
     street: "",
