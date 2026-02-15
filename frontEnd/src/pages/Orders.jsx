@@ -29,7 +29,7 @@ const Orders = () => {
             item["date"] = order.date;
             allOrdersItem.push(item);
           });
-          // setOrderData(allOrdersItem.reverse());
+          setOrderData(allOrdersItem.reverse());
         });
       }
     } catch (error) {
@@ -60,17 +60,31 @@ const Orders = () => {
               />
               <div>
                 <p className="sm:text-base font-medium">{item.name}</p>
-                <div className="flex items-center gap-3 mt-2 text-base text-gray-700">
+                <div className="flex items-center gap-2 mt-2 text-base text-gray-700">
                   <p className="text-lg">
                     {currecy}
                     {item.price}
                   </p>
-                  <p>Quantity: 1</p>
-                  <p>Size: M</p>
+                  <p>
+                    Quantity:{" "}
+                    <span className="text-gray-400">{item.quantity}</span>
+                  </p>
+                  <p>
+                    Size: <span className="text-gray-400">{item.size}</span>
+                  </p>
                 </div>
-                <p className="mt-2">
-                  Date <span className="text-gray-400"> 11-November-2025 </span>
-                </p>
+                <div className="ml-2">
+                  <p className="mt-2">
+                    Date:{" "}
+                    <span className="text-gray-400">
+                      {new Date(item.date).toDateString()}
+                    </span>
+                  </p>
+                  <p className="mt-2">
+                    Payment:{" "}
+                    <span className="text-gray-400">{item.paymentMethod}</span>
+                  </p>
+                </div>
               </div>
             </div>
 
