@@ -29,7 +29,7 @@ const Orders = ({ token }) => {
 
       console.log(response.data);
     } catch (error) {
-      console.log(error.message);
+      // console.log(error.message);
       toast.error(error.message);
     }
   };
