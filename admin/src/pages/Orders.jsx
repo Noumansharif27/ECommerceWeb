@@ -7,17 +7,20 @@ const Orders = ({ token }) => {
   const [orders, setOrders] = useState([]);
 
   const fetchAllOrders = async () => {
+    console.log(`your token is: ${token}`);
+    console.log(`backendURL: ${backendUrl}/api/order/list`);
     if (!token) {
       return null;
     }
 
     try {
       const response = await axios.post(
-        backendUrl + "/api/order/list",
+        backendUrl + `/api/order/list`,
         {},
         { headers: { token } },
       );
 
+      console.log(response.data.success);
       if (response.data.success) {
         setOrders(response.data.orders);
       } else {
@@ -26,12 +29,18 @@ const Orders = ({ token }) => {
 
       console.log(response.data);
     } catch (error) {
+      console.log(error.message);
       toast.error(error.message);
     }
   };
 
   useEffect(() => {
-    fetchAllOrders();
+    console.log("useEffect triggered with token:", token);
+    if (token) {
+      fetchAllOrders();
+    } else {
+      console.warn("fetchAllOrders skipped: No token provided.");
+    }
   }, [token]);
   return (
     <div>
